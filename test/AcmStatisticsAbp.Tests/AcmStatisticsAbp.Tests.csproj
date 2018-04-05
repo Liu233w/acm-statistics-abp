@@ -18,6 +18,12 @@
     <ProjectReference Include="..\..\src\AcmStatisticsAbp.Application\AcmStatisticsAbp.Application.csproj" />
     <ProjectReference Include="..\..\src\AcmStatisticsAbp.EntityFrameworkCore\AcmStatisticsAbp.EntityFrameworkCore.csproj" />
   </ItemGroup>
+  <PropertyGroup>
+     <CodeAnalysisRuleSet>$(SolutionDir)\_stylecop\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="$(SolutionDir)\_stylecop\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
