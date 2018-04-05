@@ -13,7 +13,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore
     public class AcmStatisticsAbpDbContext : AbpZeroDbContext<Tenant, Role, User, AcmStatisticsAbpDbContext>
     {
         /* Define a DbSet for each entity of the application */
-        
+
         public AcmStatisticsAbpDbContext(DbContextOptions<AcmStatisticsAbpDbContext> options)
             : base(options)
         {

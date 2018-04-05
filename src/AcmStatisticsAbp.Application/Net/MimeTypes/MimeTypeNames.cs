@@ -10,7 +10,7 @@ namespace AcmStatisticsAbp.Net.MimeTypes
      * http://stackoverflow.com/questions/10362140/asp-mvc-are-there-any-constants-for-the-default-content-types */
 
     /// <summary>
-    /// Common mime types. 
+    /// Common mime types.
     /// </summary>
     public static class MimeTypeNames
     {

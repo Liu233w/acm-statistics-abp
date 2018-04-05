@@ -33,7 +33,7 @@ namespace AcmStatisticsAbp.Migrator
 
             this.Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
             this.Configuration.ReplaceService(
-                typeof(IEventBus), 
+                typeof(IEventBus),
                 () => this.IocManager.IocContainer.Register(
                     Component.For<IEventBus>().Instance(NullEventBus.Instance)));
         }
