@@ -9,16 +9,16 @@ namespace AcmStatisticsAbp.Web.Host.Controllers
 
     public class AntiForgeryController : AcmStatisticsAbpControllerBase
     {
-        private readonly IAntiforgery _antiforgery;
+        private readonly IAntiforgery antiforgery;
 
         public AntiForgeryController(IAntiforgery antiforgery)
         {
-            this._antiforgery = antiforgery;
+            this.antiforgery = antiforgery;
         }
 
         public void GetToken()
         {
-            this._antiforgery.SetCookieTokenAndHeader(this.HttpContext);
+            this.antiforgery.SetCookieTokenAndHeader(this.HttpContext);
         }
     }
 }

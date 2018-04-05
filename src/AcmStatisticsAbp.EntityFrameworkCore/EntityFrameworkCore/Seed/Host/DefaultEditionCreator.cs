@@ -12,11 +12,11 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
     public class DefaultEditionCreator
     {
-        private readonly AcmStatisticsAbpDbContext _context;
+        private readonly AcmStatisticsAbpDbContext context;
 
         public DefaultEditionCreator(AcmStatisticsAbpDbContext context)
         {
-            this._context = context;
+            this.context = context;
         }
 
         public void Create()
@@ -26,12 +26,12 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
         private void CreateEditions()
         {
-            var defaultEdition = this._context.Editions.IgnoreQueryFilters().FirstOrDefault(e => e.Name == EditionManager.DefaultEditionName);
+            var defaultEdition = this.context.Editions.IgnoreQueryFilters().FirstOrDefault(e => e.Name == EditionManager.DefaultEditionName);
             if (defaultEdition == null)
             {
                 defaultEdition = new Edition { Name = EditionManager.DefaultEditionName, DisplayName = EditionManager.DefaultEditionName };
-                this._context.Editions.Add(defaultEdition);
-                this._context.SaveChanges();
+                this.context.Editions.Add(defaultEdition);
+                this.context.SaveChanges();
 
                 /* Add desired features to the standard edition, if wanted... */
             }
@@ -39,18 +39,18 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
         private void CreateFeatureIfNotExists(int editionId, string featureName, bool isEnabled)
         {
-            if (this._context.EditionFeatureSettings.IgnoreQueryFilters().Any(ef => ef.EditionId == editionId && ef.Name == featureName))
+            if (this.context.EditionFeatureSettings.IgnoreQueryFilters().Any(ef => ef.EditionId == editionId && ef.Name == featureName))
             {
                 return;
             }
 
-            this._context.EditionFeatureSettings.Add(new EditionFeatureSetting
+            this.context.EditionFeatureSettings.Add(new EditionFeatureSetting
             {
                 Name = featureName,
                 Value = isEnabled.ToString(),
                 EditionId = editionId
             });
-            this._context.SaveChanges();
+            this.context.SaveChanges();
         }
     }
 }

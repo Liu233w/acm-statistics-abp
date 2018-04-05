@@ -14,18 +14,18 @@ namespace AcmStatisticsAbp.Tests.Users
 
     public class UserAppService_Tests : AcmStatisticsAbpTestBase
     {
-        private readonly IUserAppService _userAppService;
+        private readonly IUserAppService userAppService;
 
         public UserAppService_Tests()
         {
-            this._userAppService = this.Resolve<IUserAppService>();
+            this.userAppService = this.Resolve<IUserAppService>();
         }
 
         [Fact]
         public async Task GetUsers_Test()
         {
             // Act
-            var output = await this._userAppService.GetAll(new PagedResultRequestDto{ MaxResultCount=20, SkipCount=0 });
+            var output = await this.userAppService.GetAll(new PagedResultRequestDto{ MaxResultCount=20, SkipCount=0 });
 
             // Assert
             output.Items.Count.ShouldBeGreaterThan(0);
@@ -35,7 +35,7 @@ namespace AcmStatisticsAbp.Tests.Users
         public async Task CreateUser_Test()
         {
             // Act
-            await this._userAppService.Create(
+            await this.userAppService.Create(
                 new CreateUserDto
                 {
                     EmailAddress = "john@volosoft.com",

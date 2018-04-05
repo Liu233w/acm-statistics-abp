@@ -12,11 +12,11 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
     public class DefaultSettingsCreator
     {
-        private readonly AcmStatisticsAbpDbContext _context;
+        private readonly AcmStatisticsAbpDbContext context;
 
         public DefaultSettingsCreator(AcmStatisticsAbpDbContext context)
         {
-            this._context = context;
+            this.context = context;
         }
 
         public void Create()
@@ -31,13 +31,13 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
         private void AddSettingIfNotExists(string name, string value, int? tenantId = null)
         {
-            if (this._context.Settings.IgnoreQueryFilters().Any(s => s.Name == name && s.TenantId == tenantId && s.UserId == null))
+            if (this.context.Settings.IgnoreQueryFilters().Any(s => s.Name == name && s.TenantId == tenantId && s.UserId == null))
             {
                 return;
             }
 
-            this._context.Settings.Add(new Setting(tenantId, null, name, value));
-            this._context.SaveChanges();
+            this.context.Settings.Add(new Setting(tenantId, null, name, value));
+            this.context.SaveChanges();
         }
     }
 }

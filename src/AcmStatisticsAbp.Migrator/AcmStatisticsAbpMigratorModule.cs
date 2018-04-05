@@ -16,19 +16,19 @@ namespace AcmStatisticsAbp.Migrator
     [DependsOn(typeof(AcmStatisticsAbpEntityFrameworkModule))]
     public class AcmStatisticsAbpMigratorModule : AbpModule
     {
-        private readonly IConfigurationRoot _appConfiguration;
+        private readonly IConfigurationRoot appConfiguration;
 
         public AcmStatisticsAbpMigratorModule(AcmStatisticsAbpEntityFrameworkModule abpProjectNameEntityFrameworkModule)
         {
             abpProjectNameEntityFrameworkModule.SkipDbSeed = true;
 
-            this._appConfiguration = AppConfigurations.Get(
+            this.appConfiguration = AppConfigurations.Get(
                 typeof(AcmStatisticsAbpMigratorModule).GetAssembly().GetDirectoryPathOrNull());
         }
 
         public override void PreInitialize()
         {
-            this.Configuration.DefaultNameOrConnectionString = this._appConfiguration.GetConnectionString(
+            this.Configuration.DefaultNameOrConnectionString = this.appConfiguration.GetConnectionString(
                 AcmStatisticsAbpConsts.ConnectionStringName);
 
             this.Configuration.BackgroundJobs.IsJobExecutionEnabled = false;

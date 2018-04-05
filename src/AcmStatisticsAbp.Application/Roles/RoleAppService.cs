@@ -23,14 +23,14 @@ namespace AcmStatisticsAbp.Roles
     [AbpAuthorize(PermissionNames.Pages_Roles)]
     public class RoleAppService : AsyncCrudAppService<Role, RoleDto, int, PagedResultRequestDto, CreateRoleDto, RoleDto>, IRoleAppService
     {
-        private readonly RoleManager _roleManager;
-        private readonly UserManager _userManager;
+        private readonly RoleManager roleManager;
+        private readonly UserManager userManager;
 
         public RoleAppService(IRepository<Role> repository, RoleManager roleManager, UserManager userManager)
             : base(repository)
         {
-            this._roleManager = roleManager;
-            this._userManager = userManager;
+            this.roleManager = roleManager;
+            this.userManager = userManager;
         }
 
         public override async Task<RoleDto> Create(CreateRoleDto input)
@@ -40,14 +40,14 @@ namespace AcmStatisticsAbp.Roles
             var role = this.ObjectMapper.Map<Role>(input);
             role.SetNormalizedName();
 
-            this.CheckErrors(await this._roleManager.CreateAsync(role));
+            this.CheckErrors(await this.roleManager.CreateAsync(role));
 
             var grantedPermissions = this.PermissionManager
                 .GetAllPermissions()
                 .Where(p => input.Permissions.Contains(p.Name))
                 .ToList();
 
-            await this._roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
+            await this.roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
 
             return this.MapToEntityDto(role);
         }
@@ -56,18 +56,18 @@ namespace AcmStatisticsAbp.Roles
         {
             this.CheckUpdatePermission();
 
-            var role = await this._roleManager.GetRoleByIdAsync(input.Id);
+            var role = await this.roleManager.GetRoleByIdAsync(input.Id);
 
             this.ObjectMapper.Map(input, role);
 
-            this.CheckErrors(await this._roleManager.UpdateAsync(role));
+            this.CheckErrors(await this.roleManager.UpdateAsync(role));
 
             var grantedPermissions = this.PermissionManager
                 .GetAllPermissions()
                 .Where(p => input.Permissions.Contains(p.Name))
                 .ToList();
 
-            await this._roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
+            await this.roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
 
             return this.MapToEntityDto(role);
         }
@@ -76,15 +76,15 @@ namespace AcmStatisticsAbp.Roles
         {
             this.CheckDeletePermission();
 
-            var role = await this._roleManager.FindByIdAsync(input.Id.ToString());
-            var users = await this._userManager.GetUsersInRoleAsync(role.NormalizedName);
+            var role = await this.roleManager.FindByIdAsync(input.Id.ToString());
+            var users = await this.userManager.GetUsersInRoleAsync(role.NormalizedName);
 
             foreach (var user in users)
             {
-                this.CheckErrors(await this._userManager.RemoveFromRoleAsync(user, role.NormalizedName));
+                this.CheckErrors(await this.userManager.RemoveFromRoleAsync(user, role.NormalizedName));
             }
 
-            this.CheckErrors(await this._roleManager.DeleteAsync(role));
+            this.CheckErrors(await this.roleManager.DeleteAsync(role));
         }
 
         public Task<ListResultDto<PermissionDto>> GetAllPermissions()

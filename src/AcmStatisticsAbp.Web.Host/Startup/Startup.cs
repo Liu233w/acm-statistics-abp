@@ -34,23 +34,23 @@ namespace AcmStatisticsAbp.Web.Host.Startup
 
     public class Startup
     {
-        private const string _defaultCorsPolicyName = "localhost";
+        private const string defaultCorsPolicyName = "localhost";
 
-        private readonly IConfigurationRoot _appConfiguration;
+        private readonly IConfigurationRoot appConfiguration;
 
         public Startup(IHostingEnvironment env)
         {
-            this._appConfiguration = env.GetAppConfiguration();
+            this.appConfiguration = env.GetAppConfiguration();
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // MVC
             services.AddMvc(
-                options => options.Filters.Add(new CorsAuthorizationFilterFactory(_defaultCorsPolicyName)));
+                options => options.Filters.Add(new CorsAuthorizationFilterFactory(defaultCorsPolicyName)));
 
             IdentityRegistrar.Register(services);
-            AuthConfigurer.Configure(services, this._appConfiguration);
+            AuthConfigurer.Configure(services, this.appConfiguration);
 
 #if FEATURE_SIGNALR_ASPNETCORE
             services.AddSignalR();
@@ -59,11 +59,11 @@ namespace AcmStatisticsAbp.Web.Host.Startup
             // Configure CORS for angular2 UI
             services.AddCors(
                 options => options.AddPolicy(
-                    _defaultCorsPolicyName,
+                    defaultCorsPolicyName,
                     builder => builder
                         .WithOrigins(
                             // App:CorsOrigins in appsettings.json can contain more than one address separated by comma.
-                            this._appConfiguration["App:CorsOrigins"]
+                            this.appConfiguration["App:CorsOrigins"]
                                 .Split(",", StringSplitOptions.RemoveEmptyEntries)
                                 .Select(o => o.RemovePostFix("/"))
                                 .ToArray())
@@ -99,7 +99,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
         {
             app.UseAbp(options => { options.UseAbpRequestLocalization = false; }); // Initializes ABP framework.
 
-            app.UseCors(_defaultCorsPolicyName); // Enable CORS!
+            app.UseCors(defaultCorsPolicyName); // Enable CORS!
 
             app.UseStaticFiles();
 

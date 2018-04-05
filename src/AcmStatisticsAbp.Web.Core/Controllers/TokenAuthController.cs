@@ -27,13 +27,13 @@ namespace AcmStatisticsAbp.Controllers
     [Route("api/[controller]/[action]")]
     public class TokenAuthController : AcmStatisticsAbpControllerBase
     {
-        private readonly LogInManager _logInManager;
-        private readonly ITenantCache _tenantCache;
-        private readonly AbpLoginResultTypeHelper _abpLoginResultTypeHelper;
-        private readonly TokenAuthConfiguration _configuration;
-        private readonly IExternalAuthConfiguration _externalAuthConfiguration;
-        private readonly IExternalAuthManager _externalAuthManager;
-        private readonly UserRegistrationManager _userRegistrationManager;
+        private readonly LogInManager logInManager;
+        private readonly ITenantCache tenantCache;
+        private readonly AbpLoginResultTypeHelper abpLoginResultTypeHelper;
+        private readonly TokenAuthConfiguration configuration;
+        private readonly IExternalAuthConfiguration externalAuthConfiguration;
+        private readonly IExternalAuthManager externalAuthManager;
+        private readonly UserRegistrationManager userRegistrationManager;
 
         public TokenAuthController(
             LogInManager logInManager,
@@ -44,13 +44,13 @@ namespace AcmStatisticsAbp.Controllers
             IExternalAuthManager externalAuthManager,
             UserRegistrationManager userRegistrationManager)
         {
-            this._logInManager = logInManager;
-            this._tenantCache = tenantCache;
-            this._abpLoginResultTypeHelper = abpLoginResultTypeHelper;
-            this._configuration = configuration;
-            this._externalAuthConfiguration = externalAuthConfiguration;
-            this._externalAuthManager = externalAuthManager;
-            this._userRegistrationManager = userRegistrationManager;
+            this.logInManager = logInManager;
+            this.tenantCache = tenantCache;
+            this.abpLoginResultTypeHelper = abpLoginResultTypeHelper;
+            this.configuration = configuration;
+            this.externalAuthConfiguration = externalAuthConfiguration;
+            this.externalAuthManager = externalAuthManager;
+            this.userRegistrationManager = userRegistrationManager;
         }
 
         [HttpPost]
@@ -67,7 +67,7 @@ namespace AcmStatisticsAbp.Controllers
             {
                 AccessToken = accessToken,
                 EncryptedAccessToken = this.GetEncrpyedAccessToken(accessToken),
-                ExpireInSeconds = (int)this._configuration.Expiration.TotalSeconds,
+                ExpireInSeconds = (int)this.configuration.Expiration.TotalSeconds,
                 UserId = loginResult.User.Id
             };
         }
@@ -75,7 +75,7 @@ namespace AcmStatisticsAbp.Controllers
         [HttpGet]
         public List<ExternalLoginProviderInfoModel> GetExternalAuthenticationProviders()
         {
-            return this.ObjectMapper.Map<List<ExternalLoginProviderInfoModel>>(this._externalAuthConfiguration.Providers);
+            return this.ObjectMapper.Map<List<ExternalLoginProviderInfoModel>>(this.externalAuthConfiguration.Providers);
         }
 
         [HttpPost]
@@ -83,7 +83,7 @@ namespace AcmStatisticsAbp.Controllers
         {
             var externalUser = await this.GetExternalUserInfo(model);
 
-            var loginResult = await this._logInManager.LoginAsync(new UserLoginInfo(model.AuthProvider, model.ProviderKey, model.AuthProvider), this.GetTenancyNameOrNull());
+            var loginResult = await this.logInManager.LoginAsync(new UserLoginInfo(model.AuthProvider, model.ProviderKey, model.AuthProvider), this.GetTenancyNameOrNull());
 
             switch (loginResult.Result)
             {
@@ -94,7 +94,7 @@ namespace AcmStatisticsAbp.Controllers
                         {
                             AccessToken = accessToken,
                             EncryptedAccessToken = this.GetEncrpyedAccessToken(accessToken),
-                            ExpireInSeconds = (int)this._configuration.Expiration.TotalSeconds
+                            ExpireInSeconds = (int)this.configuration.Expiration.TotalSeconds
                         };
                     }
                 case AbpLoginResultType.UnknownExternalLogin:
@@ -109,10 +109,10 @@ namespace AcmStatisticsAbp.Controllers
                         }
 
                         // Try to login again with newly registered user!
-                        loginResult = await this._logInManager.LoginAsync(new UserLoginInfo(model.AuthProvider, model.ProviderKey, model.AuthProvider), this.GetTenancyNameOrNull());
+                        loginResult = await this.logInManager.LoginAsync(new UserLoginInfo(model.AuthProvider, model.ProviderKey, model.AuthProvider), this.GetTenancyNameOrNull());
                         if (loginResult.Result != AbpLoginResultType.Success)
                         {
-                            throw this._abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(
+                            throw this.abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(
                                 loginResult.Result,
                                 model.ProviderKey,
                                 this.GetTenancyNameOrNull());
@@ -121,12 +121,12 @@ namespace AcmStatisticsAbp.Controllers
                         return new ExternalAuthenticateResultModel
                         {
                             AccessToken = this.CreateAccessToken(CreateJwtClaims(loginResult.Identity)),
-                            ExpireInSeconds = (int)this._configuration.Expiration.TotalSeconds
+                            ExpireInSeconds = (int)this.configuration.Expiration.TotalSeconds
                         };
                     }
                 default:
                     {
-                        throw this._abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(
+                        throw this.abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(
                             loginResult.Result,
                             model.ProviderKey,
                             this.GetTenancyNameOrNull());
@@ -136,7 +136,7 @@ namespace AcmStatisticsAbp.Controllers
 
         private async Task<User> RegisterExternalUserAsync(ExternalAuthUserInfo externalUser)
         {
-            var user = await this._userRegistrationManager.RegisterAsync(
+            var user = await this.userRegistrationManager.RegisterAsync(
                 externalUser.Name,
                 externalUser.Surname,
                 externalUser.EmailAddress,
@@ -161,7 +161,7 @@ namespace AcmStatisticsAbp.Controllers
 
         private async Task<ExternalAuthUserInfo> GetExternalUserInfo(ExternalAuthenticateModel model)
         {
-            var userInfo = await this._externalAuthManager.GetUserInfo(model.AuthProvider, model.ProviderAccessCode);
+            var userInfo = await this.externalAuthManager.GetUserInfo(model.AuthProvider, model.ProviderAccessCode);
             if (userInfo.ProviderKey != model.ProviderKey)
             {
                 throw new UserFriendlyException(this.L("CouldNotValidateExternalUser"));
@@ -177,19 +177,19 @@ namespace AcmStatisticsAbp.Controllers
                 return null;
             }
 
-            return this._tenantCache.GetOrNull(this.AbpSession.TenantId.Value)?.TenancyName;
+            return this.tenantCache.GetOrNull(this.AbpSession.TenantId.Value)?.TenancyName;
         }
 
         private async Task<AbpLoginResult<Tenant, User>> GetLoginResultAsync(string usernameOrEmailAddress, string password, string tenancyName)
         {
-            var loginResult = await this._logInManager.LoginAsync(usernameOrEmailAddress, password, tenancyName);
+            var loginResult = await this.logInManager.LoginAsync(usernameOrEmailAddress, password, tenancyName);
 
             switch (loginResult.Result)
             {
                 case AbpLoginResultType.Success:
                     return loginResult;
                 default:
-                    throw this._abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(loginResult.Result, usernameOrEmailAddress, tenancyName);
+                    throw this.abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(loginResult.Result, usernameOrEmailAddress, tenancyName);
             }
         }
 
@@ -198,12 +198,12 @@ namespace AcmStatisticsAbp.Controllers
             var now = DateTime.UtcNow;
 
             var jwtSecurityToken = new JwtSecurityToken(
-                issuer: this._configuration.Issuer,
-                audience: this._configuration.Audience,
+                issuer: this.configuration.Issuer,
+                audience: this.configuration.Audience,
                 claims: claims,
                 notBefore: now,
-                expires: now.Add(expiration ?? this._configuration.Expiration),
-                signingCredentials: this._configuration.SigningCredentials);
+                expires: now.Add(expiration ?? this.configuration.Expiration),
+                signingCredentials: this.configuration.SigningCredentials);
 
             return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
         }

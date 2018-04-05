@@ -20,10 +20,10 @@ namespace AcmStatisticsAbp.Migrator
 
     public class MultiTenantMigrateExecuter : ITransientDependency
     {
-        private readonly Log _log;
-        private readonly AbpZeroDbMigrator _migrator;
-        private readonly IRepository<Tenant> _tenantRepository;
-        private readonly IDbPerTenantConnectionStringResolver _connectionStringResolver;
+        private readonly Log log;
+        private readonly AbpZeroDbMigrator migrator;
+        private readonly IRepository<Tenant> tenantRepository;
+        private readonly IDbPerTenantConnectionStringResolver connectionStringResolver;
 
         public MultiTenantMigrateExecuter(
             AbpZeroDbMigrator migrator,
@@ -31,87 +31,87 @@ namespace AcmStatisticsAbp.Migrator
             Log log,
             IDbPerTenantConnectionStringResolver connectionStringResolver)
         {
-            this._log = log;
+            this.log = log;
 
-            this._migrator = migrator;
-            this._tenantRepository = tenantRepository;
-            this._connectionStringResolver = connectionStringResolver;
+            this.migrator = migrator;
+            this.tenantRepository = tenantRepository;
+            this.connectionStringResolver = connectionStringResolver;
         }
 
         public bool Run(bool skipConnVerification)
         {
-            var hostConnStr = CensorConnectionString(this._connectionStringResolver.GetNameOrConnectionString(new ConnectionStringResolveArgs(MultiTenancySides.Host)));
+            var hostConnStr = CensorConnectionString(this.connectionStringResolver.GetNameOrConnectionString(new ConnectionStringResolveArgs(MultiTenancySides.Host)));
             if (hostConnStr.IsNullOrWhiteSpace())
             {
-                this._log.Write("Configuration file should contain a connection string named 'Default'");
+                this.log.Write("Configuration file should contain a connection string named 'Default'");
                 return false;
             }
 
-            this._log.Write("Host database: " + ConnectionStringHelper.GetConnectionString(hostConnStr));
+            this.log.Write("Host database: " + ConnectionStringHelper.GetConnectionString(hostConnStr));
             if (!skipConnVerification)
             {
-                this._log.Write("Continue to migration for this host database and all tenants..? (Y/N): ");
+                this.log.Write("Continue to migration for this host database and all tenants..? (Y/N): ");
                 var command = Console.ReadLine();
                 if (!command.IsIn("Y", "y"))
                 {
-                    this._log.Write("Migration canceled.");
+                    this.log.Write("Migration canceled.");
                     return false;
                 }
             }
 
-            this._log.Write("HOST database migration started...");
+            this.log.Write("HOST database migration started...");
 
             try
             {
-                this._migrator.CreateOrMigrateForHost(SeedHelper.SeedHostDb);
+                this.migrator.CreateOrMigrateForHost(SeedHelper.SeedHostDb);
             }
             catch (Exception ex)
             {
-                this._log.Write("An error occured during migration of host database:");
-                this._log.Write(ex.ToString());
-                this._log.Write("Canceled migrations.");
+                this.log.Write("An error occured during migration of host database:");
+                this.log.Write(ex.ToString());
+                this.log.Write("Canceled migrations.");
                 return false;
             }
 
-            this._log.Write("HOST database migration completed.");
-            this._log.Write("--------------------------------------------------------");
+            this.log.Write("HOST database migration completed.");
+            this.log.Write("--------------------------------------------------------");
 
             var migratedDatabases = new HashSet<string>();
-            var tenants = this._tenantRepository.GetAllList(t => t.ConnectionString != null && t.ConnectionString != "");
+            var tenants = this.tenantRepository.GetAllList(t => t.ConnectionString != null && t.ConnectionString != "");
             for (var i = 0; i < tenants.Count; i++)
             {
                 var tenant = tenants[i];
-                this._log.Write(string.Format("Tenant database migration started... ({0} / {1})", (i + 1), tenants.Count));
-                this._log.Write("Name              : " + tenant.Name);
-                this._log.Write("TenancyName       : " + tenant.TenancyName);
-                this._log.Write("Tenant Id         : " + tenant.Id);
-                this._log.Write("Connection string : " + SimpleStringCipher.Instance.Decrypt(tenant.ConnectionString));
+                this.log.Write(string.Format("Tenant database migration started... ({0} / {1})", (i + 1), tenants.Count));
+                this.log.Write("Name              : " + tenant.Name);
+                this.log.Write("TenancyName       : " + tenant.TenancyName);
+                this.log.Write("Tenant Id         : " + tenant.Id);
+                this.log.Write("Connection string : " + SimpleStringCipher.Instance.Decrypt(tenant.ConnectionString));
 
                 if (!migratedDatabases.Contains(tenant.ConnectionString))
                 {
                     try
                     {
-                        this._migrator.CreateOrMigrateForTenant(tenant);
+                        this.migrator.CreateOrMigrateForTenant(tenant);
                     }
                     catch (Exception ex)
                     {
-                        this._log.Write("An error occured during migration of tenant database:");
-                        this._log.Write(ex.ToString());
-                        this._log.Write("Skipped this tenant and will continue for others...");
+                        this.log.Write("An error occured during migration of tenant database:");
+                        this.log.Write(ex.ToString());
+                        this.log.Write("Skipped this tenant and will continue for others...");
                     }
 
                     migratedDatabases.Add(tenant.ConnectionString);
                 }
                 else
                 {
-                    this._log.Write("This database has already migrated before (you have more than one tenant in same database). Skipping it....");
+                    this.log.Write("This database has already migrated before (you have more than one tenant in same database). Skipping it....");
                 }
 
-                this._log.Write(string.Format("Tenant database migration completed. ({0} / {1})", (i + 1), tenants.Count));
-                this._log.Write("--------------------------------------------------------");
+                this.log.Write(string.Format("Tenant database migration completed. ({0} / {1})", (i + 1), tenants.Count));
+                this.log.Write("--------------------------------------------------------");
             }
 
-            this._log.Write("All databases have been migrated.");
+            this.log.Write("All databases have been migrated.");
 
             return true;
         }

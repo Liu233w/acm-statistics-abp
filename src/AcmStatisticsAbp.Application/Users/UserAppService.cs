@@ -25,10 +25,10 @@ namespace AcmStatisticsAbp.Users
     [AbpAuthorize(PermissionNames.Pages_Users)]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedResultRequestDto, CreateUserDto, UserDto>, IUserAppService
     {
-        private readonly UserManager _userManager;
-        private readonly RoleManager _roleManager;
-        private readonly IRepository<Role> _roleRepository;
-        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly UserManager userManager;
+        private readonly RoleManager roleManager;
+        private readonly IRepository<Role> roleRepository;
+        private readonly IPasswordHasher<User> passwordHasher;
 
         public UserAppService(
             IRepository<User, long> repository,
@@ -38,10 +38,10 @@ namespace AcmStatisticsAbp.Users
             IPasswordHasher<User> passwordHasher)
             : base(repository)
         {
-            this._userManager = userManager;
-            this._roleManager = roleManager;
-            this._roleRepository = roleRepository;
-            this._passwordHasher = passwordHasher;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
+            this.roleRepository = roleRepository;
+            this.passwordHasher = passwordHasher;
         }
 
         public override async Task<UserDto> Create(CreateUserDto input)
@@ -51,14 +51,14 @@ namespace AcmStatisticsAbp.Users
             var user = this.ObjectMapper.Map<User>(input);
 
             user.TenantId = this.AbpSession.TenantId;
-            user.Password = this._passwordHasher.HashPassword(user, input.Password);
+            user.Password = this.passwordHasher.HashPassword(user, input.Password);
             user.IsEmailConfirmed = true;
 
-            this.CheckErrors(await this._userManager.CreateAsync(user));
+            this.CheckErrors(await this.userManager.CreateAsync(user));
 
             if (input.RoleNames != null)
             {
-                this.CheckErrors(await this._userManager.SetRoles(user, input.RoleNames));
+                this.CheckErrors(await this.userManager.SetRoles(user, input.RoleNames));
             }
 
             this.CurrentUnitOfWork.SaveChanges();
@@ -70,15 +70,15 @@ namespace AcmStatisticsAbp.Users
         {
             this.CheckUpdatePermission();
 
-            var user = await this._userManager.GetUserByIdAsync(input.Id);
+            var user = await this.userManager.GetUserByIdAsync(input.Id);
 
             this.MapToEntity(input, user);
 
-            this.CheckErrors(await this._userManager.UpdateAsync(user));
+            this.CheckErrors(await this.userManager.UpdateAsync(user));
 
             if (input.RoleNames != null)
             {
-                this.CheckErrors(await this._userManager.SetRoles(user, input.RoleNames));
+                this.CheckErrors(await this.userManager.SetRoles(user, input.RoleNames));
             }
 
             return await this.Get(input);
@@ -86,13 +86,13 @@ namespace AcmStatisticsAbp.Users
 
         public override async Task Delete(EntityDto<long> input)
         {
-            var user = await this._userManager.GetUserByIdAsync(input.Id);
-            await this._userManager.DeleteAsync(user);
+            var user = await this.userManager.GetUserByIdAsync(input.Id);
+            await this.userManager.DeleteAsync(user);
         }
 
         public async Task<ListResultDto<RoleDto>> GetRoles()
         {
-            var roles = await this._roleRepository.GetAllListAsync();
+            var roles = await this.roleRepository.GetAllListAsync();
             return new ListResultDto<RoleDto>(this.ObjectMapper.Map<List<RoleDto>>(roles));
         }
 
@@ -119,7 +119,7 @@ namespace AcmStatisticsAbp.Users
 
         protected override UserDto MapToEntityDto(User user)
         {
-            var roles = this._roleManager.Roles.Where(r => user.Roles.Any(ur => ur.RoleId == r.Id)).Select(r => r.NormalizedName);
+            var roles = this.roleManager.Roles.Where(r => user.Roles.Any(ur => ur.RoleId == r.Id)).Select(r => r.NormalizedName);
             var userDto = base.MapToEntityDto(user);
             userDto.RoleNames = roles.ToArray();
             return userDto;

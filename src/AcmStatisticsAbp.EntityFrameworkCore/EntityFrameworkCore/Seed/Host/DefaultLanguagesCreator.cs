@@ -13,7 +13,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
     {
         public static List<ApplicationLanguage> InitialLanguages => GetInitialLanguages();
 
-        private readonly AcmStatisticsAbpDbContext _context;
+        private readonly AcmStatisticsAbpDbContext context;
 
         private static List<ApplicationLanguage> GetInitialLanguages()
         {
@@ -36,7 +36,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
         public DefaultLanguagesCreator(AcmStatisticsAbpDbContext context)
         {
-            this._context = context;
+            this.context = context;
         }
 
         public void Create()
@@ -54,13 +54,13 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
         private void AddLanguageIfNotExists(ApplicationLanguage language)
         {
-            if (this._context.Languages.IgnoreQueryFilters().Any(l => l.TenantId == language.TenantId && l.Name == language.Name))
+            if (this.context.Languages.IgnoreQueryFilters().Any(l => l.TenantId == language.TenantId && l.Name == language.Name))
             {
                 return;
             }
 
-            this._context.Languages.Add(language);
-            this._context.SaveChanges();
+            this.context.Languages.Add(language);
+            this.context.SaveChanges();
         }
     }
 }

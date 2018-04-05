@@ -14,11 +14,11 @@ namespace AcmStatisticsAbp.Web.Host.Controllers
 
     public class HomeController : AcmStatisticsAbpControllerBase
     {
-        private readonly INotificationPublisher _notificationPublisher;
+        private readonly INotificationPublisher notificationPublisher;
 
         public HomeController(INotificationPublisher notificationPublisher)
         {
-            this._notificationPublisher = notificationPublisher;
+            this.notificationPublisher = notificationPublisher;
         }
 
         public IActionResult Index()
@@ -42,7 +42,7 @@ namespace AcmStatisticsAbp.Web.Host.Controllers
             var defaultTenantAdmin = new UserIdentifier(1, 2);
             var hostAdmin = new UserIdentifier(null, 1);
 
-            await this._notificationPublisher.PublishAsync(
+            await this.notificationPublisher.PublishAsync(
                 "App.SimpleMessage",
                 new MessageNotificationData(message),
                 severity: NotificationSeverity.Info,

@@ -37,18 +37,18 @@ namespace AcmStatisticsAbp
      )]
     public class AcmStatisticsAbpWebCoreModule : AbpModule
     {
-        private readonly IHostingEnvironment _env;
-        private readonly IConfigurationRoot _appConfiguration;
+        private readonly IHostingEnvironment env;
+        private readonly IConfigurationRoot appConfiguration;
 
         public AcmStatisticsAbpWebCoreModule(IHostingEnvironment env)
         {
-            this._env = env;
-            this._appConfiguration = env.GetAppConfiguration();
+            this.env = env;
+            this.appConfiguration = env.GetAppConfiguration();
         }
 
         public override void PreInitialize()
         {
-            this.Configuration.DefaultNameOrConnectionString = this._appConfiguration.GetConnectionString(
+            this.Configuration.DefaultNameOrConnectionString = this.appConfiguration.GetConnectionString(
                 AcmStatisticsAbpConsts.ConnectionStringName);
 
             // Use database for language management
@@ -66,9 +66,9 @@ namespace AcmStatisticsAbp
             this.IocManager.Register<TokenAuthConfiguration>();
             var tokenAuthConfig = this.IocManager.Resolve<TokenAuthConfiguration>();
 
-            tokenAuthConfig.SecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(this._appConfiguration["Authentication:JwtBearer:SecurityKey"]));
-            tokenAuthConfig.Issuer = this._appConfiguration["Authentication:JwtBearer:Issuer"];
-            tokenAuthConfig.Audience = this._appConfiguration["Authentication:JwtBearer:Audience"];
+            tokenAuthConfig.SecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(this.appConfiguration["Authentication:JwtBearer:SecurityKey"]));
+            tokenAuthConfig.Issuer = this.appConfiguration["Authentication:JwtBearer:Issuer"];
+            tokenAuthConfig.Audience = this.appConfiguration["Authentication:JwtBearer:Audience"];
             tokenAuthConfig.SigningCredentials = new SigningCredentials(tokenAuthConfig.SecurityKey, SecurityAlgorithms.HmacSha256);
             tokenAuthConfig.Expiration = TimeSpan.FromDays(1);
         }

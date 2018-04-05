@@ -11,11 +11,11 @@ namespace AcmStatisticsAbp.Tests.Sessions
 
     public class SessionAppService_Tests : AcmStatisticsAbpTestBase
     {
-        private readonly ISessionAppService _sessionAppService;
+        private readonly ISessionAppService sessionAppService;
 
         public SessionAppService_Tests()
         {
-            this._sessionAppService = this.Resolve<ISessionAppService>();
+            this.sessionAppService = this.Resolve<ISessionAppService>();
         }
 
         [MultiTenantFact]
@@ -25,7 +25,7 @@ namespace AcmStatisticsAbp.Tests.Sessions
             this.LoginAsHostAdmin();
 
             // Act
-            var output = await this._sessionAppService.GetCurrentLoginInformations();
+            var output = await this.sessionAppService.GetCurrentLoginInformations();
 
             // Assert
             var currentUser = await this.GetCurrentUserAsync();
@@ -40,7 +40,7 @@ namespace AcmStatisticsAbp.Tests.Sessions
         public async Task Should_Get_Current_User_And_Tenant_When_Logged_In_As_Tenant()
         {
             // Act
-            var output = await this._sessionAppService.GetCurrentLoginInformations();
+            var output = await this.sessionAppService.GetCurrentLoginInformations();
 
             // Assert
             var currentUser = await this.GetCurrentUserAsync();

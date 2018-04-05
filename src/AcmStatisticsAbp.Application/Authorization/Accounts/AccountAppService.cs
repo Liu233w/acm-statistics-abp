@@ -12,12 +12,12 @@ namespace AcmStatisticsAbp.Authorization.Accounts
 
     public class AccountAppService : AcmStatisticsAbpAppServiceBase, IAccountAppService
     {
-        private readonly UserRegistrationManager _userRegistrationManager;
+        private readonly UserRegistrationManager userRegistrationManager;
 
         public AccountAppService(
             UserRegistrationManager userRegistrationManager)
         {
-            this._userRegistrationManager = userRegistrationManager;
+            this.userRegistrationManager = userRegistrationManager;
         }
 
         public async Task<IsTenantAvailableOutput> IsTenantAvailable(IsTenantAvailableInput input)
@@ -38,7 +38,7 @@ namespace AcmStatisticsAbp.Authorization.Accounts
 
         public async Task<RegisterOutput> Register(RegisterInput input)
         {
-            var user = await this._userRegistrationManager.RegisterAsync(
+            var user = await this.userRegistrationManager.RegisterAsync(
                 input.Name,
                 input.Surname,
                 input.EmailAddress,

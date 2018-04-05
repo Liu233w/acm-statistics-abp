@@ -18,11 +18,11 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
     public class HostRoleAndUserCreator
     {
-        private readonly AcmStatisticsAbpDbContext _context;
+        private readonly AcmStatisticsAbpDbContext context;
 
         public HostRoleAndUserCreator(AcmStatisticsAbpDbContext context)
         {
-            this._context = context;
+            this.context = context;
         }
 
         public void Create()
@@ -34,16 +34,16 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
         {
             // Admin role for host
 
-            var adminRoleForHost = this._context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.Admin);
+            var adminRoleForHost = this.context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.Admin);
             if (adminRoleForHost == null)
             {
-                adminRoleForHost = this._context.Roles.Add(new Role(null, StaticRoleNames.Host.Admin, StaticRoleNames.Host.Admin) { IsStatic = true, IsDefault = true }).Entity;
-                this._context.SaveChanges();
+                adminRoleForHost = this.context.Roles.Add(new Role(null, StaticRoleNames.Host.Admin, StaticRoleNames.Host.Admin) { IsStatic = true, IsDefault = true }).Entity;
+                this.context.SaveChanges();
             }
 
             // Grant all permissions to admin role for host
 
-            var grantedPermissions = this._context.Permissions.IgnoreQueryFilters()
+            var grantedPermissions = this.context.Permissions.IgnoreQueryFilters()
                 .OfType<RolePermissionSetting>()
                 .Where(p => p.TenantId == null && p.RoleId == adminRoleForHost.Id)
                 .Select(p => p.Name)
@@ -57,7 +57,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
             if (permissions.Any())
             {
-                this._context.Permissions.AddRange(
+                this.context.Permissions.AddRange(
                     permissions.Select(permission => new RolePermissionSetting
                     {
                         TenantId = null,
@@ -65,12 +65,12 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
                         IsGranted = true,
                         RoleId = adminRoleForHost.Id
                     }));
-                this._context.SaveChanges();
+                this.context.SaveChanges();
             }
 
             // Admin user for host
 
-            var adminUserForHost = this._context.Users.IgnoreQueryFilters().FirstOrDefault(u => u.TenantId == null && u.UserName == AbpUserBase.AdminUserName);
+            var adminUserForHost = this.context.Users.IgnoreQueryFilters().FirstOrDefault(u => u.TenantId == null && u.UserName == AbpUserBase.AdminUserName);
             if (adminUserForHost == null)
             {
                 var user = new User
@@ -87,22 +87,22 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
                 user.Password = new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions())).HashPassword(user, "123qwe");
                 user.SetNormalizedNames();
 
-                adminUserForHost = this._context.Users.Add(user).Entity;
-                this._context.SaveChanges();
+                adminUserForHost = this.context.Users.Add(user).Entity;
+                this.context.SaveChanges();
 
                 // Assign Admin role to admin user
-                this._context.UserRoles.Add(new UserRole(null, adminUserForHost.Id, adminRoleForHost.Id));
-                this._context.SaveChanges();
+                this.context.UserRoles.Add(new UserRole(null, adminUserForHost.Id, adminRoleForHost.Id));
+                this.context.SaveChanges();
 
                 // User account of admin user
-                this._context.UserAccounts.Add(new UserAccount
+                this.context.UserAccounts.Add(new UserAccount
                 {
                     TenantId = null,
                     UserId = adminUserForHost.Id,
                     UserName = AbpUserBase.AdminUserName,
                     EmailAddress = adminUserForHost.EmailAddress
                 });
-                this._context.SaveChanges();
+                this.context.SaveChanges();
             }
         }
     }
