@@ -7,7 +7,7 @@
   "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
   "settings": {
     "documentationRules": {
-      "companyName": "NWPU-ACM"
+      "companyName": "西北工业大学ACM开发组"
     }
   }
 }
