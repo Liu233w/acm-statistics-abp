@@ -26,6 +26,12 @@
     <ProjectReference Include="..\AcmStatisticsAbp.Application\AcmStatisticsAbp.Application.csproj" />
     <ProjectReference Include="..\AcmStatisticsAbp.EntityFrameworkCore\AcmStatisticsAbp.EntityFrameworkCore.csproj" />
   </ItemGroup>
+  <PropertyGroup>
+     <CodeAnalysisRuleSet>$(SolutionDir)\_stylecop\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="$(SolutionDir)\_stylecop\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
