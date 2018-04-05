@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Localization
+// <copyright file="AcmStatisticsAbpLocalizationConfigurer.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Localization
 {
     using Abp.Configuration.Startup;
     using Abp.Localization.Dictionaries;

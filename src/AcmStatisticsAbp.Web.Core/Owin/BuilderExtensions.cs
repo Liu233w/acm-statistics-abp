@@ -1,4 +1,8 @@
-﻿#if FEATURE_SIGNALR
+// <copyright file="BuilderExtensions.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+#if FEATURE_SIGNALR
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

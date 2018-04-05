@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
+// <copyright file="DefaultTenantBuilder.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
 {
     using System.Linq;
     using Abp.MultiTenancy;

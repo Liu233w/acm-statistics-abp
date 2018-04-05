@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Authorization
+// <copyright file="AcmStatisticsAbpAuthorizationProvider.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Authorization
 {
     using Abp.Authorization;
     using Abp.Localization;

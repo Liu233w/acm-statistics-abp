@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.EntityFrameworkCore.Repositories
+// <copyright file="AcmStatisticsAbpRepositoryBase.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.EntityFrameworkCore.Repositories
 {
     using Abp.Domain.Entities;
     using Abp.EntityFrameworkCore;

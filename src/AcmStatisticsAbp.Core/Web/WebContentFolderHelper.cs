@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Web
+// <copyright file="WebContentFolderHelper.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Web
 {
     using System;
     using System.IO;

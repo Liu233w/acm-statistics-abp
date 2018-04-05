@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Web.Host.Startup
+// <copyright file="AuthConfigurer.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Web.Host.Startup
 {
     using System;
     using System.Linq;

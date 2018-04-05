@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.EntityFrameworkCore
+// <copyright file="AbpZeroDbMigrator.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.EntityFrameworkCore
 {
     using Abp.Domain.Uow;
     using Abp.EntityFrameworkCore;

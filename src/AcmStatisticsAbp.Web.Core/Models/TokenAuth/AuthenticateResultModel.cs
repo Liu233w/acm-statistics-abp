@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Models.TokenAuth
+// <copyright file="AuthenticateResultModel.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Models.TokenAuth
 {
     public class AuthenticateResultModel
     {

@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Authentication.JwtBearer
+// <copyright file="JwtTokenMiddleware.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Authentication.JwtBearer
 {
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.JwtBearer;

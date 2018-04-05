@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Authorization.Roles
+// <copyright file="AppRoleConfig.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Authorization.Roles
 {
     using Abp.MultiTenancy;
     using Abp.Zero.Configuration;

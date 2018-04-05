@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Migrations
+// <copyright file="20180405134817_init-db.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Migrations
 {
     using System;
     using System.Collections.Generic;

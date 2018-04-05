@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Editions
+// <copyright file="EditionManager.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Editions
 {
     using Abp.Application.Editions;
     using Abp.Application.Features;
