@@ -18,6 +18,10 @@
   <PropertyGroup>
     <DefineConstants>FEATURE_SIGNALR_ASPNETCORE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\AcmStatisticsAbp.Application\AcmStatisticsAbp.Application.csproj" />
     <ProjectReference Include="..\AcmStatisticsAbp.EntityFrameworkCore\AcmStatisticsAbp.EntityFrameworkCore.csproj" />

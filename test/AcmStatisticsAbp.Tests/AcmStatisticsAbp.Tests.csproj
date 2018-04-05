@@ -10,6 +10,10 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\AcmStatisticsAbp.Application\AcmStatisticsAbp.Application.csproj" />
     <ProjectReference Include="..\..\src\AcmStatisticsAbp.EntityFrameworkCore\AcmStatisticsAbp.EntityFrameworkCore.csproj" />
