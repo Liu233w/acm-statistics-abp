@@ -1,4 +1,8 @@
-﻿
+// <copyright file="Startup.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+
 #if FEATURE_SIGNALR
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Cors;

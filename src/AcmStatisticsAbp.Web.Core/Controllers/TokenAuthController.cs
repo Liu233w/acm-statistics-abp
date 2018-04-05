@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Controllers
+// <copyright file="TokenAuthController.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Controllers
 {
     using System;
     using System.Collections.Generic;

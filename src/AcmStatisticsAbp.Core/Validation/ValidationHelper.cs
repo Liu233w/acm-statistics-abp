@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Validation
+// <copyright file="ValidationHelper.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Validation
 {
     using System.Text.RegularExpressions;
     using Abp.Extensions;

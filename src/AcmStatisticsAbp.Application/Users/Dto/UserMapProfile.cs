@@ -1,4 +1,8 @@
-﻿namespace AcmStatisticsAbp.Users.Dto
+// <copyright file="UserMapProfile.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+namespace AcmStatisticsAbp.Users.Dto
 {
     using AcmStatisticsAbp.Authorization.Users;
     using AutoMapper;

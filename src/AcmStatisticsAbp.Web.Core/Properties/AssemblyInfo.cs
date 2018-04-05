@@ -1,4 +1,8 @@
-﻿using System.Reflection;
+// <copyright file="AssemblyInfo.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 

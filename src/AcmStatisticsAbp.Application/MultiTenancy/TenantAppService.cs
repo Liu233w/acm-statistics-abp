@@ -1,3 +1,7 @@
+// <copyright file="TenantAppService.cs" company="西北工业大学ACM开发组">
+// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// </copyright>
+
 namespace AcmStatisticsAbp.MultiTenancy
 {
     using System.Linq;
