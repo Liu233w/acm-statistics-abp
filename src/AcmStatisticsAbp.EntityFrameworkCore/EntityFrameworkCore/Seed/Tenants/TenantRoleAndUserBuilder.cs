@@ -35,7 +35,6 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
         private void CreateRolesAndUsers()
         {
             // Admin role
-
             var adminRole = this.context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == this.tenantId && r.Name == StaticRoleNames.Tenants.Admin);
             if (adminRole == null)
             {
@@ -44,7 +43,6 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
             }
 
             // Grant all permissions to admin role
-
             var grantedPermissions = this.context.Permissions.IgnoreQueryFilters()
                 .OfType<RolePermissionSetting>()
                 .Where(p => p.TenantId == this.tenantId && p.RoleId == adminRole.Id)
@@ -71,7 +69,6 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
             }
 
             // Admin user
-
             var adminUser = this.context.Users.IgnoreQueryFilters().FirstOrDefault(u => u.TenantId == this.tenantId && u.UserName == AbpUserBase.AdminUserName);
             if (adminUser == null)
             {

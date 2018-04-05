@@ -33,7 +33,6 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
         private void CreateHostRoleAndUsers()
         {
             // Admin role for host
-
             var adminRoleForHost = this.context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.Admin);
             if (adminRoleForHost == null)
             {
@@ -42,7 +41,6 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
             }
 
             // Grant all permissions to admin role for host
-
             var grantedPermissions = this.context.Permissions.IgnoreQueryFilters()
                 .OfType<RolePermissionSetting>()
                 .Where(p => p.TenantId == null && p.RoleId == adminRoleForHost.Id)
@@ -69,7 +67,6 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
             }
 
             // Admin user for host
-
             var adminUserForHost = this.context.Users.IgnoreQueryFilters().FirstOrDefault(u => u.TenantId == null && u.UserName == AbpUserBase.AdminUserName);
             if (adminUserForHost == null)
             {
