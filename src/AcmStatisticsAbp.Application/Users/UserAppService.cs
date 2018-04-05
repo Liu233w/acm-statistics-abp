@@ -101,8 +101,7 @@ namespace AcmStatisticsAbp.Users
             await this.SettingManager.ChangeSettingForUserAsync(
                 this.AbpSession.ToUserIdentifier(),
                 LocalizationSettingNames.DefaultLanguage,
-                input.LanguageName
-            );
+                input.LanguageName);
         }
 
         protected override User MapToEntity(CreateUserDto createInput)

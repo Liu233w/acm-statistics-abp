@@ -64,8 +64,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
                         Name = permission.Name,
                         IsGranted = true,
                         RoleId = adminRoleForHost.Id
-                    })
-                );
+                    }));
                 this._context.SaveChanges();
             }
 

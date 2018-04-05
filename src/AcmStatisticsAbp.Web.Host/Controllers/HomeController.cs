@@ -46,8 +46,7 @@ namespace AcmStatisticsAbp.Web.Host.Controllers
                 "App.SimpleMessage",
                 new MessageNotificationData(message),
                 severity: NotificationSeverity.Info,
-                userIds: new[] { defaultTenantAdmin, hostAdmin }
-            );
+                userIds: new[] { defaultTenantAdmin, hostAdmin });
 
             return this.Content("Sent notification: " + message);
         }

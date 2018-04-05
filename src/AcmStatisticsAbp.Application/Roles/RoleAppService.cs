@@ -92,8 +92,7 @@ namespace AcmStatisticsAbp.Roles
             var permissions = this.PermissionManager.GetAllPermissions();
 
             return Task.FromResult(new ListResultDto<PermissionDto>(
-                this.ObjectMapper.Map<List<PermissionDto>>(permissions)
-            ));
+                this.ObjectMapper.Map<List<PermissionDto>>(permissions)));
         }
 
         protected override IQueryable<Role> CreateFilteredQuery(PagedResultRequestDto input)

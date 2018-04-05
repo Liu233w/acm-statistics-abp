@@ -47,8 +47,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
         {
             // MVC
             services.AddMvc(
-                options => options.Filters.Add(new CorsAuthorizationFilterFactory(_defaultCorsPolicyName))
-            );
+                options => options.Filters.Add(new CorsAuthorizationFilterFactory(_defaultCorsPolicyName)));
 
             IdentityRegistrar.Register(services);
             AuthConfigurer.Configure(services, this._appConfiguration);
@@ -67,12 +66,9 @@ namespace AcmStatisticsAbp.Web.Host.Startup
                             this._appConfiguration["App:CorsOrigins"]
                                 .Split(",", StringSplitOptions.RemoveEmptyEntries)
                                 .Select(o => o.RemovePostFix("/"))
-                                .ToArray()
-                        )
+                                .ToArray())
                         .AllowAnyHeader()
-                        .AllowAnyMethod()
-                )
-            );
+                        .AllowAnyMethod()));
 
             // Swagger - Enable this line and the related lines in Configure method to enable swagger UI
             services.AddSwaggerGen(options =>
@@ -96,9 +92,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
             return services.AddAbp<AcmStatisticsAbpWebHostModule>(
                 // Configure Log4Net logging
                 options => options.IocManager.IocContainer.AddFacility<LoggingFacility>(
-                    f => f.UseAbpLog4Net().WithConfig("log4net.config")
-                )
-            );
+                    f => f.UseAbpLog4Net().WithConfig("log4net.config")));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

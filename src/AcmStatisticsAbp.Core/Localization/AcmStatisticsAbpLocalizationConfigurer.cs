@@ -17,10 +17,7 @@ namespace AcmStatisticsAbp.Localization
                 new DictionaryBasedLocalizationSource(AcmStatisticsAbpConsts.LocalizationSourceName,
                     new XmlEmbeddedFileLocalizationDictionaryProvider(
                         typeof(AcmStatisticsAbpLocalizationConfigurer).GetAssembly(),
-                        "AcmStatisticsAbp.Localization.SourceFiles"
-                    )
-                )
-            );
+                        "AcmStatisticsAbp.Localization.SourceFiles")));
         }
     }
 }

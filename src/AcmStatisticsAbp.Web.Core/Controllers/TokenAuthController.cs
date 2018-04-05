@@ -59,8 +59,7 @@ namespace AcmStatisticsAbp.Controllers
             var loginResult = await this.GetLoginResultAsync(
                 model.UserNameOrEmailAddress,
                 model.Password,
-                this.GetTenancyNameOrNull()
-            );
+                this.GetTenancyNameOrNull());
 
             var accessToken = this.CreateAccessToken(CreateJwtClaims(loginResult.Identity));
 
@@ -116,8 +115,7 @@ namespace AcmStatisticsAbp.Controllers
                             throw this._abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(
                                 loginResult.Result,
                                 model.ProviderKey,
-                                this.GetTenancyNameOrNull()
-                            );
+                                this.GetTenancyNameOrNull());
                         }
 
                         return new ExternalAuthenticateResultModel
@@ -131,8 +129,7 @@ namespace AcmStatisticsAbp.Controllers
                         throw this._abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(
                             loginResult.Result,
                             model.ProviderKey,
-                            this.GetTenancyNameOrNull()
-                        );
+                            this.GetTenancyNameOrNull());
                     }
             }
         }
@@ -145,8 +142,7 @@ namespace AcmStatisticsAbp.Controllers
                 externalUser.EmailAddress,
                 externalUser.EmailAddress,
                 Authorization.Users.User.CreateRandomPassword(),
-                true
-            );
+                true);
 
             user.Logins = new List<UserLogin>
             {
@@ -207,8 +203,7 @@ namespace AcmStatisticsAbp.Controllers
                 claims: claims,
                 notBefore: now,
                 expires: now.Add(expiration ?? this._configuration.Expiration),
-                signingCredentials: this._configuration.SigningCredentials
-            );
+                signingCredentials: this._configuration.SigningCredentials);
 
             return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
         }
