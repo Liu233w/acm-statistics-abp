@@ -11,17 +11,17 @@ namespace AcmStatisticsAbp.Configuration
 
     public static class AppConfigurations
     {
-        private static readonly ConcurrentDictionary<string, IConfigurationRoot> configurationCache;
+        private static readonly ConcurrentDictionary<string, IConfigurationRoot> ConfigurationCache;
 
         static AppConfigurations()
         {
-            configurationCache = new ConcurrentDictionary<string, IConfigurationRoot>();
+            ConfigurationCache = new ConcurrentDictionary<string, IConfigurationRoot>();
         }
 
         public static IConfigurationRoot Get(string path, string environmentName = null, bool addUserSecrets = false)
         {
             var cacheKey = path + "#" + environmentName + "#" + addUserSecrets;
-            return configurationCache.GetOrAdd(
+            return ConfigurationCache.GetOrAdd(
                 cacheKey,
                 _ => BuildConfiguration(path, environmentName, addUserSecrets));
         }
