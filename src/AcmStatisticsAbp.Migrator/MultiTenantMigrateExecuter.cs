@@ -81,7 +81,7 @@ namespace AcmStatisticsAbp.Migrator
             for (var i = 0; i < tenants.Count; i++)
             {
                 var tenant = tenants[i];
-                this.log.Write(string.Format("Tenant database migration started... ({0} / {1})", (i + 1), tenants.Count));
+                this.log.Write(string.Format("Tenant database migration started... ({0} / {1})", i + 1, tenants.Count));
                 this.log.Write("Name              : " + tenant.Name);
                 this.log.Write("TenancyName       : " + tenant.TenancyName);
                 this.log.Write("Tenant Id         : " + tenant.Id);
@@ -107,7 +107,7 @@ namespace AcmStatisticsAbp.Migrator
                     this.log.Write("This database has already migrated before (you have more than one tenant in same database). Skipping it....");
                 }
 
-                this.log.Write(string.Format("Tenant database migration completed. ({0} / {1})", (i + 1), tenants.Count));
+                this.log.Write(string.Format("Tenant database migration completed. ({0} / {1})", i + 1, tenants.Count));
                 this.log.Write("--------------------------------------------------------");
             }
 
