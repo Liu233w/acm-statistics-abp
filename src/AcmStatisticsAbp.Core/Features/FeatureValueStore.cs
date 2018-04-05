@@ -1,13 +1,13 @@
-using Abp.Application.Features;
-using Abp.Domain.Repositories;
-using Abp.Domain.Uow;
-using Abp.MultiTenancy;
-using Abp.Runtime.Caching;
-using AcmStatisticsAbp.Authorization.Users;
-using AcmStatisticsAbp.MultiTenancy;
-
 namespace AcmStatisticsAbp.Features
 {
+    using Abp.Application.Features;
+    using Abp.Domain.Repositories;
+    using Abp.Domain.Uow;
+    using Abp.MultiTenancy;
+    using Abp.Runtime.Caching;
+    using AcmStatisticsAbp.Authorization.Users;
+    using AcmStatisticsAbp.MultiTenancy;
+
     public class FeatureValueStore : AbpFeatureValueStore<Tenant, User>
     {
         public FeatureValueStore(

@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using AcmStatisticsAbp.Authorization;
-using AcmStatisticsAbp.Authorization.Roles;
-using AcmStatisticsAbp.Authorization.Users;
-using AcmStatisticsAbp.Editions;
-using AcmStatisticsAbp.MultiTenancy;
-
-namespace AcmStatisticsAbp.Identity
+﻿namespace AcmStatisticsAbp.Identity
 {
+    using AcmStatisticsAbp.Authorization;
+    using AcmStatisticsAbp.Authorization.Roles;
+    using AcmStatisticsAbp.Authorization.Users;
+    using AcmStatisticsAbp.Editions;
+    using AcmStatisticsAbp.MultiTenancy;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class IdentityRegistrar
     {
         public static IdentityBuilder Register(IServiceCollection services)

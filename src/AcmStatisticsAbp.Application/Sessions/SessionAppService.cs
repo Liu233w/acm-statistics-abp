@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Abp.Auditing;
-using AcmStatisticsAbp.Sessions.Dto;
-using AcmStatisticsAbp.SignalR;
-
-namespace AcmStatisticsAbp.Sessions
+﻿namespace AcmStatisticsAbp.Sessions
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Abp.Auditing;
+    using AcmStatisticsAbp.Sessions.Dto;
+    using AcmStatisticsAbp.SignalR;
+
     public class SessionAppService : AcmStatisticsAbpAppServiceBase, ISessionAppService
     {
         [DisableAuditing]

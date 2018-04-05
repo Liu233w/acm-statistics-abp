@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Abp.Configuration;
-
-namespace AcmStatisticsAbp.Configuration
+﻿namespace AcmStatisticsAbp.Configuration
 {
+    using System.Collections.Generic;
+    using Abp.Configuration;
+
     public class AppSettingProvider : SettingProvider
     {
         public override IEnumerable<SettingDefinition> GetSettingDefinitions(SettingDefinitionProviderContext context)

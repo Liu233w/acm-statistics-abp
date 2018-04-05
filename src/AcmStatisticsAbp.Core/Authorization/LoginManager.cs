@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Abp.Authorization;
-using Abp.Authorization.Users;
-using Abp.Configuration;
-using Abp.Configuration.Startup;
-using Abp.Dependency;
-using Abp.Domain.Repositories;
-using Abp.Domain.Uow;
-using Abp.Zero.Configuration;
-using AcmStatisticsAbp.Authorization.Roles;
-using AcmStatisticsAbp.Authorization.Users;
-using AcmStatisticsAbp.MultiTenancy;
-
-namespace AcmStatisticsAbp.Authorization
+﻿namespace AcmStatisticsAbp.Authorization
 {
+    using Abp.Authorization;
+    using Abp.Authorization.Users;
+    using Abp.Configuration;
+    using Abp.Configuration.Startup;
+    using Abp.Dependency;
+    using Abp.Domain.Repositories;
+    using Abp.Domain.Uow;
+    using Abp.Zero.Configuration;
+    using AcmStatisticsAbp.Authorization.Roles;
+    using AcmStatisticsAbp.Authorization.Users;
+    using AcmStatisticsAbp.MultiTenancy;
+    using Microsoft.AspNetCore.Identity;
+
     public class LogInManager : AbpLogInManager<Tenant, Role, User>
     {
         public LogInManager(

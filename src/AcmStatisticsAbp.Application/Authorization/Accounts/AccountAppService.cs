@@ -1,11 +1,11 @@
-using System.Threading.Tasks;
-using Abp.Configuration;
-using Abp.Zero.Configuration;
-using AcmStatisticsAbp.Authorization.Accounts.Dto;
-using AcmStatisticsAbp.Authorization.Users;
-
 namespace AcmStatisticsAbp.Authorization.Accounts
 {
+    using System.Threading.Tasks;
+    using Abp.Configuration;
+    using Abp.Zero.Configuration;
+    using AcmStatisticsAbp.Authorization.Accounts.Dto;
+    using AcmStatisticsAbp.Authorization.Users;
+
     public class AccountAppService : AcmStatisticsAbpAppServiceBase, IAccountAppService
     {
         private readonly UserRegistrationManager _userRegistrationManager;

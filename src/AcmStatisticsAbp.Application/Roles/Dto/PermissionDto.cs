@@ -1,9 +1,9 @@
-using Abp.Application.Services.Dto;
-using Abp.AutoMapper;
-using Abp.Authorization;
-
 namespace AcmStatisticsAbp.Roles.Dto
 {
+    using Abp.Application.Services.Dto;
+    using Abp.Authorization;
+    using Abp.AutoMapper;
+
     [AutoMapFrom(typeof(Permission))]
     public class PermissionDto : EntityDto<long>
     {

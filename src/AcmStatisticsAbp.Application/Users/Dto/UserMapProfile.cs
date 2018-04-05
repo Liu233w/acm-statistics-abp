@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using AcmStatisticsAbp.Authorization.Users;
-
-namespace AcmStatisticsAbp.Users.Dto
+﻿namespace AcmStatisticsAbp.Users.Dto
 {
+    using AcmStatisticsAbp.Authorization.Users;
+    using AutoMapper;
+
     public class UserMapProfile : Profile
     {
         public UserMapProfile()

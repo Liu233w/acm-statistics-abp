@@ -1,14 +1,14 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor.MsDependencyInjection;
-using Abp.Dependency;
-using AcmStatisticsAbp.EntityFrameworkCore;
-using AcmStatisticsAbp.Identity;
-
-namespace AcmStatisticsAbp.Tests.DependencyInjection
+﻿namespace AcmStatisticsAbp.Tests.DependencyInjection
 {
+    using System;
+    using Abp.Dependency;
+    using AcmStatisticsAbp.EntityFrameworkCore;
+    using AcmStatisticsAbp.Identity;
+    using Castle.MicroKernel.Registration;
+    using Castle.Windsor.MsDependencyInjection;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class ServiceCollectionRegistrar
     {
         public static void Register(IIocManager iocManager)

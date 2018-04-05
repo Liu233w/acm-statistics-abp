@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using Abp.Extensions;
-
-namespace AcmStatisticsAbp.Identity
+﻿namespace AcmStatisticsAbp.Identity
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
+    using Abp.Extensions;
+
     public class ExternalLoginInfoHelper
     {
         public static (string name, string surname) GetNameAndSurnameFromClaims(List<Claim> claims)

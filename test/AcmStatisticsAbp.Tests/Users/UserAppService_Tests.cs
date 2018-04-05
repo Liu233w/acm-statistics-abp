@@ -1,13 +1,13 @@
-﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Shouldly;
-using Xunit;
-using Abp.Application.Services.Dto;
-using AcmStatisticsAbp.Users;
-using AcmStatisticsAbp.Users.Dto;
-
-namespace AcmStatisticsAbp.Tests.Users
+﻿namespace AcmStatisticsAbp.Tests.Users
 {
+    using System.Threading.Tasks;
+    using Abp.Application.Services.Dto;
+    using AcmStatisticsAbp.Users;
+    using AcmStatisticsAbp.Users.Dto;
+    using Microsoft.EntityFrameworkCore;
+    using Shouldly;
+    using Xunit;
+
     public class UserAppService_Tests : AcmStatisticsAbpTestBase
     {
         private readonly IUserAppService _userAppService;

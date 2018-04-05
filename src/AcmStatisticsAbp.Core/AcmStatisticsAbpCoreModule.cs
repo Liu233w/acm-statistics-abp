@@ -1,17 +1,17 @@
-﻿using Abp.Modules;
-using Abp.Reflection.Extensions;
-using Abp.Timing;
-using Abp.Zero;
-using Abp.Zero.Configuration;
-using AcmStatisticsAbp.Authorization.Roles;
-using AcmStatisticsAbp.Authorization.Users;
-using AcmStatisticsAbp.Configuration;
-using AcmStatisticsAbp.Localization;
-using AcmStatisticsAbp.MultiTenancy;
-using AcmStatisticsAbp.Timing;
-
-namespace AcmStatisticsAbp
+﻿namespace AcmStatisticsAbp
 {
+    using Abp.Modules;
+    using Abp.Reflection.Extensions;
+    using Abp.Timing;
+    using Abp.Zero;
+    using Abp.Zero.Configuration;
+    using AcmStatisticsAbp.Authorization.Roles;
+    using AcmStatisticsAbp.Authorization.Users;
+    using AcmStatisticsAbp.Configuration;
+    using AcmStatisticsAbp.Localization;
+    using AcmStatisticsAbp.MultiTenancy;
+    using AcmStatisticsAbp.Timing;
+
     [DependsOn(typeof(AbpZeroCoreModule))]
     public class AcmStatisticsAbpCoreModule : AbpModule
     {

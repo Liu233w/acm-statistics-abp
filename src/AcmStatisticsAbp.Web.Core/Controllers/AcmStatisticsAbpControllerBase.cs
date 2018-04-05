@@ -1,9 +1,9 @@
-using Abp.AspNetCore.Mvc.Controllers;
-using Abp.IdentityFramework;
-using Microsoft.AspNetCore.Identity;
-
 namespace AcmStatisticsAbp.Controllers
 {
+    using Abp.AspNetCore.Mvc.Controllers;
+    using Abp.IdentityFramework;
+    using Microsoft.AspNetCore.Identity;
+
     public abstract class AcmStatisticsAbpControllerBase: AbpController
     {
         protected AcmStatisticsAbpControllerBase()

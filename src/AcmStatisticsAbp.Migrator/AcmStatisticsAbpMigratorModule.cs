@@ -1,14 +1,14 @@
-using Microsoft.Extensions.Configuration;
-using Castle.MicroKernel.Registration;
-using Abp.Events.Bus;
-using Abp.Modules;
-using Abp.Reflection.Extensions;
-using AcmStatisticsAbp.Configuration;
-using AcmStatisticsAbp.EntityFrameworkCore;
-using AcmStatisticsAbp.Migrator.DependencyInjection;
-
 namespace AcmStatisticsAbp.Migrator
 {
+    using Abp.Events.Bus;
+    using Abp.Modules;
+    using Abp.Reflection.Extensions;
+    using AcmStatisticsAbp.Configuration;
+    using AcmStatisticsAbp.EntityFrameworkCore;
+    using AcmStatisticsAbp.Migrator.DependencyInjection;
+    using Castle.MicroKernel.Registration;
+    using Microsoft.Extensions.Configuration;
+
     [DependsOn(typeof(AcmStatisticsAbpEntityFrameworkModule))]
     public class AcmStatisticsAbpMigratorModule : AbpModule
     {

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace AcmStatisticsAbp.Authentication.External
+﻿namespace AcmStatisticsAbp.Authentication.External
 {
+    using System.Collections.Generic;
+
     public interface IExternalAuthConfiguration
     {
         List<ExternalLoginProviderInfo> Providers { get; }

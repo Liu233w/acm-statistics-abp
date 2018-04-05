@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace AcmStatisticsAbp.Authentication.External
+﻿namespace AcmStatisticsAbp.Authentication.External
 {
+    using System;
+
     public class ExternalLoginProviderInfo
     {
         public string Name { get; set; }

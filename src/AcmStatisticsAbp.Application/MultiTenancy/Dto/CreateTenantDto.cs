@@ -1,10 +1,10 @@
-using System.ComponentModel.DataAnnotations;
-using Abp.Authorization.Users;
-using Abp.AutoMapper;
-using Abp.MultiTenancy;
-
 namespace AcmStatisticsAbp.MultiTenancy.Dto
 {
+    using System.ComponentModel.DataAnnotations;
+    using Abp.Authorization.Users;
+    using Abp.AutoMapper;
+    using Abp.MultiTenancy;
+
     [AutoMapTo(typeof(Tenant))]
     public class CreateTenantDto
     {

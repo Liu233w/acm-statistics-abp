@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Abp.Authorization;
-using Abp.Runtime.Session;
-using AcmStatisticsAbp.Configuration.Dto;
-
-namespace AcmStatisticsAbp.Configuration
+﻿namespace AcmStatisticsAbp.Configuration
 {
+    using System.Threading.Tasks;
+    using Abp.Authorization;
+    using Abp.Runtime.Session;
+    using AcmStatisticsAbp.Configuration.Dto;
+
     [AbpAuthorize]
     public class ConfigurationAppService : AcmStatisticsAbpAppServiceBase, IConfigurationAppService
     {

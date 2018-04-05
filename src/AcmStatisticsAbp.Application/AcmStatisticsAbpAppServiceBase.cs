@@ -1,14 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Abp.Application.Services;
-using Abp.IdentityFramework;
-using Abp.Runtime.Session;
-using AcmStatisticsAbp.Authorization.Users;
-using AcmStatisticsAbp.MultiTenancy;
-
-namespace AcmStatisticsAbp
+﻿namespace AcmStatisticsAbp
 {
+    using System;
+    using System.Threading.Tasks;
+    using Abp.Application.Services;
+    using Abp.IdentityFramework;
+    using Abp.Runtime.Session;
+    using AcmStatisticsAbp.Authorization.Users;
+    using AcmStatisticsAbp.MultiTenancy;
+    using Microsoft.AspNetCore.Identity;
+
     /// <summary>
     /// Derive your application services from this class.
     /// </summary>

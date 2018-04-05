@@ -1,9 +1,9 @@
-﻿using Abp.Application.Services.Dto;
-using Abp.AutoMapper;
-using AcmStatisticsAbp.MultiTenancy;
-
-namespace AcmStatisticsAbp.Sessions.Dto
+﻿namespace AcmStatisticsAbp.Sessions.Dto
 {
+    using Abp.Application.Services.Dto;
+    using Abp.AutoMapper;
+    using AcmStatisticsAbp.MultiTenancy;
+
     [AutoMapFrom(typeof(Tenant))]
     public class TenantLoginInfoDto : EntityDto
     {

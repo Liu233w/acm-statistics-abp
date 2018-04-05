@@ -1,8 +1,8 @@
-﻿using Abp.MultiTenancy;
-using Abp.Zero.Configuration;
-
-namespace AcmStatisticsAbp.Authorization.Roles
+﻿namespace AcmStatisticsAbp.Authorization.Roles
 {
+    using Abp.MultiTenancy;
+    using Abp.Zero.Configuration;
+
     public static class AppRoleConfig
     {
         public static void Configure(IRoleManagementConfig roleManagementConfig)

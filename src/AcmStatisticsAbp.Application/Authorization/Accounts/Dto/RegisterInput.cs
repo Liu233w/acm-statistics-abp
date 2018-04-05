@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Abp.Auditing;
-using Abp.Authorization.Users;
-using Abp.Extensions;
-using AcmStatisticsAbp.Validation;
-
-namespace AcmStatisticsAbp.Authorization.Accounts.Dto
+﻿namespace AcmStatisticsAbp.Authorization.Accounts.Dto
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using Abp.Auditing;
+    using Abp.Authorization.Users;
+    using Abp.Extensions;
+    using AcmStatisticsAbp.Validation;
+
     public class RegisterInput : IValidatableObject
     {
         [Required]

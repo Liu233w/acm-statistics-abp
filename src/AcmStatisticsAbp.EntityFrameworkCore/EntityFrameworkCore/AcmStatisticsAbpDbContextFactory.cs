@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
-using AcmStatisticsAbp.Configuration;
-using AcmStatisticsAbp.Web;
-
-namespace AcmStatisticsAbp.EntityFrameworkCore
+﻿namespace AcmStatisticsAbp.EntityFrameworkCore
 {
+    using AcmStatisticsAbp.Configuration;
+    using AcmStatisticsAbp.Web;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Design;
+    using Microsoft.Extensions.Configuration;
+
     /* This class is needed to run "dotnet ef ..." commands from command line on development. Not used anywhere else */
     public class AcmStatisticsAbpDbContextFactory : IDesignTimeDbContextFactory<AcmStatisticsAbpDbContext>
     {

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace AcmStatisticsAbp.Configuration.Ui
+﻿namespace AcmStatisticsAbp.Configuration.Ui
 {
+    using System.Collections.Generic;
+
     public static class UiThemes
     {
         public static List<UiThemeInfo> All { get; }

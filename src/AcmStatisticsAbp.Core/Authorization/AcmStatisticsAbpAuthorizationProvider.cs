@@ -1,9 +1,9 @@
-﻿using Abp.Authorization;
-using Abp.Localization;
-using Abp.MultiTenancy;
-
-namespace AcmStatisticsAbp.Authorization
+﻿namespace AcmStatisticsAbp.Authorization
 {
+    using Abp.Authorization;
+    using Abp.Localization;
+    using Abp.MultiTenancy;
+
     public class AcmStatisticsAbpAuthorizationProvider : AuthorizationProvider
     {
         public override void SetPermissions(IPermissionDefinitionContext context)

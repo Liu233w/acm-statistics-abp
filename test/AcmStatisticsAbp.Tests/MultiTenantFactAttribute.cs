@@ -1,7 +1,7 @@
-﻿using Xunit;
-
-namespace AcmStatisticsAbp.Tests
+﻿namespace AcmStatisticsAbp.Tests
 {
+    using Xunit;
+
     public sealed class MultiTenantFactAttribute : FactAttribute
     {
         public MultiTenantFactAttribute()

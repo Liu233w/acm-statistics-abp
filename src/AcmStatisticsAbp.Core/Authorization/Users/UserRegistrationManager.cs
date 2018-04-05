@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Abp.Authorization.Users;
-using Abp.Domain.Services;
-using Abp.IdentityFramework;
-using Abp.Runtime.Session;
-using Abp.UI;
-using AcmStatisticsAbp.Authorization.Roles;
-using AcmStatisticsAbp.MultiTenancy;
-
-namespace AcmStatisticsAbp.Authorization.Users
+﻿namespace AcmStatisticsAbp.Authorization.Users
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Abp.Authorization.Users;
+    using Abp.Domain.Services;
+    using Abp.IdentityFramework;
+    using Abp.Runtime.Session;
+    using Abp.UI;
+    using AcmStatisticsAbp.Authorization.Roles;
+    using AcmStatisticsAbp.MultiTenancy;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+
     public class UserRegistrationManager : DomainService
     {
         public IAbpSession AbpSession { get; set; }

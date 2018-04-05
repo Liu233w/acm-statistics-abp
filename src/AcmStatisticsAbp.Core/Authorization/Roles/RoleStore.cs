@@ -1,10 +1,10 @@
-using Abp.Authorization.Roles;
-using Abp.Domain.Repositories;
-using Abp.Domain.Uow;
-using AcmStatisticsAbp.Authorization.Users;
-
 namespace AcmStatisticsAbp.Authorization.Roles
 {
+    using Abp.Authorization.Roles;
+    using Abp.Domain.Repositories;
+    using Abp.Domain.Uow;
+    using AcmStatisticsAbp.Authorization.Users;
+
     public class RoleStore : AbpRoleStore<Role, User>
     {
         public RoleStore(

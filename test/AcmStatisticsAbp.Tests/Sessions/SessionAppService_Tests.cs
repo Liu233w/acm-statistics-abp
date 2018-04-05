@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Shouldly;
-using Xunit;
-using AcmStatisticsAbp.Sessions;
-
-namespace AcmStatisticsAbp.Tests.Sessions
+﻿namespace AcmStatisticsAbp.Tests.Sessions
 {
+    using System.Threading.Tasks;
+    using AcmStatisticsAbp.Sessions;
+    using Shouldly;
+    using Xunit;
+
     public class SessionAppService_Tests : AcmStatisticsAbpTestBase
     {
         private readonly ISessionAppService _sessionAppService;

@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Castle.Windsor.MsDependencyInjection;
-using Abp.Dependency;
-using AcmStatisticsAbp.Identity;
-
-namespace AcmStatisticsAbp.Migrator.DependencyInjection
+﻿namespace AcmStatisticsAbp.Migrator.DependencyInjection
 {
+    using Abp.Dependency;
+    using AcmStatisticsAbp.Identity;
+    using Castle.Windsor.MsDependencyInjection;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class ServiceCollectionRegistrar
     {
         public static void Register(IIocManager iocManager)

@@ -1,8 +1,8 @@
-﻿using Abp.MultiTenancy;
-using AcmStatisticsAbp.Authorization.Users;
-
-namespace AcmStatisticsAbp.MultiTenancy
+﻿namespace AcmStatisticsAbp.MultiTenancy
 {
+    using Abp.MultiTenancy;
+    using AcmStatisticsAbp.Authorization.Users;
+
     public class Tenant : AbpTenant<User>
     {
         public Tenant()

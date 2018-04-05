@@ -1,8 +1,8 @@
-﻿using System;
-using Abp.Dependency;
-
-namespace AcmStatisticsAbp.Timing
+﻿namespace AcmStatisticsAbp.Timing
 {
+    using System;
+    using Abp.Dependency;
+
     public class AppTimes : ISingletonDependency
     {
         /// <summary>

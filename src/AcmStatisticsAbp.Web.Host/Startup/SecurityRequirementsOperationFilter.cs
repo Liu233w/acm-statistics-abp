@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Abp.Authorization;
-
 namespace AcmStatisticsAbp.Web.Host.Startup
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Abp.Authorization;
+    using Swashbuckle.AspNetCore.Swagger;
+    using Swashbuckle.AspNetCore.SwaggerGen;
+
     public class SecurityRequirementsOperationFilter : IOperationFilter
     {
         public void Apply(Operation operation, OperationFilterContext context)

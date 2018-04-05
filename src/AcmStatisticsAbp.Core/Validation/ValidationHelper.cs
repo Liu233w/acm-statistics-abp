@@ -1,8 +1,8 @@
-﻿using System.Text.RegularExpressions;
-using Abp.Extensions;
-
-namespace AcmStatisticsAbp.Validation
+﻿namespace AcmStatisticsAbp.Validation
 {
+    using System.Text.RegularExpressions;
+    using Abp.Extensions;
+
     public static class ValidationHelper
     {
         public const string EmailRegex = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";

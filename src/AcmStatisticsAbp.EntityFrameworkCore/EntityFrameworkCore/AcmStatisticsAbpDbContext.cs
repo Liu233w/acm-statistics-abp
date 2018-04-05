@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Abp.Zero.EntityFrameworkCore;
-using AcmStatisticsAbp.Authorization.Roles;
-using AcmStatisticsAbp.Authorization.Users;
-using AcmStatisticsAbp.MultiTenancy;
-
-namespace AcmStatisticsAbp.EntityFrameworkCore
+﻿namespace AcmStatisticsAbp.EntityFrameworkCore
 {
+    using Abp.Zero.EntityFrameworkCore;
+    using AcmStatisticsAbp.Authorization.Roles;
+    using AcmStatisticsAbp.Authorization.Users;
+    using AcmStatisticsAbp.MultiTenancy;
+    using Microsoft.EntityFrameworkCore;
+
     public class AcmStatisticsAbpDbContext : AbpZeroDbContext<Tenant, Role, User, AcmStatisticsAbpDbContext>
     {
         /* Define a DbSet for each entity of the application */

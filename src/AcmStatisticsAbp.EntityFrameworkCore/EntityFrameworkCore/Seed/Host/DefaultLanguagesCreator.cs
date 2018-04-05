@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Abp.Localization;
-
-namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
+﻿namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Abp.Localization;
+    using Microsoft.EntityFrameworkCore;
+
     public class DefaultLanguagesCreator
     {
         public static List<ApplicationLanguage> InitialLanguages => GetInitialLanguages();

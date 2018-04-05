@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Abp.Dependency;
-
-namespace AcmStatisticsAbp.Authentication.External
+﻿namespace AcmStatisticsAbp.Authentication.External
 {
+    using System.Collections.Generic;
+    using Abp.Dependency;
+
     public class ExternalAuthConfiguration : IExternalAuthConfiguration, ISingletonDependency
     {
         public List<ExternalLoginProviderInfo> Providers { get; }

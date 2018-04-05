@@ -1,17 +1,4 @@
-﻿using System;
-using System.Text;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using Abp.AspNetCore;
-using Abp.AspNetCore.Configuration;
-using Abp.Modules;
-using Abp.Reflection.Extensions;
-using Abp.Zero.Configuration;
-using AcmStatisticsAbp.Authentication.JwtBearer;
-using AcmStatisticsAbp.Configuration;
-using AcmStatisticsAbp.EntityFrameworkCore;
-
+﻿
 #if FEATURE_SIGNALR
 using Abp.Web.SignalR;
 #elif FEATURE_SIGNALR_ASPNETCORE
@@ -20,6 +7,20 @@ using Abp.AspNetCore.SignalR;
 
 namespace AcmStatisticsAbp
 {
+    using System;
+    using System.Text;
+    using Abp.AspNetCore;
+    using Abp.AspNetCore.Configuration;
+    using Abp.Modules;
+    using Abp.Reflection.Extensions;
+    using Abp.Zero.Configuration;
+    using AcmStatisticsAbp.Authentication.JwtBearer;
+    using AcmStatisticsAbp.Configuration;
+    using AcmStatisticsAbp.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.IdentityModel.Tokens;
+
     [DependsOn(
          typeof(AcmStatisticsAbpApplicationModule),
          typeof(AcmStatisticsAbpEntityFrameworkModule),

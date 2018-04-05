@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using Abp.Reflection.Extensions;
-
-namespace AcmStatisticsAbp.Web
+﻿namespace AcmStatisticsAbp.Web
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using Abp.Reflection.Extensions;
+
     /// <summary>
     /// This class is used to find root path of the web project in;
     /// unit tests (to find views) and entity framework core command line commands (to find conn string).
