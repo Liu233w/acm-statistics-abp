@@ -14,6 +14,9 @@
     <DefineConstants>FEATURE_SIGNALR_ASPNETCORE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\AcmStatisticsAbp.Core\AcmStatisticsAbp.Core.csproj" />
   </ItemGroup>
 </Project>
