@@ -13,12 +13,13 @@ namespace AcmStatisticsAbp.Localization
     {
         public static void Configure(ILocalizationConfiguration localizationConfiguration)
         {
+            XmlEmbeddedFileLocalizationDictionaryProvider dictionaryProvider = new XmlEmbeddedFileLocalizationDictionaryProvider(
+                        typeof(AcmStatisticsAbpLocalizationConfigurer).GetAssembly(),
+                        "AcmStatisticsAbp.Localization.SourceFiles");
             localizationConfiguration.Sources.Add(
                 new DictionaryBasedLocalizationSource(
                     AcmStatisticsAbpConsts.LocalizationSourceName,
-                    new XmlEmbeddedFileLocalizationDictionaryProvider(
-                        typeof(AcmStatisticsAbpLocalizationConfigurer).GetAssembly(),
-                        "AcmStatisticsAbp.Localization.SourceFiles")));
+                    dictionaryProvider));
         }
     }
 }
