@@ -22,10 +22,10 @@ namespace AcmStatisticsAbp.Authorization.Users
     {
         public IAbpSession AbpSession { get; set; }
 
-        private readonly TenantManager _tenantManager;
-        private readonly UserManager _userManager;
-        private readonly RoleManager _roleManager;
-        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly TenantManager tenantManager;
+        private readonly UserManager userManager;
+        private readonly RoleManager roleManager;
+        private readonly IPasswordHasher<User> passwordHasher;
 
         public UserRegistrationManager(
             TenantManager tenantManager,
@@ -33,10 +33,10 @@ namespace AcmStatisticsAbp.Authorization.Users
             RoleManager roleManager,
             IPasswordHasher<User> passwordHasher)
         {
-            this._tenantManager = tenantManager;
-            this._userManager = userManager;
-            this._roleManager = roleManager;
-            this._passwordHasher = passwordHasher;
+            this.tenantManager = tenantManager;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
+            this.passwordHasher = passwordHasher;
 
             this.AbpSession = NullAbpSession.Instance;
         }
@@ -61,14 +61,14 @@ namespace AcmStatisticsAbp.Authorization.Users
 
             user.SetNormalizedNames();
 
-            user.Password = this._passwordHasher.HashPassword(user, plainPassword);
+            user.Password = this.passwordHasher.HashPassword(user, plainPassword);
 
-            foreach (var defaultRole in await this._roleManager.Roles.Where(r => r.IsDefault).ToListAsync())
+            foreach (var defaultRole in await this.roleManager.Roles.Where(r => r.IsDefault).ToListAsync())
             {
                 user.Roles.Add(new UserRole(tenant.Id, user.Id, defaultRole.Id));
             }
 
-            this.CheckErrors(await this._userManager.CreateAsync(user));
+            this.CheckErrors(await this.userManager.CreateAsync(user));
             await this.CurrentUnitOfWork.SaveChangesAsync();
 
             return user;
@@ -94,7 +94,7 @@ namespace AcmStatisticsAbp.Authorization.Users
 
         private async Task<Tenant> GetActiveTenantAsync(int tenantId)
         {
-            var tenant = await this._tenantManager.FindByIdAsync(tenantId);
+            var tenant = await this.tenantManager.FindByIdAsync(tenantId);
             if (tenant == null)
             {
                 throw new UserFriendlyException(this.L("UnknownTenantId{0}", tenantId));

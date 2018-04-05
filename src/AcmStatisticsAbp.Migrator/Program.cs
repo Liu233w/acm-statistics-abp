@@ -13,7 +13,7 @@ namespace AcmStatisticsAbp.Migrator
 
     public class Program
     {
-        private static bool _quietMode;
+        private static bool quietMode;
 
         public static void Main(string[] args)
         {
@@ -29,9 +29,9 @@ namespace AcmStatisticsAbp.Migrator
 
                 using (var migrateExecuter = bootstrapper.IocManager.ResolveAsDisposable<MultiTenantMigrateExecuter>())
                 {
-                    var migrationSucceeded = migrateExecuter.Object.Run(_quietMode);
+                    var migrationSucceeded = migrateExecuter.Object.Run(quietMode);
 
-                    if (_quietMode)
+                    if (quietMode)
                     {
                         // exit clean (with exit code 0) if migration is a success, otherwise exit with code 1
                         var exitCode = Convert.ToInt32(!migrationSucceeded);
@@ -58,7 +58,7 @@ namespace AcmStatisticsAbp.Migrator
                 switch (arg)
                 {
                     case "-q":
-                        _quietMode = true;
+                        quietMode = true;
                         break;
                 }
             }

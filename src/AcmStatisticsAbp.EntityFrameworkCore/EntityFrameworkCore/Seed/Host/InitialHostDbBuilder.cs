@@ -6,21 +6,21 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 {
     public class InitialHostDbBuilder
     {
-        private readonly AcmStatisticsAbpDbContext _context;
+        private readonly AcmStatisticsAbpDbContext context;
 
         public InitialHostDbBuilder(AcmStatisticsAbpDbContext context)
         {
-            this._context = context;
+            this.context = context;
         }
 
         public void Create()
         {
-            new DefaultEditionCreator(this._context).Create();
-            new DefaultLanguagesCreator(this._context).Create();
-            new HostRoleAndUserCreator(this._context).Create();
-            new DefaultSettingsCreator(this._context).Create();
+            new DefaultEditionCreator(this.context).Create();
+            new DefaultLanguagesCreator(this.context).Create();
+            new HostRoleAndUserCreator(this.context).Create();
+            new DefaultSettingsCreator(this.context).Create();
 
-            this._context.SaveChanges();
+            this.context.SaveChanges();
         }
     }
 }

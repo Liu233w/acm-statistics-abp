@@ -14,13 +14,13 @@ namespace AcmStatisticsAbp.Web.Host.Startup
        typeof(AcmStatisticsAbpWebCoreModule))]
     public class AcmStatisticsAbpWebHostModule: AbpModule
     {
-        private readonly IHostingEnvironment _env;
-        private readonly IConfigurationRoot _appConfiguration;
+        private readonly IHostingEnvironment env;
+        private readonly IConfigurationRoot appConfiguration;
 
         public AcmStatisticsAbpWebHostModule(IHostingEnvironment env)
         {
-            this._env = env;
-            this._appConfiguration = env.GetAppConfiguration();
+            this.env = env;
+            this.appConfiguration = env.GetAppConfiguration();
         }
 
         public override void Initialize()

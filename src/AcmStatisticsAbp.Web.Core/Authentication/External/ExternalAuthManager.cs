@@ -11,13 +11,13 @@ namespace AcmStatisticsAbp.Authentication.External
 
     public class ExternalAuthManager : IExternalAuthManager, ITransientDependency
     {
-        private readonly IIocResolver _iocResolver;
-        private readonly IExternalAuthConfiguration _externalAuthConfiguration;
+        private readonly IIocResolver iocResolver;
+        private readonly IExternalAuthConfiguration externalAuthConfiguration;
 
         public ExternalAuthManager(IIocResolver iocResolver, IExternalAuthConfiguration externalAuthConfiguration)
         {
-            this._iocResolver = iocResolver;
-            this._externalAuthConfiguration = externalAuthConfiguration;
+            this.iocResolver = iocResolver;
+            this.externalAuthConfiguration = externalAuthConfiguration;
         }
 
         public Task<bool> IsValidUser(string provider, string providerKey, string providerAccessCode)
@@ -38,13 +38,13 @@ namespace AcmStatisticsAbp.Authentication.External
 
         public IDisposableDependencyObjectWrapper<IExternalAuthProviderApi> CreateProviderApi(string provider)
         {
-            var providerInfo = this._externalAuthConfiguration.Providers.FirstOrDefault(p => p.Name == provider);
+            var providerInfo = this.externalAuthConfiguration.Providers.FirstOrDefault(p => p.Name == provider);
             if (providerInfo == null)
             {
                 throw new Exception("Unknown external auth provider: " + provider);
             }
 
-            var providerApi = this._iocResolver.ResolveAsDisposable<IExternalAuthProviderApi>(providerInfo.ProviderApiType);
+            var providerApi = this.iocResolver.ResolveAsDisposable<IExternalAuthProviderApi>(providerInfo.ProviderApiType);
             providerApi.Object.Initialize(providerInfo);
             return providerApi;
         }
