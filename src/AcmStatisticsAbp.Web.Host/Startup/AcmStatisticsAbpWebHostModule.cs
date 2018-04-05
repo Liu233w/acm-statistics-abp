@@ -19,13 +19,13 @@ namespace AcmStatisticsAbp.Web.Host.Startup
 
         public AcmStatisticsAbpWebHostModule(IHostingEnvironment env)
         {
-            _env = env;
-            _appConfiguration = env.GetAppConfiguration();
+            this._env = env;
+            this._appConfiguration = env.GetAppConfiguration();
         }
 
         public override void Initialize()
         {
-            IocManager.RegisterAssemblyByConvention(typeof(AcmStatisticsAbpWebHostModule).GetAssembly());
+            this.IocManager.RegisterAssemblyByConvention(typeof(AcmStatisticsAbpWebHostModule).GetAssembly());
         }
     }
 }

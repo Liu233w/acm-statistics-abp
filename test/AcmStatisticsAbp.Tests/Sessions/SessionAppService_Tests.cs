@@ -15,20 +15,20 @@ namespace AcmStatisticsAbp.Tests.Sessions
 
         public SessionAppService_Tests()
         {
-            _sessionAppService = Resolve<ISessionAppService>();
+            this._sessionAppService = this.Resolve<ISessionAppService>();
         }
 
         [MultiTenantFact]
         public async Task Should_Get_Current_User_When_Logged_In_As_Host()
         {
             // Arrange
-            LoginAsHostAdmin();
+            this.LoginAsHostAdmin();
 
             // Act
-            var output = await _sessionAppService.GetCurrentLoginInformations();
+            var output = await this._sessionAppService.GetCurrentLoginInformations();
 
             // Assert
-            var currentUser = await GetCurrentUserAsync();
+            var currentUser = await this.GetCurrentUserAsync();
             output.User.ShouldNotBe(null);
             output.User.Name.ShouldBe(currentUser.Name);
             output.User.Surname.ShouldBe(currentUser.Surname);
@@ -40,11 +40,11 @@ namespace AcmStatisticsAbp.Tests.Sessions
         public async Task Should_Get_Current_User_And_Tenant_When_Logged_In_As_Tenant()
         {
             // Act
-            var output = await _sessionAppService.GetCurrentLoginInformations();
+            var output = await this._sessionAppService.GetCurrentLoginInformations();
 
             // Assert
-            var currentUser = await GetCurrentUserAsync();
-            var currentTenant = await GetCurrentTenantAsync();
+            var currentUser = await this.GetCurrentUserAsync();
+            var currentTenant = await this.GetCurrentTenantAsync();
 
             output.User.ShouldNotBe(null);
             output.User.Name.ShouldBe(currentUser.Name);

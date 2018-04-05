@@ -40,9 +40,9 @@ namespace AcmStatisticsAbp.Authorization.Accounts.Dto
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (!UserName.IsNullOrEmpty())
+            if (!this.UserName.IsNullOrEmpty())
             {
-                if (!UserName.Equals(EmailAddress) && ValidationHelper.IsEmail(UserName))
+                if (!this.UserName.Equals(this.EmailAddress) && ValidationHelper.IsEmail(this.UserName))
                 {
                     yield return new ValidationResult("Username cannot be an email address unless it's the same as your email address!");
                 }

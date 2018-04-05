@@ -16,31 +16,31 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
 
         public DefaultTenantBuilder(AcmStatisticsAbpDbContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         public void Create()
         {
-            CreateDefaultTenant();
+            this.CreateDefaultTenant();
         }
 
         private void CreateDefaultTenant()
         {
             // Default tenant
 
-            var defaultTenant = _context.Tenants.IgnoreQueryFilters().FirstOrDefault(t => t.TenancyName == AbpTenantBase.DefaultTenantName);
+            var defaultTenant = this._context.Tenants.IgnoreQueryFilters().FirstOrDefault(t => t.TenancyName == AbpTenantBase.DefaultTenantName);
             if (defaultTenant == null)
             {
                 defaultTenant = new Tenant(AbpTenantBase.DefaultTenantName, AbpTenantBase.DefaultTenantName);
 
-                var defaultEdition = _context.Editions.IgnoreQueryFilters().FirstOrDefault(e => e.Name == EditionManager.DefaultEditionName);
+                var defaultEdition = this._context.Editions.IgnoreQueryFilters().FirstOrDefault(e => e.Name == EditionManager.DefaultEditionName);
                 if (defaultEdition != null)
                 {
                     defaultTenant.EditionId = defaultEdition.Id;
                 }
 
-                _context.Tenants.Add(defaultTenant);
-                _context.SaveChanges();
+                this._context.Tenants.Add(defaultTenant);
+                this._context.SaveChanges();
             }
         }
     }

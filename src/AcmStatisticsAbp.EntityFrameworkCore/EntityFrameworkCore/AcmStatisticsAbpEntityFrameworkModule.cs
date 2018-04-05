@@ -22,9 +22,9 @@ namespace AcmStatisticsAbp.EntityFrameworkCore
 
         public override void PreInitialize()
         {
-            if (!SkipDbContextRegistration)
+            if (!this.SkipDbContextRegistration)
             {
-                Configuration.Modules.AbpEfCore().AddDbContext<AcmStatisticsAbpDbContext>(options =>
+                this.Configuration.Modules.AbpEfCore().AddDbContext<AcmStatisticsAbpDbContext>(options =>
                 {
                     if (options.ExistingConnection != null)
                     {
@@ -40,14 +40,14 @@ namespace AcmStatisticsAbp.EntityFrameworkCore
 
         public override void Initialize()
         {
-            IocManager.RegisterAssemblyByConvention(typeof(AcmStatisticsAbpEntityFrameworkModule).GetAssembly());
+            this.IocManager.RegisterAssemblyByConvention(typeof(AcmStatisticsAbpEntityFrameworkModule).GetAssembly());
         }
 
         public override void PostInitialize()
         {
-            if (!SkipDbSeed)
+            if (!this.SkipDbSeed)
             {
-                SeedHelper.SeedHostDb(IocManager);
+                SeedHelper.SeedHostDb(this.IocManager);
             }
         }
     }

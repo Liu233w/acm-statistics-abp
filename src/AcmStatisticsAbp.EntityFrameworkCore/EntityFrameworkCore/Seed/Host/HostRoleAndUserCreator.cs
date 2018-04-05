@@ -22,28 +22,28 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
         public HostRoleAndUserCreator(AcmStatisticsAbpDbContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         public void Create()
         {
-            CreateHostRoleAndUsers();
+            this.CreateHostRoleAndUsers();
         }
 
         private void CreateHostRoleAndUsers()
         {
             // Admin role for host
 
-            var adminRoleForHost = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.Admin);
+            var adminRoleForHost = this._context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.Admin);
             if (adminRoleForHost == null)
             {
-                adminRoleForHost = _context.Roles.Add(new Role(null, StaticRoleNames.Host.Admin, StaticRoleNames.Host.Admin) { IsStatic = true, IsDefault = true }).Entity;
-                _context.SaveChanges();
+                adminRoleForHost = this._context.Roles.Add(new Role(null, StaticRoleNames.Host.Admin, StaticRoleNames.Host.Admin) { IsStatic = true, IsDefault = true }).Entity;
+                this._context.SaveChanges();
             }
 
             // Grant all permissions to admin role for host
 
-            var grantedPermissions = _context.Permissions.IgnoreQueryFilters()
+            var grantedPermissions = this._context.Permissions.IgnoreQueryFilters()
                 .OfType<RolePermissionSetting>()
                 .Where(p => p.TenantId == null && p.RoleId == adminRoleForHost.Id)
                 .Select(p => p.Name)
@@ -57,7 +57,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
             if (permissions.Any())
             {
-                _context.Permissions.AddRange(
+                this._context.Permissions.AddRange(
                     permissions.Select(permission => new RolePermissionSetting
                     {
                         TenantId = null,
@@ -66,12 +66,12 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
                         RoleId = adminRoleForHost.Id
                     })
                 );
-                _context.SaveChanges();
+                this._context.SaveChanges();
             }
 
             // Admin user for host
 
-            var adminUserForHost = _context.Users.IgnoreQueryFilters().FirstOrDefault(u => u.TenantId == null && u.UserName == AbpUserBase.AdminUserName);
+            var adminUserForHost = this._context.Users.IgnoreQueryFilters().FirstOrDefault(u => u.TenantId == null && u.UserName == AbpUserBase.AdminUserName);
             if (adminUserForHost == null)
             {
                 var user = new User
@@ -88,22 +88,22 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
                 user.Password = new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions())).HashPassword(user, "123qwe");
                 user.SetNormalizedNames();
 
-                adminUserForHost = _context.Users.Add(user).Entity;
-                _context.SaveChanges();
+                adminUserForHost = this._context.Users.Add(user).Entity;
+                this._context.SaveChanges();
 
                 // Assign Admin role to admin user
-                _context.UserRoles.Add(new UserRole(null, adminUserForHost.Id, adminRoleForHost.Id));
-                _context.SaveChanges();
+                this._context.UserRoles.Add(new UserRole(null, adminUserForHost.Id, adminRoleForHost.Id));
+                this._context.SaveChanges();
 
                 // User account of admin user
-                _context.UserAccounts.Add(new UserAccount
+                this._context.UserAccounts.Add(new UserAccount
                 {
                     TenantId = null,
                     UserId = adminUserForHost.Id,
                     UserName = AbpUserBase.AdminUserName,
                     EmailAddress = adminUserForHost.EmailAddress
                 });
-                _context.SaveChanges();
+                this._context.SaveChanges();
             }
         }
     }

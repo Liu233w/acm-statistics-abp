@@ -42,9 +42,9 @@ namespace AcmStatisticsAbp.Users.Dto
 
         public void Normalize()
         {
-            if (RoleNames == null)
+            if (this.RoleNames == null)
             {
-                RoleNames = new string[0];
+                this.RoleNames = new string[0];
             }
         }
     }

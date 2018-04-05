@@ -15,13 +15,13 @@ namespace AcmStatisticsAbp.Migrator
 
         public Log()
         {
-            Logger = NullLogger.Instance;
+            this.Logger = NullLogger.Instance;
         }
 
         public void Write(string text)
         {
             Console.WriteLine(Clock.Now.ToString("yyyy-MM-dd HH:mm:ss") + " | " + text);
-            Logger.Info(text);
+            this.Logger.Info(text);
         }
     }
 }

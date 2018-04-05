@@ -44,31 +44,31 @@ namespace AcmStatisticsAbp.Controllers
             IExternalAuthManager externalAuthManager,
             UserRegistrationManager userRegistrationManager)
         {
-            _logInManager = logInManager;
-            _tenantCache = tenantCache;
-            _abpLoginResultTypeHelper = abpLoginResultTypeHelper;
-            _configuration = configuration;
-            _externalAuthConfiguration = externalAuthConfiguration;
-            _externalAuthManager = externalAuthManager;
-            _userRegistrationManager = userRegistrationManager;
+            this._logInManager = logInManager;
+            this._tenantCache = tenantCache;
+            this._abpLoginResultTypeHelper = abpLoginResultTypeHelper;
+            this._configuration = configuration;
+            this._externalAuthConfiguration = externalAuthConfiguration;
+            this._externalAuthManager = externalAuthManager;
+            this._userRegistrationManager = userRegistrationManager;
         }
 
         [HttpPost]
         public async Task<AuthenticateResultModel> Authenticate([FromBody] AuthenticateModel model)
         {
-            var loginResult = await GetLoginResultAsync(
+            var loginResult = await this.GetLoginResultAsync(
                 model.UserNameOrEmailAddress,
                 model.Password,
-                GetTenancyNameOrNull()
+                this.GetTenancyNameOrNull()
             );
 
-            var accessToken = CreateAccessToken(CreateJwtClaims(loginResult.Identity));
+            var accessToken = this.CreateAccessToken(CreateJwtClaims(loginResult.Identity));
 
             return new AuthenticateResultModel
             {
                 AccessToken = accessToken,
-                EncryptedAccessToken = GetEncrpyedAccessToken(accessToken),
-                ExpireInSeconds = (int)_configuration.Expiration.TotalSeconds,
+                EncryptedAccessToken = this.GetEncrpyedAccessToken(accessToken),
+                ExpireInSeconds = (int)this._configuration.Expiration.TotalSeconds,
                 UserId = loginResult.User.Id
             };
         }
@@ -76,31 +76,31 @@ namespace AcmStatisticsAbp.Controllers
         [HttpGet]
         public List<ExternalLoginProviderInfoModel> GetExternalAuthenticationProviders()
         {
-            return ObjectMapper.Map<List<ExternalLoginProviderInfoModel>>(_externalAuthConfiguration.Providers);
+            return this.ObjectMapper.Map<List<ExternalLoginProviderInfoModel>>(this._externalAuthConfiguration.Providers);
         }
 
         [HttpPost]
         public async Task<ExternalAuthenticateResultModel> ExternalAuthenticate([FromBody] ExternalAuthenticateModel model)
         {
-            var externalUser = await GetExternalUserInfo(model);
+            var externalUser = await this.GetExternalUserInfo(model);
 
-            var loginResult = await _logInManager.LoginAsync(new UserLoginInfo(model.AuthProvider, model.ProviderKey, model.AuthProvider), GetTenancyNameOrNull());
+            var loginResult = await this._logInManager.LoginAsync(new UserLoginInfo(model.AuthProvider, model.ProviderKey, model.AuthProvider), this.GetTenancyNameOrNull());
 
             switch (loginResult.Result)
             {
                 case AbpLoginResultType.Success:
                     {
-                        var accessToken = CreateAccessToken(CreateJwtClaims(loginResult.Identity));
+                        var accessToken = this.CreateAccessToken(CreateJwtClaims(loginResult.Identity));
                         return new ExternalAuthenticateResultModel
                         {
                             AccessToken = accessToken,
-                            EncryptedAccessToken = GetEncrpyedAccessToken(accessToken),
-                            ExpireInSeconds = (int)_configuration.Expiration.TotalSeconds
+                            EncryptedAccessToken = this.GetEncrpyedAccessToken(accessToken),
+                            ExpireInSeconds = (int)this._configuration.Expiration.TotalSeconds
                         };
                     }
                 case AbpLoginResultType.UnknownExternalLogin:
                     {
-                        var newUser = await RegisterExternalUserAsync(externalUser);
+                        var newUser = await this.RegisterExternalUserAsync(externalUser);
                         if (!newUser.IsActive)
                         {
                             return new ExternalAuthenticateResultModel
@@ -110,28 +110,28 @@ namespace AcmStatisticsAbp.Controllers
                         }
 
                         // Try to login again with newly registered user!
-                        loginResult = await _logInManager.LoginAsync(new UserLoginInfo(model.AuthProvider, model.ProviderKey, model.AuthProvider), GetTenancyNameOrNull());
+                        loginResult = await this._logInManager.LoginAsync(new UserLoginInfo(model.AuthProvider, model.ProviderKey, model.AuthProvider), this.GetTenancyNameOrNull());
                         if (loginResult.Result != AbpLoginResultType.Success)
                         {
-                            throw _abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(
+                            throw this._abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(
                                 loginResult.Result,
                                 model.ProviderKey,
-                                GetTenancyNameOrNull()
+                                this.GetTenancyNameOrNull()
                             );
                         }
 
                         return new ExternalAuthenticateResultModel
                         {
-                            AccessToken = CreateAccessToken(CreateJwtClaims(loginResult.Identity)),
-                            ExpireInSeconds = (int)_configuration.Expiration.TotalSeconds
+                            AccessToken = this.CreateAccessToken(CreateJwtClaims(loginResult.Identity)),
+                            ExpireInSeconds = (int)this._configuration.Expiration.TotalSeconds
                         };
                     }
                 default:
                     {
-                        throw _abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(
+                        throw this._abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(
                             loginResult.Result,
                             model.ProviderKey,
-                            GetTenancyNameOrNull()
+                            this.GetTenancyNameOrNull()
                         );
                     }
             }
@@ -139,7 +139,7 @@ namespace AcmStatisticsAbp.Controllers
 
         private async Task<User> RegisterExternalUserAsync(ExternalAuthUserInfo externalUser)
         {
-            var user = await _userRegistrationManager.RegisterAsync(
+            var user = await this._userRegistrationManager.RegisterAsync(
                 externalUser.Name,
                 externalUser.Surname,
                 externalUser.EmailAddress,
@@ -158,17 +158,17 @@ namespace AcmStatisticsAbp.Controllers
                 }
             };
 
-            await CurrentUnitOfWork.SaveChangesAsync();
+            await this.CurrentUnitOfWork.SaveChangesAsync();
 
             return user;
         }
 
         private async Task<ExternalAuthUserInfo> GetExternalUserInfo(ExternalAuthenticateModel model)
         {
-            var userInfo = await _externalAuthManager.GetUserInfo(model.AuthProvider, model.ProviderAccessCode);
+            var userInfo = await this._externalAuthManager.GetUserInfo(model.AuthProvider, model.ProviderAccessCode);
             if (userInfo.ProviderKey != model.ProviderKey)
             {
-                throw new UserFriendlyException(L("CouldNotValidateExternalUser"));
+                throw new UserFriendlyException(this.L("CouldNotValidateExternalUser"));
             }
 
             return userInfo;
@@ -176,24 +176,24 @@ namespace AcmStatisticsAbp.Controllers
 
         private string GetTenancyNameOrNull()
         {
-            if (!AbpSession.TenantId.HasValue)
+            if (!this.AbpSession.TenantId.HasValue)
             {
                 return null;
             }
 
-            return _tenantCache.GetOrNull(AbpSession.TenantId.Value)?.TenancyName;
+            return this._tenantCache.GetOrNull(this.AbpSession.TenantId.Value)?.TenancyName;
         }
 
         private async Task<AbpLoginResult<Tenant, User>> GetLoginResultAsync(string usernameOrEmailAddress, string password, string tenancyName)
         {
-            var loginResult = await _logInManager.LoginAsync(usernameOrEmailAddress, password, tenancyName);
+            var loginResult = await this._logInManager.LoginAsync(usernameOrEmailAddress, password, tenancyName);
 
             switch (loginResult.Result)
             {
                 case AbpLoginResultType.Success:
                     return loginResult;
                 default:
-                    throw _abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(loginResult.Result, usernameOrEmailAddress, tenancyName);
+                    throw this._abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(loginResult.Result, usernameOrEmailAddress, tenancyName);
             }
         }
 
@@ -202,12 +202,12 @@ namespace AcmStatisticsAbp.Controllers
             var now = DateTime.UtcNow;
 
             var jwtSecurityToken = new JwtSecurityToken(
-                issuer: _configuration.Issuer,
-                audience: _configuration.Audience,
+                issuer: this._configuration.Issuer,
+                audience: this._configuration.Audience,
                 claims: claims,
                 notBefore: now,
-                expires: now.Add(expiration ?? _configuration.Expiration),
-                signingCredentials: _configuration.SigningCredentials
+                expires: now.Add(expiration ?? this._configuration.Expiration),
+                signingCredentials: this._configuration.SigningCredentials
             );
 
             return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);

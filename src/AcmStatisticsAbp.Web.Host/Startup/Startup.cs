@@ -40,7 +40,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
 
         public Startup(IHostingEnvironment env)
         {
-            _appConfiguration = env.GetAppConfiguration();
+            this._appConfiguration = env.GetAppConfiguration();
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -51,7 +51,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
             );
 
             IdentityRegistrar.Register(services);
-            AuthConfigurer.Configure(services, _appConfiguration);
+            AuthConfigurer.Configure(services, this._appConfiguration);
 
 #if FEATURE_SIGNALR_ASPNETCORE
             services.AddSignalR();
@@ -64,7 +64,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
                     builder => builder
                         .WithOrigins(
                             // App:CorsOrigins in appsettings.json can contain more than one address separated by comma.
-                            _appConfiguration["App:CorsOrigins"]
+                            this._appConfiguration["App:CorsOrigins"]
                                 .Split(",", StringSplitOptions.RemoveEmptyEntries)
                                 .Select(o => o.RemovePostFix("/"))
                                 .ToArray()

@@ -33,8 +33,8 @@ namespace AcmStatisticsAbp.Tests
             }
 
             // Seed initial data for host
-            AbpSession.TenantId = null;
-            UsingDbContext(context =>
+            this.AbpSession.TenantId = null;
+            this.UsingDbContext(context =>
             {
                 NormalizeDbContext(context);
                 new InitialHostDbBuilder(context).Create();
@@ -42,50 +42,50 @@ namespace AcmStatisticsAbp.Tests
             });
 
             // Seed initial data for default tenant
-            AbpSession.TenantId = 1;
-            UsingDbContext(context =>
+            this.AbpSession.TenantId = 1;
+            this.UsingDbContext(context =>
             {
                 NormalizeDbContext(context);
                 new TenantRoleAndUserBuilder(context, 1).Create();
             });
 
-            LoginAsDefaultTenantAdmin();
+            this.LoginAsDefaultTenantAdmin();
         }
 
         #region UsingDbContext
 
         protected IDisposable UsingTenantId(int? tenantId)
         {
-            var previousTenantId = AbpSession.TenantId;
-            AbpSession.TenantId = tenantId;
-            return new DisposeAction(() => AbpSession.TenantId = previousTenantId);
+            var previousTenantId = this.AbpSession.TenantId;
+            this.AbpSession.TenantId = tenantId;
+            return new DisposeAction(() => this.AbpSession.TenantId = previousTenantId);
         }
 
         protected void UsingDbContext(Action<AcmStatisticsAbpDbContext> action)
         {
-            UsingDbContext(AbpSession.TenantId, action);
+            this.UsingDbContext(this.AbpSession.TenantId, action);
         }
 
         protected Task UsingDbContextAsync(Func<AcmStatisticsAbpDbContext, Task> action)
         {
-            return UsingDbContextAsync(AbpSession.TenantId, action);
+            return this.UsingDbContextAsync(this.AbpSession.TenantId, action);
         }
 
         protected T UsingDbContext<T>(Func<AcmStatisticsAbpDbContext, T> func)
         {
-            return UsingDbContext(AbpSession.TenantId, func);
+            return this.UsingDbContext(this.AbpSession.TenantId, func);
         }
 
         protected Task<T> UsingDbContextAsync<T>(Func<AcmStatisticsAbpDbContext, Task<T>> func)
         {
-            return UsingDbContextAsync(AbpSession.TenantId, func);
+            return this.UsingDbContextAsync(this.AbpSession.TenantId, func);
         }
 
         protected void UsingDbContext(int? tenantId, Action<AcmStatisticsAbpDbContext> action)
         {
-            using (UsingTenantId(tenantId))
+            using (this.UsingTenantId(tenantId))
             {
-                using (var context = LocalIocManager.Resolve<AcmStatisticsAbpDbContext>())
+                using (var context = this.LocalIocManager.Resolve<AcmStatisticsAbpDbContext>())
                 {
                     action(context);
                     context.SaveChanges();
@@ -95,9 +95,9 @@ namespace AcmStatisticsAbp.Tests
 
         protected async Task UsingDbContextAsync(int? tenantId, Func<AcmStatisticsAbpDbContext, Task> action)
         {
-            using (UsingTenantId(tenantId))
+            using (this.UsingTenantId(tenantId))
             {
-                using (var context = LocalIocManager.Resolve<AcmStatisticsAbpDbContext>())
+                using (var context = this.LocalIocManager.Resolve<AcmStatisticsAbpDbContext>())
                 {
                     await action(context);
                     await context.SaveChangesAsync();
@@ -109,9 +109,9 @@ namespace AcmStatisticsAbp.Tests
         {
             T result;
 
-            using (UsingTenantId(tenantId))
+            using (this.UsingTenantId(tenantId))
             {
-                using (var context = LocalIocManager.Resolve<AcmStatisticsAbpDbContext>())
+                using (var context = this.LocalIocManager.Resolve<AcmStatisticsAbpDbContext>())
                 {
                     result = func(context);
                     context.SaveChanges();
@@ -125,9 +125,9 @@ namespace AcmStatisticsAbp.Tests
         {
             T result;
 
-            using (UsingTenantId(tenantId))
+            using (this.UsingTenantId(tenantId))
             {
-                using (var context = LocalIocManager.Resolve<AcmStatisticsAbpDbContext>())
+                using (var context = this.LocalIocManager.Resolve<AcmStatisticsAbpDbContext>())
                 {
                     result = await func(context);
                     await context.SaveChangesAsync();
@@ -143,50 +143,50 @@ namespace AcmStatisticsAbp.Tests
 
         protected void LoginAsHostAdmin()
         {
-            LoginAsHost(AbpUserBase.AdminUserName);
+            this.LoginAsHost(AbpUserBase.AdminUserName);
         }
 
         protected void LoginAsDefaultTenantAdmin()
         {
-            LoginAsTenant(AbpTenantBase.DefaultTenantName, AbpUserBase.AdminUserName);
+            this.LoginAsTenant(AbpTenantBase.DefaultTenantName, AbpUserBase.AdminUserName);
         }
 
         protected void LoginAsHost(string userName)
         {
-            AbpSession.TenantId = null;
+            this.AbpSession.TenantId = null;
 
             var user =
-                UsingDbContext(
+                this.UsingDbContext(
                     context =>
-                        context.Users.FirstOrDefault(u => u.TenantId == AbpSession.TenantId && u.UserName == userName));
+                        context.Users.FirstOrDefault(u => u.TenantId == this.AbpSession.TenantId && u.UserName == userName));
             if (user == null)
             {
                 throw new Exception("There is no user: " + userName + " for host.");
             }
 
-            AbpSession.UserId = user.Id;
+            this.AbpSession.UserId = user.Id;
         }
 
         protected void LoginAsTenant(string tenancyName, string userName)
         {
-            var tenant = UsingDbContext(context => context.Tenants.FirstOrDefault(t => t.TenancyName == tenancyName));
+            var tenant = this.UsingDbContext(context => context.Tenants.FirstOrDefault(t => t.TenancyName == tenancyName));
             if (tenant == null)
             {
                 throw new Exception("There is no tenant: " + tenancyName);
             }
 
-            AbpSession.TenantId = tenant.Id;
+            this.AbpSession.TenantId = tenant.Id;
 
             var user =
-                UsingDbContext(
+                this.UsingDbContext(
                     context =>
-                        context.Users.FirstOrDefault(u => u.TenantId == AbpSession.TenantId && u.UserName == userName));
+                        context.Users.FirstOrDefault(u => u.TenantId == this.AbpSession.TenantId && u.UserName == userName));
             if (user == null)
             {
                 throw new Exception("There is no user: " + userName + " for tenant: " + tenancyName);
             }
 
-            AbpSession.UserId = user.Id;
+            this.AbpSession.UserId = user.Id;
         }
 
         #endregion
@@ -197,8 +197,8 @@ namespace AcmStatisticsAbp.Tests
         /// </summary>
         protected async Task<User> GetCurrentUserAsync()
         {
-            var userId = AbpSession.GetUserId();
-            return await UsingDbContext(context => context.Users.SingleAsync(u => u.Id == userId));
+            var userId = this.AbpSession.GetUserId();
+            return await this.UsingDbContext(context => context.Users.SingleAsync(u => u.Id == userId));
         }
 
         /// <summary>
@@ -207,8 +207,8 @@ namespace AcmStatisticsAbp.Tests
         /// </summary>
         protected async Task<Tenant> GetCurrentTenantAsync()
         {
-            var tenantId = AbpSession.GetTenantId();
-            return await UsingDbContext(context => context.Tenants.SingleAsync(t => t.Id == tenantId));
+            var tenantId = this.AbpSession.GetTenantId();
+            return await this.UsingDbContext(context => context.Tenants.SingleAsync(t => t.Id == tenantId));
         }
     }
 }

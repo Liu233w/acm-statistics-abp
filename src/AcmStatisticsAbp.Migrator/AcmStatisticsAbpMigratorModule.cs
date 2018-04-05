@@ -22,21 +22,21 @@ namespace AcmStatisticsAbp.Migrator
         {
             abpProjectNameEntityFrameworkModule.SkipDbSeed = true;
 
-            _appConfiguration = AppConfigurations.Get(
+            this._appConfiguration = AppConfigurations.Get(
                 typeof(AcmStatisticsAbpMigratorModule).GetAssembly().GetDirectoryPathOrNull()
             );
         }
 
         public override void PreInitialize()
         {
-            Configuration.DefaultNameOrConnectionString = _appConfiguration.GetConnectionString(
+            this.Configuration.DefaultNameOrConnectionString = this._appConfiguration.GetConnectionString(
                 AcmStatisticsAbpConsts.ConnectionStringName
             );
 
-            Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
-            Configuration.ReplaceService(
+            this.Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
+            this.Configuration.ReplaceService(
                 typeof(IEventBus), 
-                () => IocManager.IocContainer.Register(
+                () => this.IocManager.IocContainer.Register(
                     Component.For<IEventBus>().Instance(NullEventBus.Instance)
                 )
             );
@@ -44,8 +44,8 @@ namespace AcmStatisticsAbp.Migrator
 
         public override void Initialize()
         {
-            IocManager.RegisterAssemblyByConvention(typeof(AcmStatisticsAbpMigratorModule).GetAssembly());
-            ServiceCollectionRegistrar.Register(IocManager);
+            this.IocManager.RegisterAssemblyByConvention(typeof(AcmStatisticsAbpMigratorModule).GetAssembly());
+            ServiceCollectionRegistrar.Register(this.IocManager);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace AcmStatisticsAbp.Tests
         {
             if (!AcmStatisticsAbpConsts.MultiTenancyEnabled)
             {
-                Skip = "MultiTenancy is disabled.";
+                this.Skip = "MultiTenancy is disabled.";
             }
         }
     }

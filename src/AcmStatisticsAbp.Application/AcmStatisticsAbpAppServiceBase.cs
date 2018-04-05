@@ -24,12 +24,12 @@ namespace AcmStatisticsAbp
 
         protected AcmStatisticsAbpAppServiceBase()
         {
-            LocalizationSourceName = AcmStatisticsAbpConsts.LocalizationSourceName;
+            this.LocalizationSourceName = AcmStatisticsAbpConsts.LocalizationSourceName;
         }
 
         protected virtual Task<User> GetCurrentUserAsync()
         {
-            var user = UserManager.FindByIdAsync(AbpSession.GetUserId().ToString());
+            var user = this.UserManager.FindByIdAsync(this.AbpSession.GetUserId().ToString());
             if (user == null)
             {
                 throw new Exception("There is no current user!");
@@ -40,12 +40,12 @@ namespace AcmStatisticsAbp
 
         protected virtual Task<Tenant> GetCurrentTenantAsync()
         {
-            return TenantManager.GetByIdAsync(AbpSession.GetTenantId());
+            return this.TenantManager.GetByIdAsync(this.AbpSession.GetTenantId());
         }
 
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
-            identityResult.CheckErrors(LocalizationManager);
+            identityResult.CheckErrors(this.LocalizationManager);
         }
     }
 }

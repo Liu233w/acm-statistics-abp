@@ -36,31 +36,31 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
         public DefaultLanguagesCreator(AcmStatisticsAbpDbContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         public void Create()
         {
-            CreateLanguages();
+            this.CreateLanguages();
         }
 
         private void CreateLanguages()
         {
             foreach (var language in InitialLanguages)
             {
-                AddLanguageIfNotExists(language);
+                this.AddLanguageIfNotExists(language);
             }
         }
 
         private void AddLanguageIfNotExists(ApplicationLanguage language)
         {
-            if (_context.Languages.IgnoreQueryFilters().Any(l => l.TenantId == language.TenantId && l.Name == language.Name))
+            if (this._context.Languages.IgnoreQueryFilters().Any(l => l.TenantId == language.TenantId && l.Name == language.Name))
             {
                 return;
             }
 
-            _context.Languages.Add(language);
-            _context.SaveChanges();
+            this._context.Languages.Add(language);
+            this._context.SaveChanges();
         }
     }
 }

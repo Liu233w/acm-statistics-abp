@@ -11,8 +11,8 @@ namespace AcmStatisticsAbp.Configuration.Ui
 
         public UiThemeInfo(string name, string cssClass)
         {
-            Name = name;
-            CssClass = cssClass;
+            this.Name = name;
+            this.CssClass = cssClass;
         }
     }
 }

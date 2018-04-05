@@ -17,12 +17,12 @@ namespace AcmStatisticsAbp.Authorization.Accounts
         public AccountAppService(
             UserRegistrationManager userRegistrationManager)
         {
-            _userRegistrationManager = userRegistrationManager;
+            this._userRegistrationManager = userRegistrationManager;
         }
 
         public async Task<IsTenantAvailableOutput> IsTenantAvailable(IsTenantAvailableInput input)
         {
-            var tenant = await TenantManager.FindByTenancyNameAsync(input.TenancyName);
+            var tenant = await this.TenantManager.FindByTenancyNameAsync(input.TenancyName);
             if (tenant == null)
             {
                 return new IsTenantAvailableOutput(TenantAvailabilityState.NotFound);
@@ -38,7 +38,7 @@ namespace AcmStatisticsAbp.Authorization.Accounts
 
         public async Task<RegisterOutput> Register(RegisterInput input)
         {
-            var user = await _userRegistrationManager.RegisterAsync(
+            var user = await this._userRegistrationManager.RegisterAsync(
                 input.Name,
                 input.Surname,
                 input.EmailAddress,
@@ -47,7 +47,7 @@ namespace AcmStatisticsAbp.Authorization.Accounts
                 true // Assumed email address is always confirmed. Change this if you want to implement email confirmation.
             );
 
-            var isEmailConfirmationRequiredForLogin = await SettingManager.GetSettingValueAsync<bool>(AbpZeroSettingNames.UserManagement.IsEmailConfirmationRequiredForLogin);
+            var isEmailConfirmationRequiredForLogin = await this.SettingManager.GetSettingValueAsync<bool>(AbpZeroSettingNames.UserManagement.IsEmailConfirmationRequiredForLogin);
 
             return new RegisterOutput
             {

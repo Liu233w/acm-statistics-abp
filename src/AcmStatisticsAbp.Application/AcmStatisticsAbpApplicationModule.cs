@@ -16,16 +16,16 @@ namespace AcmStatisticsAbp
     {
         public override void PreInitialize()
         {
-            Configuration.Authorization.Providers.Add<AcmStatisticsAbpAuthorizationProvider>();
+            this.Configuration.Authorization.Providers.Add<AcmStatisticsAbpAuthorizationProvider>();
         }
 
         public override void Initialize()
         {
             var thisAssembly = typeof(AcmStatisticsAbpApplicationModule).GetAssembly();
 
-            IocManager.RegisterAssemblyByConvention(thisAssembly);
+            this.IocManager.RegisterAssemblyByConvention(thisAssembly);
 
-            Configuration.Modules.AbpAutoMapper().Configurators.Add(
+            this.Configuration.Modules.AbpAutoMapper().Configurators.Add(
                 // Scan the assembly for classes which inherit from AutoMapper.Profile
                 cfg => cfg.AddProfiles(thisAssembly)
             );

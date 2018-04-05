@@ -18,14 +18,14 @@ namespace AcmStatisticsAbp.Tests.Users
 
         public UserAppService_Tests()
         {
-            _userAppService = Resolve<IUserAppService>();
+            this._userAppService = this.Resolve<IUserAppService>();
         }
 
         [Fact]
         public async Task GetUsers_Test()
         {
             // Act
-            var output = await _userAppService.GetAll(new PagedResultRequestDto{MaxResultCount=20, SkipCount=0} );
+            var output = await this._userAppService.GetAll(new PagedResultRequestDto{MaxResultCount=20, SkipCount=0} );
 
             // Assert
             output.Items.Count.ShouldBeGreaterThan(0);
@@ -35,7 +35,7 @@ namespace AcmStatisticsAbp.Tests.Users
         public async Task CreateUser_Test()
         {
             // Act
-            await _userAppService.Create(
+            await this._userAppService.Create(
                 new CreateUserDto
                 {
                     EmailAddress = "john@volosoft.com",
@@ -46,7 +46,7 @@ namespace AcmStatisticsAbp.Tests.Users
                     UserName = "john.nash"
                 });
 
-            await UsingDbContextAsync(async context =>
+            await this.UsingDbContextAsync(async context =>
             {
                 var johnNashUser = await context.Users.FirstOrDefaultAsync(u => u.UserName == "john.nash");
                 johnNashUser.ShouldNotBeNull();

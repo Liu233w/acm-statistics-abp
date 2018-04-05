@@ -38,68 +38,68 @@ namespace AcmStatisticsAbp.Users
             IPasswordHasher<User> passwordHasher)
             : base(repository)
         {
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _roleRepository = roleRepository;
-            _passwordHasher = passwordHasher;
+            this._userManager = userManager;
+            this._roleManager = roleManager;
+            this._roleRepository = roleRepository;
+            this._passwordHasher = passwordHasher;
         }
 
         public override async Task<UserDto> Create(CreateUserDto input)
         {
-            CheckCreatePermission();
+            this.CheckCreatePermission();
 
-            var user = ObjectMapper.Map<User>(input);
+            var user = this.ObjectMapper.Map<User>(input);
 
-            user.TenantId = AbpSession.TenantId;
-            user.Password = _passwordHasher.HashPassword(user, input.Password);
+            user.TenantId = this.AbpSession.TenantId;
+            user.Password = this._passwordHasher.HashPassword(user, input.Password);
             user.IsEmailConfirmed = true;
 
-            CheckErrors(await _userManager.CreateAsync(user));
+            this.CheckErrors(await this._userManager.CreateAsync(user));
 
             if (input.RoleNames != null)
             {
-                CheckErrors(await _userManager.SetRoles(user, input.RoleNames));
+                this.CheckErrors(await this._userManager.SetRoles(user, input.RoleNames));
             }
 
-            CurrentUnitOfWork.SaveChanges();
+            this.CurrentUnitOfWork.SaveChanges();
 
-            return MapToEntityDto(user);
+            return this.MapToEntityDto(user);
         }
 
         public override async Task<UserDto> Update(UserDto input)
         {
-            CheckUpdatePermission();
+            this.CheckUpdatePermission();
 
-            var user = await _userManager.GetUserByIdAsync(input.Id);
+            var user = await this._userManager.GetUserByIdAsync(input.Id);
 
-            MapToEntity(input, user);
+            this.MapToEntity(input, user);
 
-            CheckErrors(await _userManager.UpdateAsync(user));
+            this.CheckErrors(await this._userManager.UpdateAsync(user));
 
             if (input.RoleNames != null)
             {
-                CheckErrors(await _userManager.SetRoles(user, input.RoleNames));
+                this.CheckErrors(await this._userManager.SetRoles(user, input.RoleNames));
             }
 
-            return await Get(input);
+            return await this.Get(input);
         }
 
         public override async Task Delete(EntityDto<long> input)
         {
-            var user = await _userManager.GetUserByIdAsync(input.Id);
-            await _userManager.DeleteAsync(user);
+            var user = await this._userManager.GetUserByIdAsync(input.Id);
+            await this._userManager.DeleteAsync(user);
         }
 
         public async Task<ListResultDto<RoleDto>> GetRoles()
         {
-            var roles = await _roleRepository.GetAllListAsync();
-            return new ListResultDto<RoleDto>(ObjectMapper.Map<List<RoleDto>>(roles));
+            var roles = await this._roleRepository.GetAllListAsync();
+            return new ListResultDto<RoleDto>(this.ObjectMapper.Map<List<RoleDto>>(roles));
         }
 
         public async Task ChangeLanguage(ChangeUserLanguageDto input)
         {
-            await SettingManager.ChangeSettingForUserAsync(
-                AbpSession.ToUserIdentifier(),
+            await this.SettingManager.ChangeSettingForUserAsync(
+                this.AbpSession.ToUserIdentifier(),
                 LocalizationSettingNames.DefaultLanguage,
                 input.LanguageName
             );
@@ -107,20 +107,20 @@ namespace AcmStatisticsAbp.Users
 
         protected override User MapToEntity(CreateUserDto createInput)
         {
-            var user = ObjectMapper.Map<User>(createInput);
+            var user = this.ObjectMapper.Map<User>(createInput);
             user.SetNormalizedNames();
             return user;
         }
 
         protected override void MapToEntity(UserDto input, User user)
         {
-            ObjectMapper.Map(input, user);
+            this.ObjectMapper.Map(input, user);
             user.SetNormalizedNames();
         }
 
         protected override UserDto MapToEntityDto(User user)
         {
-            var roles = _roleManager.Roles.Where(r => user.Roles.Any(ur => ur.RoleId == r.Id)).Select(r => r.NormalizedName);
+            var roles = this._roleManager.Roles.Where(r => user.Roles.Any(ur => ur.RoleId == r.Id)).Select(r => r.NormalizedName);
             var userDto = base.MapToEntityDto(user);
             userDto.RoleNames = roles.ToArray();
             return userDto;
@@ -128,12 +128,12 @@ namespace AcmStatisticsAbp.Users
 
         protected override IQueryable<User> CreateFilteredQuery(PagedResultRequestDto input)
         {
-            return Repository.GetAllIncluding(x => x.Roles);
+            return this.Repository.GetAllIncluding(x => x.Roles);
         }
 
         protected override async Task<User> GetEntityByIdAsync(long id)
         {
-            return await Repository.GetAllIncluding(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
+            return await this.Repository.GetAllIncluding(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         protected override IQueryable<User> ApplySorting(IQueryable<User> query, PagedResultRequestDto input)
@@ -143,7 +143,7 @@ namespace AcmStatisticsAbp.Users
 
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
-            identityResult.CheckErrors(LocalizationManager);
+            identityResult.CheckErrors(this.LocalizationManager);
         }
     }
 }

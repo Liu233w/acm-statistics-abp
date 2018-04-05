@@ -33,30 +33,30 @@ namespace AcmStatisticsAbp.Tests
 
         public override void PreInitialize()
         {
-            Configuration.UnitOfWork.Timeout = TimeSpan.FromMinutes(30);
-            Configuration.UnitOfWork.IsTransactional = false;
+            this.Configuration.UnitOfWork.Timeout = TimeSpan.FromMinutes(30);
+            this.Configuration.UnitOfWork.IsTransactional = false;
 
             // Disable static mapper usage since it breaks unit tests (see https://github.com/aspnetboilerplate/aspnetboilerplate/issues/2052)
-            Configuration.Modules.AbpAutoMapper().UseStaticMapper = false;
+            this.Configuration.Modules.AbpAutoMapper().UseStaticMapper = false;
 
-            Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
+            this.Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
 
             // Use database for language management
-            Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
+            this.Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
 
-            RegisterFakeService<AbpZeroDbMigrator<AcmStatisticsAbpDbContext>>();
+            this.RegisterFakeService<AbpZeroDbMigrator<AcmStatisticsAbpDbContext>>();
 
-            Configuration.ReplaceService<IEmailSender, NullEmailSender>(DependencyLifeStyle.Transient);
+            this.Configuration.ReplaceService<IEmailSender, NullEmailSender>(DependencyLifeStyle.Transient);
         }
 
         public override void Initialize()
         {
-            ServiceCollectionRegistrar.Register(IocManager);
+            ServiceCollectionRegistrar.Register(this.IocManager);
         }
 
         private void RegisterFakeService<TService>() where TService : class
         {
-            IocManager.IocContainer.Register(
+            this.IocManager.IocContainer.Register(
                 Component.For<TService>()
                     .UsingFactoryMethod(() => Substitute.For<TService>())
                     .LifestyleSingleton()

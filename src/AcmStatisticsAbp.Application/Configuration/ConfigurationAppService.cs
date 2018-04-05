@@ -14,7 +14,7 @@ namespace AcmStatisticsAbp.Configuration
     {
         public async Task ChangeUiTheme(ChangeUiThemeInput input)
         {
-            await SettingManager.ChangeSettingForUserAsync(AbpSession.ToUserIdentifier(), AppSettingNames.UiTheme, input.Theme);
+            await this.SettingManager.ChangeSettingForUserAsync(this.AbpSession.ToUserIdentifier(), AppSettingNames.UiTheme, input.Theme);
         }
     }
 }

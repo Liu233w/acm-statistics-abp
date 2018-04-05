@@ -12,12 +12,12 @@ namespace AcmStatisticsAbp.Controllers
     {
         protected AcmStatisticsAbpControllerBase()
         {
-            LocalizationSourceName = AcmStatisticsAbpConsts.LocalizationSourceName;
+            this.LocalizationSourceName = AcmStatisticsAbpConsts.LocalizationSourceName;
         }
 
         protected void CheckErrors(IdentityResult identityResult)
         {
-            identityResult.CheckErrors(LocalizationManager);
+            identityResult.CheckErrors(this.LocalizationManager);
         }
     }
 }

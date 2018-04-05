@@ -13,12 +13,12 @@ namespace AcmStatisticsAbp.Web.Host.Controllers
 
         public AntiForgeryController(IAntiforgery antiforgery)
         {
-            _antiforgery = antiforgery;
+            this._antiforgery = antiforgery;
         }
 
         public void GetToken()
         {
-            _antiforgery.SetCookieTokenAndHeader(HttpContext);
+            this._antiforgery.SetCookieTokenAndHeader(this.HttpContext);
         }
     }
 }
