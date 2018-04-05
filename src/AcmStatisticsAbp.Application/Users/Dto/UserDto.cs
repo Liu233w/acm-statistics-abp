@@ -1,12 +1,12 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using Abp.Application.Services.Dto;
-using Abp.Authorization.Users;
-using Abp.AutoMapper;
-using AcmStatisticsAbp.Authorization.Users;
-
 namespace AcmStatisticsAbp.Users.Dto
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using Abp.Application.Services.Dto;
+    using Abp.Authorization.Users;
+    using Abp.AutoMapper;
+    using AcmStatisticsAbp.Authorization.Users;
+
     [AutoMapFrom(typeof(User))]
     public class UserDto : EntityDto<long>
     {

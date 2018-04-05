@@ -1,22 +1,22 @@
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Abp.Application.Services;
-using Abp.Application.Services.Dto;
-using Abp.Authorization;
-using Abp.Domain.Repositories;
-using Abp.Extensions;
-using Abp.IdentityFramework;
-using Abp.MultiTenancy;
-using Abp.Runtime.Security;
-using AcmStatisticsAbp.Authorization;
-using AcmStatisticsAbp.Authorization.Roles;
-using AcmStatisticsAbp.Authorization.Users;
-using AcmStatisticsAbp.Editions;
-using AcmStatisticsAbp.MultiTenancy.Dto;
-
 namespace AcmStatisticsAbp.MultiTenancy
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Abp.Application.Services;
+    using Abp.Application.Services.Dto;
+    using Abp.Authorization;
+    using Abp.Domain.Repositories;
+    using Abp.Extensions;
+    using Abp.IdentityFramework;
+    using Abp.MultiTenancy;
+    using Abp.Runtime.Security;
+    using AcmStatisticsAbp.Authorization;
+    using AcmStatisticsAbp.Authorization.Roles;
+    using AcmStatisticsAbp.Authorization.Users;
+    using AcmStatisticsAbp.Editions;
+    using AcmStatisticsAbp.MultiTenancy.Dto;
+    using Microsoft.AspNetCore.Identity;
+
     [AbpAuthorize(PermissionNames.Pages_Tenants)]
     public class TenantAppService : AsyncCrudAppService<Tenant, TenantDto, int, PagedResultRequestDto, CreateTenantDto, TenantDto>, ITenantAppService
     {

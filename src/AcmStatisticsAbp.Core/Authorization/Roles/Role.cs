@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Abp.Authorization.Roles;
-using AcmStatisticsAbp.Authorization.Users;
-
-namespace AcmStatisticsAbp.Authorization.Roles
+﻿namespace AcmStatisticsAbp.Authorization.Roles
 {
+    using System.ComponentModel.DataAnnotations;
+    using Abp.Authorization.Roles;
+    using AcmStatisticsAbp.Authorization.Users;
+
     public class Role : AbpRole<User>
     {
         public const int MaxDescriptionLength = 5000;

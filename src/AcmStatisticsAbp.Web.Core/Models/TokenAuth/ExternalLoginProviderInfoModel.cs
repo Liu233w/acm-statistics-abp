@@ -1,8 +1,8 @@
-﻿using Abp.AutoMapper;
-using AcmStatisticsAbp.Authentication.External;
-
-namespace AcmStatisticsAbp.Models.TokenAuth
+﻿namespace AcmStatisticsAbp.Models.TokenAuth
 {
+    using Abp.AutoMapper;
+    using AcmStatisticsAbp.Authentication.External;
+
     [AutoMapFrom(typeof(ExternalLoginProviderInfo))]
     public class ExternalLoginProviderInfoModel
     {

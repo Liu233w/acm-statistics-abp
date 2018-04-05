@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Abp.Authorization.Roles;
-using Abp.AutoMapper;
-using AcmStatisticsAbp.Authorization.Roles;
-
 namespace AcmStatisticsAbp.Roles.Dto
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using Abp.Authorization.Roles;
+    using Abp.AutoMapper;
+    using AcmStatisticsAbp.Authorization.Roles;
+
     [AutoMapTo(typeof(Role))]
     public class CreateRoleDto
     {

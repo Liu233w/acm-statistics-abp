@@ -1,11 +1,11 @@
-﻿using System;
-using Abp;
-using Abp.Authorization;
-using Abp.Dependency;
-using Abp.UI;
-
-namespace AcmStatisticsAbp.Authorization
+﻿namespace AcmStatisticsAbp.Authorization
 {
+    using System;
+    using Abp;
+    using Abp.Authorization;
+    using Abp.Dependency;
+    using Abp.UI;
+
     public class AbpLoginResultTypeHelper : AbpServiceBase, ITransientDependency
     {
         public AbpLoginResultTypeHelper()

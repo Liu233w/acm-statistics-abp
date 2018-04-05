@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Abp.Authorization;
-using Abp.Authorization.Users;
-using Abp.MultiTenancy;
-using Abp.Runtime.Security;
-using Abp.UI;
-using AcmStatisticsAbp.Authentication.External;
-using AcmStatisticsAbp.Authentication.JwtBearer;
-using AcmStatisticsAbp.Authorization;
-using AcmStatisticsAbp.Authorization.Users;
-using AcmStatisticsAbp.Models.TokenAuth;
-using AcmStatisticsAbp.MultiTenancy;
-
-namespace AcmStatisticsAbp.Controllers
+﻿namespace AcmStatisticsAbp.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using Abp.Authorization;
+    using Abp.Authorization.Users;
+    using Abp.MultiTenancy;
+    using Abp.Runtime.Security;
+    using Abp.UI;
+    using AcmStatisticsAbp.Authentication.External;
+    using AcmStatisticsAbp.Authentication.JwtBearer;
+    using AcmStatisticsAbp.Authorization;
+    using AcmStatisticsAbp.Authorization.Users;
+    using AcmStatisticsAbp.Models.TokenAuth;
+    using AcmStatisticsAbp.MultiTenancy;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+
     [Route("api/[controller]/[action]")]
     public class TokenAuthController : AcmStatisticsAbpControllerBase
     {

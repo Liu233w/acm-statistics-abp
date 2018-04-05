@@ -1,7 +1,7 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace AcmStatisticsAbp.Users.Dto
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class ChangeUserLanguageDto
     {
         [Required]

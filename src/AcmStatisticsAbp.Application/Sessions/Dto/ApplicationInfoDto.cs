@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AcmStatisticsAbp.Sessions.Dto
+﻿namespace AcmStatisticsAbp.Sessions.Dto
 {
+    using System;
+    using System.Collections.Generic;
+
     public class ApplicationInfoDto
     {
         public string Version { get; set; }

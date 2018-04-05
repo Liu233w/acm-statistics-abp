@@ -1,10 +1,10 @@
-using System.ComponentModel.DataAnnotations;
-using Abp.Application.Services.Dto;
-using Abp.AutoMapper;
-using Abp.MultiTenancy;
-
 namespace AcmStatisticsAbp.MultiTenancy.Dto
 {
+    using System.ComponentModel.DataAnnotations;
+    using Abp.Application.Services.Dto;
+    using Abp.AutoMapper;
+    using Abp.MultiTenancy;
+
     [AutoMapFrom(typeof(Tenant))]
     public class TenantDto : EntityDto
     {

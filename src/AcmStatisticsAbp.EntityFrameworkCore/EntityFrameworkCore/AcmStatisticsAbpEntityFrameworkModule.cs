@@ -1,11 +1,11 @@
-﻿using Abp.EntityFrameworkCore.Configuration;
-using Abp.Modules;
-using Abp.Reflection.Extensions;
-using Abp.Zero.EntityFrameworkCore;
-using AcmStatisticsAbp.EntityFrameworkCore.Seed;
-
-namespace AcmStatisticsAbp.EntityFrameworkCore
+﻿namespace AcmStatisticsAbp.EntityFrameworkCore
 {
+    using Abp.EntityFrameworkCore.Configuration;
+    using Abp.Modules;
+    using Abp.Reflection.Extensions;
+    using Abp.Zero.EntityFrameworkCore;
+    using AcmStatisticsAbp.EntityFrameworkCore.Seed;
+
     [DependsOn(
         typeof(AcmStatisticsAbpCoreModule), 
         typeof(AbpZeroCoreEntityFrameworkCoreModule))]

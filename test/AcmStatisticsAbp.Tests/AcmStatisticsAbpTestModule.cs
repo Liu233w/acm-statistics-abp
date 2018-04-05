@@ -1,19 +1,19 @@
-using System;
-using Castle.MicroKernel.Registration;
-using NSubstitute;
-using Abp.AutoMapper;
-using Abp.Dependency;
-using Abp.Modules;
-using Abp.Configuration.Startup;
-using Abp.Net.Mail;
-using Abp.TestBase;
-using Abp.Zero.Configuration;
-using Abp.Zero.EntityFrameworkCore;
-using AcmStatisticsAbp.EntityFrameworkCore;
-using AcmStatisticsAbp.Tests.DependencyInjection;
-
 namespace AcmStatisticsAbp.Tests
 {
+    using System;
+    using Abp.AutoMapper;
+    using Abp.Configuration.Startup;
+    using Abp.Dependency;
+    using Abp.Modules;
+    using Abp.Net.Mail;
+    using Abp.TestBase;
+    using Abp.Zero.Configuration;
+    using Abp.Zero.EntityFrameworkCore;
+    using AcmStatisticsAbp.EntityFrameworkCore;
+    using AcmStatisticsAbp.Tests.DependencyInjection;
+    using Castle.MicroKernel.Registration;
+    using NSubstitute;
+
     [DependsOn(
         typeof(AcmStatisticsAbpApplicationModule),
         typeof(AcmStatisticsAbpEntityFrameworkModule),

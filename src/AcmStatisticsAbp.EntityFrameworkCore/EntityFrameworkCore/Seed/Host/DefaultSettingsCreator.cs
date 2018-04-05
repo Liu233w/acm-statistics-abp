@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Abp.Configuration;
-using Abp.Localization;
-using Abp.Net.Mail;
-
-namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
+﻿namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 {
+    using System.Linq;
+    using Abp.Configuration;
+    using Abp.Localization;
+    using Abp.Net.Mail;
+    using Microsoft.EntityFrameworkCore;
+
     public class DefaultSettingsCreator
     {
         private readonly AcmStatisticsAbpDbContext _context;

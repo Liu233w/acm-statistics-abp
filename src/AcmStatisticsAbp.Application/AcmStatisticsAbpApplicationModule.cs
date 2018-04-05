@@ -1,10 +1,10 @@
-﻿using Abp.AutoMapper;
-using Abp.Modules;
-using Abp.Reflection.Extensions;
-using AcmStatisticsAbp.Authorization;
-
-namespace AcmStatisticsAbp
+﻿namespace AcmStatisticsAbp
 {
+    using Abp.AutoMapper;
+    using Abp.Modules;
+    using Abp.Reflection.Extensions;
+    using AcmStatisticsAbp.Authorization;
+
     [DependsOn(
         typeof(AcmStatisticsAbpCoreModule), 
         typeof(AbpAutoMapperModule))]

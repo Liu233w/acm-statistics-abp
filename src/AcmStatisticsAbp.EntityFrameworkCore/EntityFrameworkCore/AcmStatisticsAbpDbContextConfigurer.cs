@@ -1,8 +1,8 @@
-using System.Data.Common;
-using Microsoft.EntityFrameworkCore;
-
 namespace AcmStatisticsAbp.EntityFrameworkCore
 {
+    using System.Data.Common;
+    using Microsoft.EntityFrameworkCore;
+
     public static class AcmStatisticsAbpDbContextConfigurer
     {
         public static void Configure(DbContextOptionsBuilder<AcmStatisticsAbpDbContext> builder, string connectionString)

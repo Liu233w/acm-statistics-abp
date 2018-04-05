@@ -1,22 +1,22 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Abp;
-using Abp.Authorization.Users;
-using Abp.Events.Bus;
-using Abp.Events.Bus.Entities;
-using Abp.MultiTenancy;
-using Abp.Runtime.Session;
-using Abp.TestBase;
-using AcmStatisticsAbp.Authorization.Users;
-using AcmStatisticsAbp.EntityFrameworkCore;
-using AcmStatisticsAbp.EntityFrameworkCore.Seed.Host;
-using AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants;
-using AcmStatisticsAbp.MultiTenancy;
-
-namespace AcmStatisticsAbp.Tests
+﻿namespace AcmStatisticsAbp.Tests
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Abp;
+    using Abp.Authorization.Users;
+    using Abp.Events.Bus;
+    using Abp.Events.Bus.Entities;
+    using Abp.MultiTenancy;
+    using Abp.Runtime.Session;
+    using Abp.TestBase;
+    using AcmStatisticsAbp.Authorization.Users;
+    using AcmStatisticsAbp.EntityFrameworkCore;
+    using AcmStatisticsAbp.EntityFrameworkCore.Seed.Host;
+    using AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants;
+    using AcmStatisticsAbp.MultiTenancy;
+    using Microsoft.EntityFrameworkCore;
+
     public abstract class AcmStatisticsAbpTestBase : AbpIntegratedTestBase<AcmStatisticsAbpTestModule>
     {
         protected AcmStatisticsAbpTestBase()

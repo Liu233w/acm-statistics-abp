@@ -1,19 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using Abp.Data;
-using Abp.Dependency;
-using Abp.Domain.Repositories;
-using Abp.Domain.Uow;
-using Abp.Extensions;
-using Abp.MultiTenancy;
-using Abp.Runtime.Security;
-using AcmStatisticsAbp.EntityFrameworkCore;
-using AcmStatisticsAbp.EntityFrameworkCore.Seed;
-using AcmStatisticsAbp.MultiTenancy;
-
 namespace AcmStatisticsAbp.Migrator
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Common;
+    using Abp.Data;
+    using Abp.Dependency;
+    using Abp.Domain.Repositories;
+    using Abp.Domain.Uow;
+    using Abp.Extensions;
+    using Abp.MultiTenancy;
+    using Abp.Runtime.Security;
+    using AcmStatisticsAbp.EntityFrameworkCore;
+    using AcmStatisticsAbp.EntityFrameworkCore.Seed;
+    using AcmStatisticsAbp.MultiTenancy;
+
     public class MultiTenantMigrateExecuter : ITransientDependency
     {
         private readonly Log _log;

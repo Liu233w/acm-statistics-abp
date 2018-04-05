@@ -1,9 +1,9 @@
-﻿using Abp.Application.Services.Dto;
-using Abp.AutoMapper;
-using AcmStatisticsAbp.Authorization.Users;
-
-namespace AcmStatisticsAbp.Sessions.Dto
+﻿namespace AcmStatisticsAbp.Sessions.Dto
 {
+    using Abp.Application.Services.Dto;
+    using Abp.AutoMapper;
+    using AcmStatisticsAbp.Authorization.Users;
+
     [AutoMapFrom(typeof(User))]
     public class UserLoginInfoDto : EntityDto<long>
     {

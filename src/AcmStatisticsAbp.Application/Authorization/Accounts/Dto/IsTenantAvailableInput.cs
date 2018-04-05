@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Abp.MultiTenancy;
-
-namespace AcmStatisticsAbp.Authorization.Accounts.Dto
+﻿namespace AcmStatisticsAbp.Authorization.Accounts.Dto
 {
+    using System.ComponentModel.DataAnnotations;
+    using Abp.MultiTenancy;
+
     public class IsTenantAvailableInput
     {
         [Required]

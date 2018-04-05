@@ -1,11 +1,11 @@
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Abp.Application.Editions;
-using Abp.Application.Features;
-using AcmStatisticsAbp.Editions;
-
 namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 {
+    using System.Linq;
+    using Abp.Application.Editions;
+    using Abp.Application.Features;
+    using AcmStatisticsAbp.Editions;
+    using Microsoft.EntityFrameworkCore;
+
     public class DefaultEditionCreator
     {
         private readonly AcmStatisticsAbpDbContext _context;

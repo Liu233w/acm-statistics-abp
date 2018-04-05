@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Abp.Authorization.Users;
-
-namespace AcmStatisticsAbp.Models.TokenAuth
+﻿namespace AcmStatisticsAbp.Models.TokenAuth
 {
+    using System.ComponentModel.DataAnnotations;
+    using Abp.Authorization.Users;
+
     public class ExternalAuthenticateModel
     {
         [Required]

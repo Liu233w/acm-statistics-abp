@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Abp.Modules;
-using Abp.Reflection.Extensions;
-using AcmStatisticsAbp.Configuration;
-
-namespace AcmStatisticsAbp.Web.Host.Startup
+﻿namespace AcmStatisticsAbp.Web.Host.Startup
 {
+    using Abp.Modules;
+    using Abp.Reflection.Extensions;
+    using AcmStatisticsAbp.Configuration;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+
     [DependsOn(
        typeof(AcmStatisticsAbpWebCoreModule))]
     public class AcmStatisticsAbpWebHostModule: AbpModule

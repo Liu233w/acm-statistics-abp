@@ -1,17 +1,17 @@
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Abp.Authorization;
-using Abp.Authorization.Roles;
-using Abp.Authorization.Users;
-using Abp.MultiTenancy;
-using AcmStatisticsAbp.Authorization;
-using AcmStatisticsAbp.Authorization.Roles;
-using AcmStatisticsAbp.Authorization.Users;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-
 namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 {
+    using System.Linq;
+    using Abp.Authorization;
+    using Abp.Authorization.Roles;
+    using Abp.Authorization.Users;
+    using Abp.MultiTenancy;
+    using AcmStatisticsAbp.Authorization;
+    using AcmStatisticsAbp.Authorization.Roles;
+    using AcmStatisticsAbp.Authorization.Users;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Options;
+
     public class HostRoleAndUserCreator
     {
         private readonly AcmStatisticsAbpDbContext _context;

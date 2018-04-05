@@ -1,11 +1,11 @@
-﻿using Abp.Application.Features;
-using Abp.Domain.Repositories;
-using Abp.MultiTenancy;
-using AcmStatisticsAbp.Authorization.Users;
-using AcmStatisticsAbp.Editions;
-
-namespace AcmStatisticsAbp.MultiTenancy
+﻿namespace AcmStatisticsAbp.MultiTenancy
 {
+    using Abp.Application.Features;
+    using Abp.Domain.Repositories;
+    using Abp.MultiTenancy;
+    using AcmStatisticsAbp.Authorization.Users;
+    using AcmStatisticsAbp.Editions;
+
     public class TenantManager : AbpTenantManager<Tenant, User>
     {
         public TenantManager(

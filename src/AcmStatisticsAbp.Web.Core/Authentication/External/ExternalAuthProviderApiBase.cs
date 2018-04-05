@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Abp.Dependency;
-
-namespace AcmStatisticsAbp.Authentication.External
+﻿namespace AcmStatisticsAbp.Authentication.External
 {
+    using System.Threading.Tasks;
+    using Abp.Dependency;
+
     public abstract class ExternalAuthProviderApiBase : IExternalAuthProviderApi, ITransientDependency
     {
         public ExternalLoginProviderInfo ProviderInfo { get; set; }

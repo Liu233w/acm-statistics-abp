@@ -1,10 +1,10 @@
-﻿using System.Collections.Concurrent;
-using Microsoft.Extensions.Configuration;
-using Abp.Extensions;
-using Abp.Reflection.Extensions;
-
-namespace AcmStatisticsAbp.Configuration
+﻿namespace AcmStatisticsAbp.Configuration
 {
+    using System.Collections.Concurrent;
+    using Abp.Extensions;
+    using Abp.Reflection.Extensions;
+    using Microsoft.Extensions.Configuration;
+
     public static class AppConfigurations
     {
         private static readonly ConcurrentDictionary<string, IConfigurationRoot> _configurationCache;

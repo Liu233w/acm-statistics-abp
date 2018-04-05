@@ -1,15 +1,15 @@
-﻿using System;
-using System.Transactions;
-using Microsoft.EntityFrameworkCore;
-using Abp.Dependency;
-using Abp.Domain.Uow;
-using Abp.EntityFrameworkCore.Uow;
-using Abp.MultiTenancy;
-using AcmStatisticsAbp.EntityFrameworkCore.Seed.Host;
-using AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants;
-
-namespace AcmStatisticsAbp.EntityFrameworkCore.Seed
+﻿namespace AcmStatisticsAbp.EntityFrameworkCore.Seed
 {
+    using System;
+    using System.Transactions;
+    using Abp.Dependency;
+    using Abp.Domain.Uow;
+    using Abp.EntityFrameworkCore.Uow;
+    using Abp.MultiTenancy;
+    using AcmStatisticsAbp.EntityFrameworkCore.Seed.Host;
+    using AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants;
+    using Microsoft.EntityFrameworkCore;
+
     public static class SeedHelper
     {
         public static void SeedHostDb(IIocResolver iocResolver)

@@ -1,9 +1,9 @@
-﻿using System;
-using Abp.Authorization.Users;
-using Abp.Extensions;
-
-namespace AcmStatisticsAbp.Authorization.Users
+﻿namespace AcmStatisticsAbp.Authorization.Users
 {
+    using System;
+    using Abp.Authorization.Users;
+    using Abp.Extensions;
+
     public class User : AbpUser<User>
     {
         public const string DefaultPassword = "123qwe";

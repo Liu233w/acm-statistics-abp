@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using Abp.Authorization;
-using Abp.Authorization.Roles;
-using AcmStatisticsAbp.Authorization.Roles;
-
-namespace AcmStatisticsAbp.Roles.Dto
+﻿namespace AcmStatisticsAbp.Roles.Dto
 {
+    using Abp.Authorization;
+    using Abp.Authorization.Roles;
+    using AcmStatisticsAbp.Authorization.Roles;
+    using AutoMapper;
+
     public class RoleMapProfile : Profile
     {
         public RoleMapProfile()

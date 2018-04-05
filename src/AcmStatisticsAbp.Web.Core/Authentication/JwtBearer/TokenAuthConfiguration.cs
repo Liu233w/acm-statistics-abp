@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.IdentityModel.Tokens;
-
-namespace AcmStatisticsAbp.Authentication.JwtBearer
+﻿namespace AcmStatisticsAbp.Authentication.JwtBearer
 {
+    using System;
+    using Microsoft.IdentityModel.Tokens;
+
     public class TokenAuthConfiguration
     {
         public SymmetricSecurityKey SecurityKey { get; set; }

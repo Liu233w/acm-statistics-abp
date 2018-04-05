@@ -1,10 +1,10 @@
-using System;
-using Castle.Core.Logging;
-using Abp.Dependency;
-using Abp.Timing;
-
 namespace AcmStatisticsAbp.Migrator
 {
+    using System;
+    using Abp.Dependency;
+    using Abp.Timing;
+    using Castle.Core.Logging;
+
     public class Log : ITransientDependency
     {
         public ILogger Logger { get; set; }

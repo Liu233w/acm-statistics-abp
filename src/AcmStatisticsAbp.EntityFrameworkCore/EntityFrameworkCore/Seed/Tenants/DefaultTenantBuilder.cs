@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Abp.MultiTenancy;
-using AcmStatisticsAbp.Editions;
-using AcmStatisticsAbp.MultiTenancy;
-
-namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
+﻿namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
 {
+    using System.Linq;
+    using Abp.MultiTenancy;
+    using AcmStatisticsAbp.Editions;
+    using AcmStatisticsAbp.MultiTenancy;
+    using Microsoft.EntityFrameworkCore;
+
     public class DefaultTenantBuilder
     {
         private readonly AcmStatisticsAbpDbContext _context;

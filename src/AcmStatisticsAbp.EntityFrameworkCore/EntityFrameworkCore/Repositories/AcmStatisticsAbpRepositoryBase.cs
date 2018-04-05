@@ -1,9 +1,9 @@
-﻿using Abp.Domain.Entities;
-using Abp.EntityFrameworkCore;
-using Abp.EntityFrameworkCore.Repositories;
-
-namespace AcmStatisticsAbp.EntityFrameworkCore.Repositories
+﻿namespace AcmStatisticsAbp.EntityFrameworkCore.Repositories
 {
+    using Abp.Domain.Entities;
+    using Abp.EntityFrameworkCore;
+    using Abp.EntityFrameworkCore.Repositories;
+
     /// <summary>
     /// Base class for custom repositories of the application.
     /// </summary>

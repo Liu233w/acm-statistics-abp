@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using Abp.Authorization;
-using AcmStatisticsAbp.Authorization.Roles;
-
-namespace AcmStatisticsAbp.Authorization.Users
+﻿namespace AcmStatisticsAbp.Authorization.Users
 {
+    using Abp.Authorization;
+    using AcmStatisticsAbp.Authorization.Roles;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Options;
+
     public class UserClaimsPrincipalFactory : AbpUserClaimsPrincipalFactory<User, Role>
     {
         public UserClaimsPrincipalFactory(

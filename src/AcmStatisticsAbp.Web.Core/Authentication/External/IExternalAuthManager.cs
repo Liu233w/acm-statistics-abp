@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-
-namespace AcmStatisticsAbp.Authentication.External
+﻿namespace AcmStatisticsAbp.Authentication.External
 {
+    using System.Threading.Tasks;
+
     public interface IExternalAuthManager
     {
         Task<bool> IsValidUser(string provider, string providerKey, string providerAccessCode);

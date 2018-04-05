@@ -1,20 +1,4 @@
-﻿using System;
-using System.Linq;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Cors.Internal;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Castle.Facilities.Logging;
-using Swashbuckle.AspNetCore.Swagger;
-using Abp.AspNetCore;
-using Abp.Castle.Logging.Log4Net;
-using Abp.Extensions;
-using AcmStatisticsAbp.Authentication.JwtBearer;
-using AcmStatisticsAbp.Configuration;
-using AcmStatisticsAbp.Identity;
-
+﻿
 #if FEATURE_SIGNALR
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Cors;
@@ -27,6 +11,23 @@ using Abp.AspNetCore.SignalR.Hubs;
 
 namespace AcmStatisticsAbp.Web.Host.Startup
 {
+    using System;
+    using System.Linq;
+    using Abp.AspNetCore;
+    using Abp.Castle.Logging.Log4Net;
+    using Abp.Extensions;
+    using AcmStatisticsAbp.Authentication.JwtBearer;
+    using AcmStatisticsAbp.Configuration;
+    using AcmStatisticsAbp.Identity;
+    using Castle.Facilities.Logging;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc.Cors.Internal;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using Swashbuckle.AspNetCore.Swagger;
+
     public class Startup
     {
         private const string _defaultCorsPolicyName = "localhost";

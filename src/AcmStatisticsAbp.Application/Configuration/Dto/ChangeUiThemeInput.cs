@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace AcmStatisticsAbp.Configuration.Dto
+﻿namespace AcmStatisticsAbp.Configuration.Dto
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class ChangeUiThemeInput
     {
         [Required]

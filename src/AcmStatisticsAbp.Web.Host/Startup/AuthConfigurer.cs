@@ -1,15 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Abp.Runtime.Security;
-
-namespace AcmStatisticsAbp.Web.Host.Startup
+﻿namespace AcmStatisticsAbp.Web.Host.Startup
 {
+    using System;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Abp.Runtime.Security;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.IdentityModel.Tokens;
+
     public static class AuthConfigurer
     {
         public static void Configure(IServiceCollection services, IConfiguration configuration)

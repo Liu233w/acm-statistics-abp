@@ -1,12 +1,12 @@
-using System.ComponentModel.DataAnnotations;
-using Abp.Auditing;
-using Abp.Authorization.Users;
-using Abp.AutoMapper;
-using Abp.Runtime.Validation;
-using AcmStatisticsAbp.Authorization.Users;
-
 namespace AcmStatisticsAbp.Users.Dto
 {
+    using System.ComponentModel.DataAnnotations;
+    using Abp.Auditing;
+    using Abp.Authorization.Users;
+    using Abp.AutoMapper;
+    using Abp.Runtime.Validation;
+    using AcmStatisticsAbp.Authorization.Users;
+
     [AutoMapTo(typeof(User))]
     public class CreateUserDto : IShouldNormalize
     {

@@ -1,10 +1,10 @@
-﻿using Abp.Domain.Uow;
-using Abp.EntityFrameworkCore;
-using Abp.MultiTenancy;
-using Abp.Zero.EntityFrameworkCore;
-
-namespace AcmStatisticsAbp.EntityFrameworkCore
+﻿namespace AcmStatisticsAbp.EntityFrameworkCore
 {
+    using Abp.Domain.Uow;
+    using Abp.EntityFrameworkCore;
+    using Abp.MultiTenancy;
+    using Abp.Zero.EntityFrameworkCore;
+
     public class AbpZeroDbMigrator : AbpZeroDbMigrator<AcmStatisticsAbpDbContext>
     {
         public AbpZeroDbMigrator(
