@@ -8,6 +8,9 @@
   "settings": {
     "documentationRules": {
       "companyName": "西北工业大学ACM开发组"
+    },
+    "layoutRules": {
+      "newlineAtEndOfFile": "require"
     }
   }
 }
