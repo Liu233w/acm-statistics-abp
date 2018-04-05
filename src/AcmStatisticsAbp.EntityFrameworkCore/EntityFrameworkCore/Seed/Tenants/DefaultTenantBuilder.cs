@@ -27,7 +27,6 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
         private void CreateDefaultTenant()
         {
             // Default tenant
-
             var defaultTenant = this.context.Tenants.IgnoreQueryFilters().FirstOrDefault(t => t.TenancyName == AbpTenantBase.DefaultTenantName);
             if (defaultTenant == null)
             {
