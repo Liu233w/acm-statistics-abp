@@ -66,8 +66,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
                         Name = permission.Name,
                         IsGranted = true,
                         RoleId = adminRole.Id
-                    })
-                );
+                    }));
                 this._context.SaveChanges();
             }
 

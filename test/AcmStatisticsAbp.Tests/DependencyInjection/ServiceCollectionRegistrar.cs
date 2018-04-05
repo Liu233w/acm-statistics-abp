@@ -32,8 +32,7 @@ namespace AcmStatisticsAbp.Tests.DependencyInjection
                 Component
                     .For<DbContextOptions<AcmStatisticsAbpDbContext>>()
                     .Instance(builder.Options)
-                    .LifestyleSingleton()
-            );
+                    .LifestyleSingleton());
         }
     }
 }

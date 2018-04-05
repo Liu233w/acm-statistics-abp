@@ -49,16 +49,14 @@ namespace AcmStatisticsAbp
         public override void PreInitialize()
         {
             this.Configuration.DefaultNameOrConnectionString = this._appConfiguration.GetConnectionString(
-                AcmStatisticsAbpConsts.ConnectionStringName
-            );
+                AcmStatisticsAbpConsts.ConnectionStringName);
 
             // Use database for language management
             this.Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
 
             this.Configuration.Modules.AbpAspNetCore()
                  .CreateControllersForAppServices(
-                     typeof(AcmStatisticsAbpApplicationModule).GetAssembly()
-                 );
+                     typeof(AcmStatisticsAbpApplicationModule).GetAssembly());
 
             this.ConfigureTokenAuth();
         }

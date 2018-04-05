@@ -23,23 +23,19 @@ namespace AcmStatisticsAbp.Migrator
             abpProjectNameEntityFrameworkModule.SkipDbSeed = true;
 
             this._appConfiguration = AppConfigurations.Get(
-                typeof(AcmStatisticsAbpMigratorModule).GetAssembly().GetDirectoryPathOrNull()
-            );
+                typeof(AcmStatisticsAbpMigratorModule).GetAssembly().GetDirectoryPathOrNull());
         }
 
         public override void PreInitialize()
         {
             this.Configuration.DefaultNameOrConnectionString = this._appConfiguration.GetConnectionString(
-                AcmStatisticsAbpConsts.ConnectionStringName
-            );
+                AcmStatisticsAbpConsts.ConnectionStringName);
 
             this.Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
             this.Configuration.ReplaceService(
                 typeof(IEventBus), 
                 () => this.IocManager.IocContainer.Register(
-                    Component.For<IEventBus>().Instance(NullEventBus.Instance)
-                )
-            );
+                    Component.For<IEventBus>().Instance(NullEventBus.Instance)));
         }
 
         public override void Initialize()

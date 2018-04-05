@@ -21,8 +21,7 @@ namespace AcmStatisticsAbp.Tests
     [DependsOn(
         typeof(AcmStatisticsAbpApplicationModule),
         typeof(AcmStatisticsAbpEntityFrameworkModule),
-        typeof(AbpTestBaseModule)
-        )]
+        typeof(AbpTestBaseModule))]
     public class AcmStatisticsAbpTestModule : AbpModule
     {
         public AcmStatisticsAbpTestModule(AcmStatisticsAbpEntityFrameworkModule abpProjectNameEntityFrameworkModule)
@@ -59,8 +58,7 @@ namespace AcmStatisticsAbp.Tests
             this.IocManager.IocContainer.Register(
                 Component.For<TService>()
                     .UsingFactoryMethod(() => Substitute.For<TService>())
-                    .LifestyleSingleton()
-            );
+                    .LifestyleSingleton());
         }
     }
 }
