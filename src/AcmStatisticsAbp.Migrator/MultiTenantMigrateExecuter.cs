@@ -77,7 +77,7 @@ namespace AcmStatisticsAbp.Migrator
             this.log.Write("--------------------------------------------------------");
 
             var migratedDatabases = new HashSet<string>();
-            var tenants = this.tenantRepository.GetAllList(t => t.ConnectionString != null && t.ConnectionString != "");
+            var tenants = this.tenantRepository.GetAllList(t => t.ConnectionString != null && t.ConnectionString != string.Empty);
             for (var i = 0; i < tenants.Count; i++)
             {
                 var tenant = tenants[i];
