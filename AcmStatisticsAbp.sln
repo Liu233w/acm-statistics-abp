@@ -19,7 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcmStatisticsAbp.Web.Host",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcmStatisticsAbp.Web.Core", "src\AcmStatisticsAbp.Web.Core\AcmStatisticsAbp.Web.Core.csproj", "{22CFE0D2-8DCA-42D7-AD7D-784C3862493F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcmStatisticsAbp.EntityFrameworkCore", "src\AcmStatisticsAbp.EntityFrameworkCore\AcmStatisticsAbp.EntityFrameworkCore.csproj", "{E0580562-F8F2-4EBB-B07A-ABFC6F2C314F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcmStatisticsAbp.EntityFrameworkCore", "src\AcmStatisticsAbp.EntityFrameworkCore\AcmStatisticsAbp.EntityFrameworkCore.csproj", "{E0580562-F8F2-4EBB-B07A-ABFC6F2C314F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_stylecop", "_stylecop", "{545258DE-0D3F-4878-BDDF-B52B09604CC0}"
+	ProjectSection(SolutionItems) = preProject
+		_stylecop\stylecop.json = _stylecop\stylecop.json
+		_stylecop\StyleCopeRules.ruleset = _stylecop\StyleCopeRules.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,5 +73,8 @@ Global
 		{38E184BD-E874-4633-A947-AED4FDB73F40} = {AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}
 		{22CFE0D2-8DCA-42D7-AD7D-784C3862493F} = {AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}
 		{E0580562-F8F2-4EBB-B07A-ABFC6F2C314F} = {AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E87C396-7ED1-4FCF-8375-E0420EDA9D5D}
 	EndGlobalSection
 EndGlobal
