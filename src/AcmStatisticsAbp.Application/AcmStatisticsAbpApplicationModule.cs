@@ -10,7 +10,7 @@ namespace AcmStatisticsAbp
     using AcmStatisticsAbp.Authorization;
 
     [DependsOn(
-        typeof(AcmStatisticsAbpCoreModule), 
+        typeof(AcmStatisticsAbpCoreModule),
         typeof(AbpAutoMapperModule))]
     public class AcmStatisticsAbpApplicationModule : AbpModule
     {

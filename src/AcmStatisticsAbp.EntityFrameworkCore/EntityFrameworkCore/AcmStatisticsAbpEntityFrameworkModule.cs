@@ -11,7 +11,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore
     using AcmStatisticsAbp.EntityFrameworkCore.Seed;
 
     [DependsOn(
-        typeof(AcmStatisticsAbpCoreModule), 
+        typeof(AcmStatisticsAbpCoreModule),
         typeof(AbpZeroCoreEntityFrameworkCoreModule))]
     public class AcmStatisticsAbpEntityFrameworkModule : AbpModule
     {

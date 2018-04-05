@@ -29,7 +29,7 @@ namespace AcmStatisticsAbp
          typeof(AcmStatisticsAbpApplicationModule),
          typeof(AcmStatisticsAbpEntityFrameworkModule),
          typeof(AbpAspNetCoreModule)
-#if FEATURE_SIGNALR 
+#if FEATURE_SIGNALR
         ,typeof(AbpWebSignalRModule)
 #elif FEATURE_SIGNALR_ASPNETCORE
         ,typeof(AbpAspNetCoreSignalRModule)
