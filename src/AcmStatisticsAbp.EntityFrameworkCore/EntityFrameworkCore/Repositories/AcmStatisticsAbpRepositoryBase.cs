@@ -2,6 +2,8 @@
 // Copyright (c) 西北工业大学ACM开发组. All rights reserved.
 // </copyright>
 
+#pragma warning disable SA1402 // File may only contain a single class
+
 namespace AcmStatisticsAbp.EntityFrameworkCore.Repositories
 {
     using Abp.Domain.Entities;
