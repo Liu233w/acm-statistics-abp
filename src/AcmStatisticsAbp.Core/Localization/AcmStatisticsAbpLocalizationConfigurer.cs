@@ -14,7 +14,8 @@ namespace AcmStatisticsAbp.Localization
         public static void Configure(ILocalizationConfiguration localizationConfiguration)
         {
             localizationConfiguration.Sources.Add(
-                new DictionaryBasedLocalizationSource(AcmStatisticsAbpConsts.LocalizationSourceName,
+                new DictionaryBasedLocalizationSource(
+                    AcmStatisticsAbpConsts.LocalizationSourceName,
                     new XmlEmbeddedFileLocalizationDictionaryProvider(
                         typeof(AcmStatisticsAbpLocalizationConfigurer).GetAssembly(),
                         "AcmStatisticsAbp.Localization.SourceFiles")));
