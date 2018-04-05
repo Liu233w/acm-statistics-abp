@@ -14,7 +14,7 @@ namespace AcmStatisticsAbp.Authorization
     {
         public AbpLoginResultTypeHelper()
         {
-            LocalizationSourceName = AcmStatisticsAbpConsts.LocalizationSourceName;
+            this.LocalizationSourceName = AcmStatisticsAbpConsts.LocalizationSourceName;
         }
 
         public Exception CreateExceptionForFailedLoginAttempt(AbpLoginResultType result, string usernameOrEmailAddress, string tenancyName)
@@ -25,20 +25,20 @@ namespace AcmStatisticsAbp.Authorization
                     return new Exception("Don't call this method with a success result!");
                 case AbpLoginResultType.InvalidUserNameOrEmailAddress:
                 case AbpLoginResultType.InvalidPassword:
-                    return new UserFriendlyException(L("LoginFailed"), L("InvalidUserNameOrPassword"));
+                    return new UserFriendlyException(this.L("LoginFailed"), this.L("InvalidUserNameOrPassword"));
                 case AbpLoginResultType.InvalidTenancyName:
-                    return new UserFriendlyException(L("LoginFailed"), L("ThereIsNoTenantDefinedWithName{0}", tenancyName));
+                    return new UserFriendlyException(this.L("LoginFailed"), this.L("ThereIsNoTenantDefinedWithName{0}", tenancyName));
                 case AbpLoginResultType.TenantIsNotActive:
-                    return new UserFriendlyException(L("LoginFailed"), L("TenantIsNotActive", tenancyName));
+                    return new UserFriendlyException(this.L("LoginFailed"), this.L("TenantIsNotActive", tenancyName));
                 case AbpLoginResultType.UserIsNotActive:
-                    return new UserFriendlyException(L("LoginFailed"), L("UserIsNotActiveAndCanNotLogin", usernameOrEmailAddress));
+                    return new UserFriendlyException(this.L("LoginFailed"), this.L("UserIsNotActiveAndCanNotLogin", usernameOrEmailAddress));
                 case AbpLoginResultType.UserEmailIsNotConfirmed:
-                    return new UserFriendlyException(L("LoginFailed"), L("UserEmailIsNotConfirmedAndCanNotLogin"));
+                    return new UserFriendlyException(this.L("LoginFailed"), this.L("UserEmailIsNotConfirmedAndCanNotLogin"));
                 case AbpLoginResultType.LockedOut:
-                    return new UserFriendlyException(L("LoginFailed"), L("UserLockedOutMessage"));
+                    return new UserFriendlyException(this.L("LoginFailed"), this.L("UserLockedOutMessage"));
                 default: // Can not fall to default actually. But other result types can be added in the future and we may forget to handle it
-                    Logger.Warn("Unhandled login fail reason: " + result);
-                    return new UserFriendlyException(L("LoginFailed"));
+                    this.Logger.Warn("Unhandled login fail reason: " + result);
+                    return new UserFriendlyException(this.L("LoginFailed"));
             }
         }
 
@@ -50,18 +50,18 @@ namespace AcmStatisticsAbp.Authorization
                     throw new Exception("Don't call this method with a success result!");
                 case AbpLoginResultType.InvalidUserNameOrEmailAddress:
                 case AbpLoginResultType.InvalidPassword:
-                    return L("InvalidUserNameOrPassword");
+                    return this.L("InvalidUserNameOrPassword");
                 case AbpLoginResultType.InvalidTenancyName:
-                    return L("ThereIsNoTenantDefinedWithName{0}", tenancyName);
+                    return this.L("ThereIsNoTenantDefinedWithName{0}", tenancyName);
                 case AbpLoginResultType.TenantIsNotActive:
-                    return L("TenantIsNotActive", tenancyName);
+                    return this.L("TenantIsNotActive", tenancyName);
                 case AbpLoginResultType.UserIsNotActive:
-                    return L("UserIsNotActiveAndCanNotLogin", usernameOrEmailAddress);
+                    return this.L("UserIsNotActiveAndCanNotLogin", usernameOrEmailAddress);
                 case AbpLoginResultType.UserEmailIsNotConfirmed:
-                    return L("UserEmailIsNotConfirmedAndCanNotLogin");
+                    return this.L("UserEmailIsNotConfirmedAndCanNotLogin");
                 default: // Can not fall to default actually. But other result types can be added in the future and we may forget to handle it
-                    Logger.Warn("Unhandled login fail reason: " + result);
-                    return L("LoginFailed");
+                    this.Logger.Warn("Unhandled login fail reason: " + result);
+                    return this.L("LoginFailed");
             }
         }
     }

@@ -41,60 +41,60 @@ namespace AcmStatisticsAbp.MultiTenancy
             IPasswordHasher<User> passwordHasher) 
             : base(repository)
         {
-            _tenantManager = tenantManager; 
-            _editionManager = editionManager;
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _abpZeroDbMigrator = abpZeroDbMigrator;
-            _passwordHasher = passwordHasher;
+            this._tenantManager = tenantManager; 
+            this._editionManager = editionManager;
+            this._userManager = userManager;
+            this._roleManager = roleManager;
+            this._abpZeroDbMigrator = abpZeroDbMigrator;
+            this._passwordHasher = passwordHasher;
         }
         
         public override async Task<TenantDto> Create(CreateTenantDto input)
         {
-            CheckCreatePermission();
+            this.CheckCreatePermission();
 
             // Create tenant
-            var tenant = ObjectMapper.Map<Tenant>(input);
+            var tenant = this.ObjectMapper.Map<Tenant>(input);
             tenant.ConnectionString = input.ConnectionString.IsNullOrEmpty()
                 ? null
                 : SimpleStringCipher.Instance.Encrypt(input.ConnectionString);
 
-            var defaultEdition = await _editionManager.FindByNameAsync(EditionManager.DefaultEditionName);
+            var defaultEdition = await this._editionManager.FindByNameAsync(EditionManager.DefaultEditionName);
             if (defaultEdition != null)
             {
                 tenant.EditionId = defaultEdition.Id;
             }
 
-            await _tenantManager.CreateAsync(tenant);
-            await CurrentUnitOfWork.SaveChangesAsync(); // To get new tenant's id.
+            await this._tenantManager.CreateAsync(tenant);
+            await this.CurrentUnitOfWork.SaveChangesAsync(); // To get new tenant's id.
 
             // Create tenant database
-            _abpZeroDbMigrator.CreateOrMigrateForTenant(tenant);
+            this._abpZeroDbMigrator.CreateOrMigrateForTenant(tenant);
 
             // We are working entities of new tenant, so changing tenant filter
-            using (CurrentUnitOfWork.SetTenantId(tenant.Id))
+            using (this.CurrentUnitOfWork.SetTenantId(tenant.Id))
             {
                 // Create static roles for new tenant
-                CheckErrors(await _roleManager.CreateStaticRoles(tenant.Id));
+                this.CheckErrors(await this._roleManager.CreateStaticRoles(tenant.Id));
 
-                await CurrentUnitOfWork.SaveChangesAsync(); // To get static role ids
+                await this.CurrentUnitOfWork.SaveChangesAsync(); // To get static role ids
 
                 // Grant all permissions to admin role
-                var adminRole = _roleManager.Roles.Single(r => r.Name == StaticRoleNames.Tenants.Admin);
-                await _roleManager.GrantAllPermissionsAsync(adminRole);
+                var adminRole = this._roleManager.Roles.Single(r => r.Name == StaticRoleNames.Tenants.Admin);
+                await this._roleManager.GrantAllPermissionsAsync(adminRole);
 
                 // Create admin user for the tenant
                 var adminUser = User.CreateTenantAdminUser(tenant.Id, input.AdminEmailAddress);
-                adminUser.Password = _passwordHasher.HashPassword(adminUser, User.DefaultPassword);
-                CheckErrors(await _userManager.CreateAsync(adminUser));
-                await CurrentUnitOfWork.SaveChangesAsync(); // To get admin user's id
+                adminUser.Password = this._passwordHasher.HashPassword(adminUser, User.DefaultPassword);
+                this.CheckErrors(await this._userManager.CreateAsync(adminUser));
+                await this.CurrentUnitOfWork.SaveChangesAsync(); // To get admin user's id
 
                 // Assign admin user to role!
-                CheckErrors(await _userManager.AddToRoleAsync(adminUser, adminRole.Name));
-                await CurrentUnitOfWork.SaveChangesAsync();
+                this.CheckErrors(await this._userManager.AddToRoleAsync(adminUser, adminRole.Name));
+                await this.CurrentUnitOfWork.SaveChangesAsync();
             }
 
-            return MapToEntityDto(tenant);
+            return this.MapToEntityDto(tenant);
         }
 
         protected override void MapToEntity(TenantDto updateInput, Tenant entity)
@@ -107,15 +107,15 @@ namespace AcmStatisticsAbp.MultiTenancy
 
         public override async Task Delete(EntityDto<int> input)
         {
-            CheckDeletePermission();
+            this.CheckDeletePermission();
 
-            var tenant = await _tenantManager.GetByIdAsync(input.Id);
-            await _tenantManager.DeleteAsync(tenant);
+            var tenant = await this._tenantManager.GetByIdAsync(input.Id);
+            await this._tenantManager.DeleteAsync(tenant);
         }
 
         private void CheckErrors(IdentityResult identityResult)
         {
-            identityResult.CheckErrors(LocalizationManager);
+            identityResult.CheckErrors(this.LocalizationManager);
         }
     }
 }

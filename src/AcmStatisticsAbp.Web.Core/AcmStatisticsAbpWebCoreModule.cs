@@ -42,42 +42,42 @@ namespace AcmStatisticsAbp
 
         public AcmStatisticsAbpWebCoreModule(IHostingEnvironment env)
         {
-            _env = env;
-            _appConfiguration = env.GetAppConfiguration();
+            this._env = env;
+            this._appConfiguration = env.GetAppConfiguration();
         }
 
         public override void PreInitialize()
         {
-            Configuration.DefaultNameOrConnectionString = _appConfiguration.GetConnectionString(
+            this.Configuration.DefaultNameOrConnectionString = this._appConfiguration.GetConnectionString(
                 AcmStatisticsAbpConsts.ConnectionStringName
             );
 
             // Use database for language management
-            Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
+            this.Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
 
-            Configuration.Modules.AbpAspNetCore()
+            this.Configuration.Modules.AbpAspNetCore()
                  .CreateControllersForAppServices(
                      typeof(AcmStatisticsAbpApplicationModule).GetAssembly()
                  );
 
-            ConfigureTokenAuth();
+            this.ConfigureTokenAuth();
         }
 
         private void ConfigureTokenAuth()
         {
-            IocManager.Register<TokenAuthConfiguration>();
-            var tokenAuthConfig = IocManager.Resolve<TokenAuthConfiguration>();
+            this.IocManager.Register<TokenAuthConfiguration>();
+            var tokenAuthConfig = this.IocManager.Resolve<TokenAuthConfiguration>();
 
-            tokenAuthConfig.SecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_appConfiguration["Authentication:JwtBearer:SecurityKey"]));
-            tokenAuthConfig.Issuer = _appConfiguration["Authentication:JwtBearer:Issuer"];
-            tokenAuthConfig.Audience = _appConfiguration["Authentication:JwtBearer:Audience"];
+            tokenAuthConfig.SecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(this._appConfiguration["Authentication:JwtBearer:SecurityKey"]));
+            tokenAuthConfig.Issuer = this._appConfiguration["Authentication:JwtBearer:Issuer"];
+            tokenAuthConfig.Audience = this._appConfiguration["Authentication:JwtBearer:Audience"];
             tokenAuthConfig.SigningCredentials = new SigningCredentials(tokenAuthConfig.SecurityKey, SecurityAlgorithms.HmacSha256);
             tokenAuthConfig.Expiration = TimeSpan.FromDays(1);
         }
 
         public override void Initialize()
         {
-            IocManager.RegisterAssemblyByConvention(typeof(AcmStatisticsAbpWebCoreModule).GetAssembly());
+            this.IocManager.RegisterAssemblyByConvention(typeof(AcmStatisticsAbpWebCoreModule).GetAssembly());
         }
     }
 }

@@ -11,11 +11,11 @@ namespace AcmStatisticsAbp.Users.Dto
     {
         public UserMapProfile()
         {
-            CreateMap<UserDto, User>();
-            CreateMap<UserDto, User>().ForMember(x => x.Roles, opt => opt.Ignore());
+            this.CreateMap<UserDto, User>();
+            this.CreateMap<UserDto, User>().ForMember(x => x.Roles, opt => opt.Ignore());
 
-            CreateMap<CreateUserDto, User>();
-            CreateMap<CreateUserDto, User>().ForMember(x => x.Roles, opt => opt.Ignore());
+            this.CreateMap<CreateUserDto, User>();
+            this.CreateMap<CreateUserDto, User>().ForMember(x => x.Roles, opt => opt.Ignore());
         }
     }
 }

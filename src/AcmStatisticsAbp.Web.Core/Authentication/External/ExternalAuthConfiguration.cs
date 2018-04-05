@@ -13,7 +13,7 @@ namespace AcmStatisticsAbp.Authentication.External
 
         public ExternalAuthConfiguration()
         {
-            Providers = new List<ExternalLoginProviderInfo>();
+            this.Providers = new List<ExternalLoginProviderInfo>();
         }
     }
 }

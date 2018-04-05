@@ -29,81 +29,81 @@ namespace AcmStatisticsAbp.Roles
         public RoleAppService(IRepository<Role> repository, RoleManager roleManager, UserManager userManager)
             : base(repository)
         {
-            _roleManager = roleManager;
-            _userManager = userManager;
+            this._roleManager = roleManager;
+            this._userManager = userManager;
         }
 
         public override async Task<RoleDto> Create(CreateRoleDto input)
         {
-            CheckCreatePermission();
+            this.CheckCreatePermission();
 
-            var role = ObjectMapper.Map<Role>(input);
+            var role = this.ObjectMapper.Map<Role>(input);
             role.SetNormalizedName();
 
-            CheckErrors(await _roleManager.CreateAsync(role));
+            this.CheckErrors(await this._roleManager.CreateAsync(role));
 
-            var grantedPermissions = PermissionManager
+            var grantedPermissions = this.PermissionManager
                 .GetAllPermissions()
                 .Where(p => input.Permissions.Contains(p.Name))
                 .ToList();
 
-            await _roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
+            await this._roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
 
-            return MapToEntityDto(role);
+            return this.MapToEntityDto(role);
         }
 
         public override async Task<RoleDto> Update(RoleDto input)
         {
-            CheckUpdatePermission();
+            this.CheckUpdatePermission();
 
-            var role = await _roleManager.GetRoleByIdAsync(input.Id);
+            var role = await this._roleManager.GetRoleByIdAsync(input.Id);
 
-            ObjectMapper.Map(input, role);
+            this.ObjectMapper.Map(input, role);
 
-            CheckErrors(await _roleManager.UpdateAsync(role));
+            this.CheckErrors(await this._roleManager.UpdateAsync(role));
 
-            var grantedPermissions = PermissionManager
+            var grantedPermissions = this.PermissionManager
                 .GetAllPermissions()
                 .Where(p => input.Permissions.Contains(p.Name))
                 .ToList();
 
-            await _roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
+            await this._roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
 
-            return MapToEntityDto(role);
+            return this.MapToEntityDto(role);
         }
 
         public override async Task Delete(EntityDto<int> input)
         {
-            CheckDeletePermission();
+            this.CheckDeletePermission();
 
-            var role = await _roleManager.FindByIdAsync(input.Id.ToString());
-            var users = await _userManager.GetUsersInRoleAsync(role.NormalizedName);
+            var role = await this._roleManager.FindByIdAsync(input.Id.ToString());
+            var users = await this._userManager.GetUsersInRoleAsync(role.NormalizedName);
 
             foreach (var user in users)
             {
-                CheckErrors(await _userManager.RemoveFromRoleAsync(user, role.NormalizedName));
+                this.CheckErrors(await this._userManager.RemoveFromRoleAsync(user, role.NormalizedName));
             }
 
-            CheckErrors(await _roleManager.DeleteAsync(role));
+            this.CheckErrors(await this._roleManager.DeleteAsync(role));
         }
 
         public Task<ListResultDto<PermissionDto>> GetAllPermissions()
         {
-            var permissions = PermissionManager.GetAllPermissions();
+            var permissions = this.PermissionManager.GetAllPermissions();
 
             return Task.FromResult(new ListResultDto<PermissionDto>(
-                ObjectMapper.Map<List<PermissionDto>>(permissions)
+                this.ObjectMapper.Map<List<PermissionDto>>(permissions)
             ));
         }
 
         protected override IQueryable<Role> CreateFilteredQuery(PagedResultRequestDto input)
         {
-            return Repository.GetAllIncluding(x => x.Permissions);
+            return this.Repository.GetAllIncluding(x => x.Permissions);
         }
 
         protected override async Task<Role> GetEntityByIdAsync(int id)
         {
-            return await Repository.GetAllIncluding(x => x.Permissions).FirstOrDefaultAsync(x => x.Id == id);
+            return await this.Repository.GetAllIncluding(x => x.Permissions).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         protected override IQueryable<Role> ApplySorting(IQueryable<Role> query, PagedResultRequestDto input)
@@ -113,7 +113,7 @@ namespace AcmStatisticsAbp.Roles
 
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
-            identityResult.CheckErrors(LocalizationManager);
+            identityResult.CheckErrors(this.LocalizationManager);
         }
     }
 }

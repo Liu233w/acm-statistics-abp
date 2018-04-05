@@ -21,32 +21,32 @@ namespace AcmStatisticsAbp
     {
         public override void PreInitialize()
         {
-            Configuration.Auditing.IsEnabledForAnonymousUsers = true;
+            this.Configuration.Auditing.IsEnabledForAnonymousUsers = true;
 
             // Declare entity types
-            Configuration.Modules.Zero().EntityTypes.Tenant = typeof(Tenant);
-            Configuration.Modules.Zero().EntityTypes.Role = typeof(Role);
-            Configuration.Modules.Zero().EntityTypes.User = typeof(User);
+            this.Configuration.Modules.Zero().EntityTypes.Tenant = typeof(Tenant);
+            this.Configuration.Modules.Zero().EntityTypes.Role = typeof(Role);
+            this.Configuration.Modules.Zero().EntityTypes.User = typeof(User);
 
-            AcmStatisticsAbpLocalizationConfigurer.Configure(Configuration.Localization);
+            AcmStatisticsAbpLocalizationConfigurer.Configure(this.Configuration.Localization);
 
             // Enable this line to create a multi-tenant application.
-            Configuration.MultiTenancy.IsEnabled = AcmStatisticsAbpConsts.MultiTenancyEnabled;
+            this.Configuration.MultiTenancy.IsEnabled = AcmStatisticsAbpConsts.MultiTenancyEnabled;
 
             // Configure roles
-            AppRoleConfig.Configure(Configuration.Modules.Zero().RoleManagement);
+            AppRoleConfig.Configure(this.Configuration.Modules.Zero().RoleManagement);
 
-            Configuration.Settings.Providers.Add<AppSettingProvider>();
+            this.Configuration.Settings.Providers.Add<AppSettingProvider>();
         }
 
         public override void Initialize()
         {
-            IocManager.RegisterAssemblyByConvention(typeof(AcmStatisticsAbpCoreModule).GetAssembly());
+            this.IocManager.RegisterAssemblyByConvention(typeof(AcmStatisticsAbpCoreModule).GetAssembly());
         }
 
         public override void PostInitialize()
         {
-            IocManager.Resolve<AppTimes>().StartupTime = Clock.Now;
+            this.IocManager.Resolve<AppTimes>().StartupTime = Clock.Now;
         }
     }
 }

@@ -23,31 +23,31 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
 
         public TenantRoleAndUserBuilder(AcmStatisticsAbpDbContext context, int tenantId)
         {
-            _context = context;
-            _tenantId = tenantId;
+            this._context = context;
+            this._tenantId = tenantId;
         }
 
         public void Create()
         {
-            CreateRolesAndUsers();
+            this.CreateRolesAndUsers();
         }
 
         private void CreateRolesAndUsers()
         {
             // Admin role
 
-            var adminRole = _context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == _tenantId && r.Name == StaticRoleNames.Tenants.Admin);
+            var adminRole = this._context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == this._tenantId && r.Name == StaticRoleNames.Tenants.Admin);
             if (adminRole == null)
             {
-                adminRole = _context.Roles.Add(new Role(_tenantId, StaticRoleNames.Tenants.Admin, StaticRoleNames.Tenants.Admin) { IsStatic = true }).Entity;
-                _context.SaveChanges();
+                adminRole = this._context.Roles.Add(new Role(this._tenantId, StaticRoleNames.Tenants.Admin, StaticRoleNames.Tenants.Admin) { IsStatic = true }).Entity;
+                this._context.SaveChanges();
             }
 
             // Grant all permissions to admin role
 
-            var grantedPermissions = _context.Permissions.IgnoreQueryFilters()
+            var grantedPermissions = this._context.Permissions.IgnoreQueryFilters()
                 .OfType<RolePermissionSetting>()
-                .Where(p => p.TenantId == _tenantId && p.RoleId == adminRole.Id)
+                .Where(p => p.TenantId == this._tenantId && p.RoleId == adminRole.Id)
                 .Select(p => p.Name)
                 .ToList();
 
@@ -59,46 +59,46 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
 
             if (permissions.Any())
             {
-                _context.Permissions.AddRange(
+                this._context.Permissions.AddRange(
                     permissions.Select(permission => new RolePermissionSetting
                     {
-                        TenantId = _tenantId,
+                        TenantId = this._tenantId,
                         Name = permission.Name,
                         IsGranted = true,
                         RoleId = adminRole.Id
                     })
                 );
-                _context.SaveChanges();
+                this._context.SaveChanges();
             }
 
             // Admin user
 
-            var adminUser = _context.Users.IgnoreQueryFilters().FirstOrDefault(u => u.TenantId == _tenantId && u.UserName == AbpUserBase.AdminUserName);
+            var adminUser = this._context.Users.IgnoreQueryFilters().FirstOrDefault(u => u.TenantId == this._tenantId && u.UserName == AbpUserBase.AdminUserName);
             if (adminUser == null)
             {
-                adminUser = User.CreateTenantAdminUser(_tenantId, "admin@defaulttenant.com");
+                adminUser = User.CreateTenantAdminUser(this._tenantId, "admin@defaulttenant.com");
                 adminUser.Password = new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions())).HashPassword(adminUser, "123qwe");
                 adminUser.IsEmailConfirmed = true;
                 adminUser.IsActive = true;
 
-                _context.Users.Add(adminUser);
-                _context.SaveChanges();
+                this._context.Users.Add(adminUser);
+                this._context.SaveChanges();
 
                 // Assign Admin role to admin user
-                _context.UserRoles.Add(new UserRole(_tenantId, adminUser.Id, adminRole.Id));
-                _context.SaveChanges();
+                this._context.UserRoles.Add(new UserRole(this._tenantId, adminUser.Id, adminRole.Id));
+                this._context.SaveChanges();
 
                 // User account of admin user
-                if (_tenantId == 1)
+                if (this._tenantId == 1)
                 {
-                    _context.UserAccounts.Add(new UserAccount
+                    this._context.UserAccounts.Add(new UserAccount
                     {
-                        TenantId = _tenantId,
+                        TenantId = this._tenantId,
                         UserId = adminUser.Id,
                         UserName = AbpUserBase.AdminUserName,
                         EmailAddress = adminUser.EmailAddress
                     });
-                    _context.SaveChanges();
+                    this._context.SaveChanges();
                 }
             }
         }

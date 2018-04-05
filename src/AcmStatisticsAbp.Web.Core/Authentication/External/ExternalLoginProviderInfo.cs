@@ -18,10 +18,10 @@ namespace AcmStatisticsAbp.Authentication.External
 
         public ExternalLoginProviderInfo(string name, string clientId, string clientSecret, Type providerApiType)
         {
-            Name = name;
-            ClientId = clientId;
-            ClientSecret = clientSecret;
-            ProviderApiType = providerApiType;
+            this.Name = name;
+            this.ClientId = clientId;
+            this.ClientSecret = clientSecret;
+            this.ProviderApiType = providerApiType;
         }
     }
 }

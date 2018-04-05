@@ -13,12 +13,12 @@ namespace AcmStatisticsAbp.Authentication.External
 
         public void Initialize(ExternalLoginProviderInfo providerInfo)
         {
-            ProviderInfo = providerInfo;
+            this.ProviderInfo = providerInfo;
         }
 
         public async Task<bool> IsValidUser(string userId, string accessCode)
         {
-            var userInfo = await GetUserInfo(accessCode);
+            var userInfo = await this.GetUserInfo(accessCode);
             return userInfo.ProviderKey == userId;
         }
 

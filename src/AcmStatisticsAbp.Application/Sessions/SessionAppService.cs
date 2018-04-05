@@ -29,14 +29,14 @@ namespace AcmStatisticsAbp.Sessions
                 }
             };
 
-            if (AbpSession.TenantId.HasValue)
+            if (this.AbpSession.TenantId.HasValue)
             {
-                output.Tenant = ObjectMapper.Map<TenantLoginInfoDto>(await GetCurrentTenantAsync());
+                output.Tenant = this.ObjectMapper.Map<TenantLoginInfoDto>(await this.GetCurrentTenantAsync());
             }
 
-            if (AbpSession.UserId.HasValue)
+            if (this.AbpSession.UserId.HasValue)
             {
-                output.User = ObjectMapper.Map<UserLoginInfoDto>(await GetCurrentUserAsync());
+                output.User = this.ObjectMapper.Map<UserLoginInfoDto>(await this.GetCurrentUserAsync());
             }
 
             return output;

@@ -16,8 +16,8 @@ namespace AcmStatisticsAbp.Authorization.Accounts.Dto
 
         public IsTenantAvailableOutput(TenantAvailabilityState state, int? tenantId = null)
         {
-            State = state;
-            TenantId = tenantId;
+            this.State = state;
+            this.TenantId = tenantId;
         }
     }
 }

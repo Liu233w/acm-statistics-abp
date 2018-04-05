@@ -16,13 +16,13 @@ namespace AcmStatisticsAbp.Authentication.External
 
         public ExternalAuthManager(IIocResolver iocResolver, IExternalAuthConfiguration externalAuthConfiguration)
         {
-            _iocResolver = iocResolver;
-            _externalAuthConfiguration = externalAuthConfiguration;
+            this._iocResolver = iocResolver;
+            this._externalAuthConfiguration = externalAuthConfiguration;
         }
 
         public Task<bool> IsValidUser(string provider, string providerKey, string providerAccessCode)
         {
-            using (var providerApi = CreateProviderApi(provider))
+            using (var providerApi = this.CreateProviderApi(provider))
             {
                 return providerApi.Object.IsValidUser(providerKey, providerAccessCode);
             }
@@ -30,7 +30,7 @@ namespace AcmStatisticsAbp.Authentication.External
 
         public Task<ExternalAuthUserInfo> GetUserInfo(string provider, string accessCode)
         {
-            using (var providerApi = CreateProviderApi(provider))
+            using (var providerApi = this.CreateProviderApi(provider))
             {
                 return providerApi.Object.GetUserInfo(accessCode);
             }
@@ -38,13 +38,13 @@ namespace AcmStatisticsAbp.Authentication.External
 
         public IDisposableDependencyObjectWrapper<IExternalAuthProviderApi> CreateProviderApi(string provider)
         {
-            var providerInfo = _externalAuthConfiguration.Providers.FirstOrDefault(p => p.Name == provider);
+            var providerInfo = this._externalAuthConfiguration.Providers.FirstOrDefault(p => p.Name == provider);
             if (providerInfo == null)
             {
                 throw new Exception("Unknown external auth provider: " + provider);
             }
 
-            var providerApi = _iocResolver.ResolveAsDisposable<IExternalAuthProviderApi>(providerInfo.ProviderApiType);
+            var providerApi = this._iocResolver.ResolveAsDisposable<IExternalAuthProviderApi>(providerInfo.ProviderApiType);
             providerApi.Object.Initialize(providerInfo);
             return providerApi;
         }

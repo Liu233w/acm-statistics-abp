@@ -18,12 +18,12 @@ namespace AcmStatisticsAbp.Web.Host.Controllers
 
         public HomeController(INotificationPublisher notificationPublisher)
         {
-            _notificationPublisher = notificationPublisher;
+            this._notificationPublisher = notificationPublisher;
         }
 
         public IActionResult Index()
         {
-            return Redirect("/swagger");
+            return this.Redirect("/swagger");
         }
 
         /// <summary>
@@ -42,14 +42,14 @@ namespace AcmStatisticsAbp.Web.Host.Controllers
             var defaultTenantAdmin = new UserIdentifier(1, 2);
             var hostAdmin = new UserIdentifier(null, 1);
 
-            await _notificationPublisher.PublishAsync(
+            await this._notificationPublisher.PublishAsync(
                 "App.SimpleMessage",
                 new MessageNotificationData(message),
                 severity: NotificationSeverity.Info,
                 userIds: new[] { defaultTenantAdmin, hostAdmin }
             );
 
-            return Content("Sent notification: " + message);
+            return this.Content("Sent notification: " + message);
         }
     }
 }

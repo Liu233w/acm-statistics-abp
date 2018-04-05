@@ -10,17 +10,17 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
         public InitialHostDbBuilder(AcmStatisticsAbpDbContext context)
         {
-            _context = context;
+            this._context = context;
         }
 
         public void Create()
         {
-            new DefaultEditionCreator(_context).Create();
-            new DefaultLanguagesCreator(_context).Create();
-            new HostRoleAndUserCreator(_context).Create();
-            new DefaultSettingsCreator(_context).Create();
+            new DefaultEditionCreator(this._context).Create();
+            new DefaultLanguagesCreator(this._context).Create();
+            new HostRoleAndUserCreator(this._context).Create();
+            new DefaultSettingsCreator(this._context).Create();
 
-            _context.SaveChanges();
+            this._context.SaveChanges();
         }
     }
 }

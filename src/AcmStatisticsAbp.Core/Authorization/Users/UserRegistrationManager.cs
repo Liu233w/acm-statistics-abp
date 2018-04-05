@@ -33,19 +33,19 @@ namespace AcmStatisticsAbp.Authorization.Users
             RoleManager roleManager,
             IPasswordHasher<User> passwordHasher)
         {
-            _tenantManager = tenantManager;
-            _userManager = userManager;
-            _roleManager = roleManager;
-            _passwordHasher = passwordHasher;
+            this._tenantManager = tenantManager;
+            this._userManager = userManager;
+            this._roleManager = roleManager;
+            this._passwordHasher = passwordHasher;
 
-            AbpSession = NullAbpSession.Instance;
+            this.AbpSession = NullAbpSession.Instance;
         }
 
         public async Task<User> RegisterAsync(string name, string surname, string emailAddress, string userName, string plainPassword, bool isEmailConfirmed)
         {
-            CheckForTenant();
+            this.CheckForTenant();
 
-            var tenant = await GetActiveTenantAsync();
+            var tenant = await this.GetActiveTenantAsync();
 
             var user = new User
             {
@@ -61,22 +61,22 @@ namespace AcmStatisticsAbp.Authorization.Users
 
             user.SetNormalizedNames();
 
-            user.Password = _passwordHasher.HashPassword(user, plainPassword);
+            user.Password = this._passwordHasher.HashPassword(user, plainPassword);
 
-            foreach (var defaultRole in await _roleManager.Roles.Where(r => r.IsDefault).ToListAsync())
+            foreach (var defaultRole in await this._roleManager.Roles.Where(r => r.IsDefault).ToListAsync())
             {
                 user.Roles.Add(new UserRole(tenant.Id, user.Id, defaultRole.Id));
             }
 
-            CheckErrors(await _userManager.CreateAsync(user));
-            await CurrentUnitOfWork.SaveChangesAsync();
+            this.CheckErrors(await this._userManager.CreateAsync(user));
+            await this.CurrentUnitOfWork.SaveChangesAsync();
 
             return user;
         }
 
         private void CheckForTenant()
         {
-            if (!AbpSession.TenantId.HasValue)
+            if (!this.AbpSession.TenantId.HasValue)
             {
                 throw new InvalidOperationException("Can not register host users!");
             }
@@ -84,25 +84,25 @@ namespace AcmStatisticsAbp.Authorization.Users
 
         private async Task<Tenant> GetActiveTenantAsync()
         {
-            if (!AbpSession.TenantId.HasValue)
+            if (!this.AbpSession.TenantId.HasValue)
             {
                 return null;
             }
 
-            return await GetActiveTenantAsync(AbpSession.TenantId.Value);
+            return await this.GetActiveTenantAsync(this.AbpSession.TenantId.Value);
         }
 
         private async Task<Tenant> GetActiveTenantAsync(int tenantId)
         {
-            var tenant = await _tenantManager.FindByIdAsync(tenantId);
+            var tenant = await this._tenantManager.FindByIdAsync(tenantId);
             if (tenant == null)
             {
-                throw new UserFriendlyException(L("UnknownTenantId{0}", tenantId));
+                throw new UserFriendlyException(this.L("UnknownTenantId{0}", tenantId));
             }
 
             if (!tenant.IsActive)
             {
-                throw new UserFriendlyException(L("TenantIdIsNotActive{0}", tenantId));
+                throw new UserFriendlyException(this.L("TenantIdIsNotActive{0}", tenantId));
             }
 
             return tenant;
@@ -110,7 +110,7 @@ namespace AcmStatisticsAbp.Authorization.Users
 
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
-            identityResult.CheckErrors(LocalizationManager);
+            identityResult.CheckErrors(this.LocalizationManager);
         }
     }
 }
