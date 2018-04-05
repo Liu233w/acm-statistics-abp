@@ -250,3 +250,7 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# 日志文件
+/src/AcmStatisticsAbp.Web.Host/App_Data/Logs
+/src/AcmStatisticsAbp.Web.Host/appsettings.Production.json
