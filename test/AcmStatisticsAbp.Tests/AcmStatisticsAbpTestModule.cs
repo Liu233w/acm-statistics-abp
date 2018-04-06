@@ -46,6 +46,9 @@ namespace AcmStatisticsAbp.Tests
             this.RegisterFakeService<AbpZeroDbMigrator<AcmStatisticsAbpDbContext>>();
 
             this.Configuration.ReplaceService<IEmailSender, NullEmailSender>(DependencyLifeStyle.Transient);
+
+            // 暂时解决单元测试随机报错的问题，在 https://github.com/aspnetboilerplate/aspnetboilerplate/issues/2735 修复之后会移除此项目
+            AppContext.SetSwitch("Microsoft.EntityFrameworkCore.Issue9825", true);
         }
 
         public override void Initialize()
