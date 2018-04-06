@@ -24,7 +24,7 @@
     <AdditionalFiles Include="$(SolutionDir)\_stylecop\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta006" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AcmStatisticsAbp.Core\AcmStatisticsAbp.Core.csproj" />
