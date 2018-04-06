@@ -12,7 +12,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
 
     [DependsOn(
        typeof(AcmStatisticsAbpWebCoreModule))]
-    public class AcmStatisticsAbpWebHostModule: AbpModule
+    public class AcmStatisticsAbpWebHostModule : AbpModule
     {
         private readonly IHostingEnvironment env;
         private readonly IConfigurationRoot appConfiguration;

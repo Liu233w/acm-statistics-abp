@@ -8,7 +8,7 @@ namespace AcmStatisticsAbp.Controllers
     using Abp.IdentityFramework;
     using Microsoft.AspNetCore.Identity;
 
-    public abstract class AcmStatisticsAbpControllerBase: AbpController
+    public abstract class AcmStatisticsAbpControllerBase : AbpController
     {
         protected AcmStatisticsAbpControllerBase()
         {
