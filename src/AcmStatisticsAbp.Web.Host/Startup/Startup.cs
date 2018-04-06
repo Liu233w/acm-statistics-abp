@@ -9,7 +9,6 @@ namespace AcmStatisticsAbp.Web.Host.Startup
     using Abp.AspNetCore;
     using Abp.Castle.Logging.Log4Net;
     using Abp.Extensions;
-    using AcmStatisticsAbp.Authentication.JwtBearer;
     using AcmStatisticsAbp.Configuration;
     using AcmStatisticsAbp.Identity;
     using Castle.Facilities.Logging;

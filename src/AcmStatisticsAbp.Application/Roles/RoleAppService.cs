@@ -12,7 +12,6 @@ namespace AcmStatisticsAbp.Roles
     using Abp.Authorization;
     using Abp.Domain.Repositories;
     using Abp.IdentityFramework;
-    using Abp.UI;
     using AcmStatisticsAbp.Authorization;
     using AcmStatisticsAbp.Authorization.Roles;
     using AcmStatisticsAbp.Authorization.Users;

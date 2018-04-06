@@ -10,6 +10,7 @@ namespace AcmStatisticsAbp.Tests
     {
         public MultiTenantFactAttribute()
         {
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
             if (!AcmStatisticsAbpConsts.MultiTenancyEnabled)
             {
 #pragma warning disable CS0162 // 检测到无法访问的代码

@@ -38,6 +38,7 @@ namespace AcmStatisticsAbp
 #pragma warning restore
     public class AcmStatisticsAbpWebCoreModule : AbpModule
     {
+        // ReSharper disable once NotAccessedField.Local
         private readonly IHostingEnvironment env;
         private readonly IConfigurationRoot appConfiguration;
 

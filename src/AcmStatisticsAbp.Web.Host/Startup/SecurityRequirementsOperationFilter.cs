@@ -5,6 +5,7 @@
 namespace AcmStatisticsAbp.Web.Host.Startup
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Abp.Authorization;
     using Swashbuckle.AspNetCore.Swagger;
@@ -12,6 +13,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
 
     public class SecurityRequirementsOperationFilter : IOperationFilter
     {
+        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration", Justification = "这个警告主要是为了效率考虑，现在效率没有问题，暂时不动这里的逻辑")]
         public void Apply(Operation operation, OperationFilterContext context)
         {
             var actionAttrs = context.ApiDescription.ActionAttributes();

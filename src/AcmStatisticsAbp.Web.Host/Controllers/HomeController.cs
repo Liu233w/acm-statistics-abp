@@ -4,16 +4,13 @@
 
 namespace AcmStatisticsAbp.Web.Host.Controllers
 {
-    using System.Threading.Tasks;
-    using Abp;
-    using Abp.Extensions;
     using Abp.Notifications;
-    using Abp.Timing;
     using AcmStatisticsAbp.Controllers;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : AcmStatisticsAbpControllerBase
     {
+        // ReSharper disable once NotAccessedField.Local
         private readonly INotificationPublisher notificationPublisher;
 
         public HomeController(INotificationPublisher notificationPublisher)

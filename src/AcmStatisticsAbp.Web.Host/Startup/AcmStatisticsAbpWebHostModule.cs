@@ -14,7 +14,10 @@ namespace AcmStatisticsAbp.Web.Host.Startup
        typeof(AcmStatisticsAbpWebCoreModule))]
     public class AcmStatisticsAbpWebHostModule : AbpModule
     {
+        // ReSharper disable once NotAccessedField.Local
         private readonly IHostingEnvironment env;
+
+        // ReSharper disable once NotAccessedField.Local
         private readonly IConfigurationRoot appConfiguration;
 
         public AcmStatisticsAbpWebHostModule(IHostingEnvironment env)

@@ -37,6 +37,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
             }
         }
 
+        // ReSharper disable once UnusedMember.Local
         private void CreateFeatureIfNotExists(int editionId, string featureName, bool isEnabled)
         {
             if (this.context.EditionFeatureSettings.IgnoreQueryFilters().Any(ef => ef.EditionId == editionId && ef.Name == featureName))
