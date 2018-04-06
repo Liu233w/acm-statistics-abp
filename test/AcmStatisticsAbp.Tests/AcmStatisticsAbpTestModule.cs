@@ -53,7 +53,8 @@ namespace AcmStatisticsAbp.Tests
             ServiceCollectionRegistrar.Register(this.IocManager);
         }
 
-        private void RegisterFakeService<TService>() where TService : class
+        private void RegisterFakeService<TService>()
+            where TService : class
         {
             this.IocManager.IocContainer.Register(
                 Component.For<TService>()
