@@ -2,13 +2,6 @@
 // Copyright (c) 西北工业大学ACM开发组. All rights reserved.
 // </copyright>
 
-
-#if FEATURE_SIGNALR
-using Abp.Web.SignalR;
-#elif FEATURE_SIGNALR_ASPNETCORE
-using Abp.AspNetCore.SignalR;
-#endif
-
 namespace AcmStatisticsAbp
 {
     using System;
@@ -25,16 +18,24 @@ namespace AcmStatisticsAbp
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
 
+#if FEATURE_SIGNALR
+    using Abp.Web.SignalR;
+#elif FEATURE_SIGNALR_ASPNETCORE
+    using Abp.AspNetCore.SignalR;
+#endif
+
     [DependsOn(
          typeof(AcmStatisticsAbpApplicationModule),
          typeof(AcmStatisticsAbpEntityFrameworkModule),
          typeof(AbpAspNetCoreModule)
+#pragma warning disable SA1001, SA1115, SA1113, SA1111, SA1009
 #if FEATURE_SIGNALR
         ,typeof(AbpWebSignalRModule)
 #elif FEATURE_SIGNALR_ASPNETCORE
         ,typeof(AbpAspNetCoreSignalRModule)
 #endif
      )]
+#pragma warning restore
     public class AcmStatisticsAbpWebCoreModule : AbpModule
     {
         private readonly IHostingEnvironment env;
