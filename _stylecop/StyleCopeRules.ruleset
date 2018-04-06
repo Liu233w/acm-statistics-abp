@@ -4,5 +4,9 @@
         <Rule Id="SA1652" Action="None" />
         <Rule Id="SA1201" Action="None" />
         <Rule Id="SA1202" Action="None" />
+        <Rule Id="SA1600" Action="None" />
+    </Rules>
+    <Rules AnalyzerId="Microsoft.Usage" RuleNamespace="Microsoft.Usage">
+        <Rule Id="CS1591" Action="None" />
     </Rules>
 </RuleSet>
