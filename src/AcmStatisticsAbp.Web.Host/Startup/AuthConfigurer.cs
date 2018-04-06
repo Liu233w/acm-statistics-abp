@@ -45,12 +45,12 @@ namespace AcmStatisticsAbp.Web.Host.Startup
                         ValidateLifetime = true,
 
                         // If you want to allow a certain amount of clock drift, set that here
-                        ClockSkew = TimeSpan.Zero
+                        ClockSkew = TimeSpan.Zero,
                     };
 
                     options.Events = new JwtBearerEvents
                     {
-                        OnMessageReceived = QueryStringTokenResolver
+                        OnMessageReceived = QueryStringTokenResolver,
                     };
                 });
             }

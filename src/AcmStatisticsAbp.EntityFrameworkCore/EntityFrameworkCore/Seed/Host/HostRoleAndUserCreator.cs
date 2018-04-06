@@ -61,7 +61,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
                         TenantId = null,
                         Name = permission.Name,
                         IsGranted = true,
-                        RoleId = adminRoleForHost.Id
+                        RoleId = adminRoleForHost.Id,
                     }));
                 this.context.SaveChanges();
             }
@@ -78,7 +78,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
                     Surname = "admin",
                     EmailAddress = "admin@aspnetboilerplate.com",
                     IsEmailConfirmed = true,
-                    IsActive = true
+                    IsActive = true,
                 };
 
                 user.Password = new PasswordHasher<User>(new OptionsWrapper<PasswordHasherOptions>(new PasswordHasherOptions())).HashPassword(user, "123qwe");
@@ -97,7 +97,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
                     TenantId = null,
                     UserId = adminUserForHost.Id,
                     UserName = AbpUserBase.AdminUserName,
-                    EmailAddress = adminUserForHost.EmailAddress
+                    EmailAddress = adminUserForHost.EmailAddress,
                 });
                 this.context.SaveChanges();
             }

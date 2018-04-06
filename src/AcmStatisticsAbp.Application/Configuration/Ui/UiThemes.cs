@@ -33,7 +33,7 @@ namespace AcmStatisticsAbp.Configuration.Ui
                 new UiThemeInfo("Brown", "brown"),
                 new UiThemeInfo("Grey", "grey"),
                 new UiThemeInfo("Blue Grey", "blue-grey"),
-                new UiThemeInfo("Black", "black")
+                new UiThemeInfo("Black", "black"),
             };
         }
     }

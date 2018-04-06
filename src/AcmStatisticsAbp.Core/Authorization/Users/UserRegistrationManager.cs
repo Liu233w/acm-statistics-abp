@@ -56,7 +56,7 @@ namespace AcmStatisticsAbp.Authorization.Users
                 IsActive = true,
                 UserName = userName,
                 IsEmailConfirmed = isEmailConfirmed,
-                Roles = new List<UserRole>()
+                Roles = new List<UserRole>(),
             };
 
             user.SetNormalizedNames();

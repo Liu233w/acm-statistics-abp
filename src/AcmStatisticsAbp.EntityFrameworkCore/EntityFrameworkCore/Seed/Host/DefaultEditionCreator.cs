@@ -48,7 +48,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
             {
                 Name = featureName,
                 Value = isEnabled.ToString(),
-                EditionId = editionId
+                EditionId = editionId,
             });
             this.context.SaveChanges();
         }

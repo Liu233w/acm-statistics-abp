@@ -51,7 +51,7 @@ namespace AcmStatisticsAbp.Authorization.Accounts
 
             return new RegisterOutput
             {
-                CanLogin = user.IsActive && (user.IsEmailConfirmed || !isEmailConfirmationRequiredForLogin)
+                CanLogin = user.IsActive && (user.IsEmailConfirmed || !isEmailConfirmationRequiredForLogin),
             };
         }
     }

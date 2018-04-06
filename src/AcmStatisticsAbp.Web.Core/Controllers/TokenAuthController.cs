@@ -68,7 +68,7 @@ namespace AcmStatisticsAbp.Controllers
                 AccessToken = accessToken,
                 EncryptedAccessToken = this.GetEncrpyedAccessToken(accessToken),
                 ExpireInSeconds = (int)this.configuration.Expiration.TotalSeconds,
-                UserId = loginResult.User.Id
+                UserId = loginResult.User.Id,
             };
         }
 
@@ -94,7 +94,7 @@ namespace AcmStatisticsAbp.Controllers
                         {
                             AccessToken = accessToken,
                             EncryptedAccessToken = this.GetEncrpyedAccessToken(accessToken),
-                            ExpireInSeconds = (int)this.configuration.Expiration.TotalSeconds
+                            ExpireInSeconds = (int)this.configuration.Expiration.TotalSeconds,
                         };
                     }
 
@@ -105,7 +105,7 @@ namespace AcmStatisticsAbp.Controllers
                         {
                             return new ExternalAuthenticateResultModel
                             {
-                                WaitingForActivation = true
+                                WaitingForActivation = true,
                             };
                         }
 
@@ -122,7 +122,7 @@ namespace AcmStatisticsAbp.Controllers
                         return new ExternalAuthenticateResultModel
                         {
                             AccessToken = this.CreateAccessToken(CreateJwtClaims(loginResult.Identity)),
-                            ExpireInSeconds = (int)this.configuration.Expiration.TotalSeconds
+                            ExpireInSeconds = (int)this.configuration.Expiration.TotalSeconds,
                         };
                     }
 
@@ -152,8 +152,8 @@ namespace AcmStatisticsAbp.Controllers
                 {
                     LoginProvider = externalUser.Provider,
                     ProviderKey = externalUser.ProviderKey,
-                    TenantId = user.TenantId
-                }
+                    TenantId = user.TenantId,
+                },
             };
 
             await this.CurrentUnitOfWork.SaveChangesAsync();
@@ -220,7 +220,7 @@ namespace AcmStatisticsAbp.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
+                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
             });
 
             return claims;

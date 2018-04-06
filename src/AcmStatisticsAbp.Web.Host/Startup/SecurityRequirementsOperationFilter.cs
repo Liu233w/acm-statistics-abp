@@ -46,8 +46,8 @@ namespace AcmStatisticsAbp.Web.Host.Startup
                 {
                     new Dictionary<string, IEnumerable<string>>
                     {
-                        { "bearerAuth", permissions }
-                    }
+                        { "bearerAuth", permissions },
+                    },
                 };
             }
         }

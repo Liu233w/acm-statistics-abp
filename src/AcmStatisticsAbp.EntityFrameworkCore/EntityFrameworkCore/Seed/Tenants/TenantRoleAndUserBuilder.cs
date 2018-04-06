@@ -63,7 +63,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
                         TenantId = this.tenantId,
                         Name = permission.Name,
                         IsGranted = true,
-                        RoleId = adminRole.Id
+                        RoleId = adminRole.Id,
                     }));
                 this.context.SaveChanges();
             }
@@ -92,7 +92,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
                         TenantId = this.tenantId,
                         UserId = adminUser.Id,
                         UserName = AbpUserBase.AdminUserName,
-                        EmailAddress = adminUser.EmailAddress
+                        EmailAddress = adminUser.EmailAddress,
                     });
                     this.context.SaveChanges();
                 }

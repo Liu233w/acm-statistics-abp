@@ -8,6 +8,6 @@ namespace AcmStatisticsAbp.Authorization.Accounts.Dto
     {
         Available = 1,
         InActive,
-        NotFound
+        NotFound,
     }
 }

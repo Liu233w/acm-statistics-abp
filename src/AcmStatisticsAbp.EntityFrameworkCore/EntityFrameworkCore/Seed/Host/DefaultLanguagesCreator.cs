@@ -30,7 +30,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
                 new ApplicationLanguage(null, "zh-CN", "简体中文", "famfamfam-flags cn"),
                 new ApplicationLanguage(null, "es-MX", "Español México", "famfamfam-flags mx"),
                 new ApplicationLanguage(null, "nl", "Nederlands", "famfamfam-flags nl"),
-                new ApplicationLanguage(null, "ja", "日本語", "famfamfam-flags jp")
+                new ApplicationLanguage(null, "ja", "日本語", "famfamfam-flags jp"),
             };
         }
 

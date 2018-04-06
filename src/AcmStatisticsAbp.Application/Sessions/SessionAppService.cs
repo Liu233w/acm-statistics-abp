@@ -24,9 +24,9 @@ namespace AcmStatisticsAbp.Sessions
                     Features = new Dictionary<string, bool>
                     {
                         { "SignalR", SignalRFeature.IsAvailable },
-                        { "SignalR.AspNetCore", SignalRFeature.IsAspNetCore }
-                    }
-                }
+                        { "SignalR.AspNetCore", SignalRFeature.IsAspNetCore },
+                    },
+                },
             };
 
             if (this.AbpSession.TenantId.HasValue)

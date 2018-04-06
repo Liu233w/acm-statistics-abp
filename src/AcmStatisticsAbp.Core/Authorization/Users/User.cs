@@ -25,7 +25,7 @@ namespace AcmStatisticsAbp.Authorization.Users
                 UserName = AdminUserName,
                 Name = AdminUserName,
                 Surname = AdminUserName,
-                EmailAddress = emailAddress
+                EmailAddress = emailAddress,
             };
 
             user.SetNormalizedNames();

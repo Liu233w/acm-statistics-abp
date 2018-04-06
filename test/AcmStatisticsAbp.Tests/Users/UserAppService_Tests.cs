@@ -43,7 +43,7 @@ namespace AcmStatisticsAbp.Tests.Users
                     Name = "John",
                     Surname = "Nash",
                     Password = "123qwe",
-                    UserName = "john.nash"
+                    UserName = "john.nash",
                 });
 
             await this.UsingDbContextAsync(async context =>
