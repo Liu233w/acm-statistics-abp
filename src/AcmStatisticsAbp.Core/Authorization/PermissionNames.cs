@@ -2,6 +2,7 @@
 // Copyright (c) 西北工业大学ACM开发组. All rights reserved.
 // </copyright>
 
+// ReSharper disable InconsistentNaming
 namespace AcmStatisticsAbp.Authorization
 {
     public static class PermissionNames
