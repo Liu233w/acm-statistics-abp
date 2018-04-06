@@ -12,7 +12,9 @@ namespace AcmStatisticsAbp.Tests
         {
             if (!AcmStatisticsAbpConsts.MultiTenancyEnabled)
             {
+#pragma warning disable CS0162 // 检测到无法访问的代码
                 this.Skip = "MultiTenancy is disabled.";
+#pragma warning restore CS0162 // 检测到无法访问的代码
             }
         }
     }
