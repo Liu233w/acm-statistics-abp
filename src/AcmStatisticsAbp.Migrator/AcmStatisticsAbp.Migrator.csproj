@@ -12,6 +12,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
+    <DocumentationFile>bin\Debug\netcoreapp2.0\AcmStatisticsAbp.Migrator.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <None Update="appsettings.json;log4net.config">

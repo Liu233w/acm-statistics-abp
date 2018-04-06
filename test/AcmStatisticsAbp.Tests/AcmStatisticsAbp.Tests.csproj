@@ -13,6 +13,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
+    <DocumentationFile>bin\Debug\netcoreapp2.0\AcmStatisticsAbp.Tests.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\AcmStatisticsAbp.Application\AcmStatisticsAbp.Application.csproj" />

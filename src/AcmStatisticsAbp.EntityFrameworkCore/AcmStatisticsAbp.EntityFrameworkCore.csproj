@@ -10,6 +10,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
+    <DocumentationFile>bin\Debug\netcoreapp2.0\AcmStatisticsAbp.EntityFrameworkCore.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
      <CodeAnalysisRuleSet>$(SolutionDir)\_stylecop\StyleCopeRules.ruleset</CodeAnalysisRuleSet>

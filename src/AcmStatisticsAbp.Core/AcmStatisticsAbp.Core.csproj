@@ -14,6 +14,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
+    <DocumentationFile>bin\Debug\netcoreapp2.0\AcmStatisticsAbp.Core.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\SourceFiles\*.xml" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />

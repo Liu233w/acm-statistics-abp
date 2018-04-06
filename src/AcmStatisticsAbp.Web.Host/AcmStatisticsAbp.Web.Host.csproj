@@ -14,6 +14,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
+    <DocumentationFile>bin\Debug\netcoreapp2.0\AcmStatisticsAbp.Web.Host.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <None Include="app.config" />
