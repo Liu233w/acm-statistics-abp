@@ -25,7 +25,7 @@ namespace AcmStatisticsAbp.Tests.Users
         public async Task GetUsers_Test()
         {
             // Act
-            var output = await this.userAppService.GetAll(new PagedResultRequestDto{ MaxResultCount=20, SkipCount=0 });
+            var output = await this.userAppService.GetAll(new PagedResultRequestDto{ MaxResultCount = 20, SkipCount = 0 });
 
             // Assert
             output.Items.Count.ShouldBeGreaterThan(0);
