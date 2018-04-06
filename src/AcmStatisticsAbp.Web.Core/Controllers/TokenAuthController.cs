@@ -97,6 +97,7 @@ namespace AcmStatisticsAbp.Controllers
                             ExpireInSeconds = (int)this.configuration.Expiration.TotalSeconds
                         };
                     }
+
                 case AbpLoginResultType.UnknownExternalLogin:
                     {
                         var newUser = await this.RegisterExternalUserAsync(externalUser);
@@ -124,6 +125,7 @@ namespace AcmStatisticsAbp.Controllers
                             ExpireInSeconds = (int)this.configuration.Expiration.TotalSeconds
                         };
                     }
+
                 default:
                     {
                         throw this.abpLoginResultTypeHelper.CreateExceptionForFailedLoginAttempt(
