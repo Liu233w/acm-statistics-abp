@@ -33,10 +33,10 @@
     <ProjectReference Include="..\AcmStatisticsAbp.Web.Core\AcmStatisticsAbp.Web.Core.csproj" />
   </ItemGroup>
   <PropertyGroup>
-     <CodeAnalysisRuleSet>$(SolutionDir)\_stylecop\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
+     <CodeAnalysisRuleSet>..\..\_stylecop\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <AdditionalFiles Include="$(SolutionDir)\_stylecop\stylecop.json" Link="stylecop.json" />
+    <AdditionalFiles Include="..\..\_stylecop\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2">

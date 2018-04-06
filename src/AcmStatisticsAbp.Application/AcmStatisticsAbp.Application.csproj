@@ -19,10 +19,10 @@
     <DocumentationFile>bin\Debug\netcoreapp2.0\AcmStatisticsAbp.Application.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-     <CodeAnalysisRuleSet>$(SolutionDir)\_stylecop\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
+     <CodeAnalysisRuleSet>..\..\_stylecop\StyleCopeRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <AdditionalFiles Include="$(SolutionDir)\_stylecop\stylecop.json" Link="stylecop.json" />
+    <AdditionalFiles Include="..\..\_stylecop\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta006" />
