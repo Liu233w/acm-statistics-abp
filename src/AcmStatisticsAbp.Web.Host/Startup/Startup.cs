@@ -2,17 +2,6 @@
 // Copyright (c) 西北工业大学ACM开发组. All rights reserved.
 // </copyright>
 
-
-#if FEATURE_SIGNALR
-using Microsoft.AspNet.SignalR;
-using Microsoft.Owin.Cors;
-using Owin;
-using Abp.Owin;
-using AcmStatisticsAbp.Owin;
-#elif FEATURE_SIGNALR_ASPNETCORE
-using Abp.AspNetCore.SignalR.Hubs;
-#endif
-
 namespace AcmStatisticsAbp.Web.Host.Startup
 {
     using System;
@@ -32,9 +21,19 @@ namespace AcmStatisticsAbp.Web.Host.Startup
     using Microsoft.Extensions.Logging;
     using Swashbuckle.AspNetCore.Swagger;
 
+#if FEATURE_SIGNALR
+    using Microsoft.AspNet.SignalR;
+    using Microsoft.Owin.Cors;
+    using Owin;
+    using Abp.Owin;
+    using AcmStatisticsAbp.Owin;
+#elif FEATURE_SIGNALR_ASPNETCORE
+    using Abp.AspNetCore.SignalR.Hubs;
+#endif
+
     public class Startup
     {
-        private const string defaultCorsPolicyName = "localhost";
+        private const string DefaultCorsPolicyName = "localhost";
 
         private readonly IConfigurationRoot appConfiguration;
 
@@ -47,7 +46,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
         {
             // MVC
             services.AddMvc(
-                options => options.Filters.Add(new CorsAuthorizationFilterFactory(defaultCorsPolicyName)));
+                options => options.Filters.Add(new CorsAuthorizationFilterFactory(DefaultCorsPolicyName)));
 
             IdentityRegistrar.Register(services);
             AuthConfigurer.Configure(services, this.appConfiguration);
@@ -59,10 +58,10 @@ namespace AcmStatisticsAbp.Web.Host.Startup
             // Configure CORS for angular2 UI
             services.AddCors(
                 options => options.AddPolicy(
-                    defaultCorsPolicyName,
+                    DefaultCorsPolicyName,
                     builder => builder
+                        /* App:CorsOrigins in appsettings.json can contain more than one address separated by comma. */
                         .WithOrigins(
-                            // App:CorsOrigins in appsettings.json can contain more than one address separated by comma.
                             this.appConfiguration["App:CorsOrigins"]
                                 .Split(",", StringSplitOptions.RemoveEmptyEntries)
                                 .Select(o => o.RemovePostFix("/"))
@@ -84,13 +83,14 @@ namespace AcmStatisticsAbp.Web.Host.Startup
                     In = "header",
                     Type = "apiKey",
                 });
+
                 // Assign scope requirements to operations based on AuthorizeAttribute
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
 
             // Configure Abp and Dependency Injection
+            // Configure Log4Net logging
             return services.AddAbp<AcmStatisticsAbpWebHostModule>(
-                // Configure Log4Net logging
                 options => options.IocManager.IocContainer.AddFacility<LoggingFacility>(
                     f => f.UseAbpLog4Net().WithConfig("log4net.config")));
         }
@@ -99,7 +99,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
         {
             app.UseAbp(options => { options.UseAbpRequestLocalization = false; }); // Initializes ABP framework.
 
-            app.UseCors(defaultCorsPolicyName); // Enable CORS!
+            app.UseCors(DefaultCorsPolicyName); // Enable CORS!
 
             app.UseStaticFiles();
 
@@ -130,6 +130,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
 
             // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger();
+
             // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
             app.UseSwaggerUI(options =>
             {
