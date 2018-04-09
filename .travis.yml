@@ -24,7 +24,7 @@ matrix:
         - cd test/AcmStatisticsAbp.Tests/
         - dotnet test
     
-    - env: NAME=Sonar-Analysis
+    - 
       stage: sonar
       addons:
         sonarcloud:
