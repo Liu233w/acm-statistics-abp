@@ -1,0 +1,45 @@
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+
+language: csharp
+solution: AcmStatisticsAbp.sln
+
+mono: latest
+dotnet: 2.0.0
+dist: trusty
+
+stages:
+  - name: test
+  - name: deploy
+    if: tag =~ ^v
+  - name: sonar
+
+matrix:
+  include:
+    - env: NAME=Test
+      stage: test
+      script:
+        - cd test/AcmStatisticsAbp.Tests/
+        - dotnet test
+    
+    - env: NAME=Sonar-Analysis
+      stage: sonar
+      addons:
+        sonarcloud:
+          organization: "liu233w-github"
+          token: $SONAR_TOKEN
+      cache:
+        directories:
+          - $HOME/.sonar/cache
+          - $HOME/.m2
+      install:
+        - curl -o scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.1.1.1164/sonar-scanner-msbuild-4.1.1.1164-netcoreapp2.0.zip
+        - unzip scanner.zip
+        - chmod +x sonar-scanner-3.1.0.1141/bin/sonar-scanner
+      script:
+        - dotnet SonarScanner.MSBuild.dll begin /k:"acm-statistics-abp" /d:sonar.login=$SONAR_TOKEN /d:sonar.organization=liu233w-github /d:sonar.exclusions=**/wwwroot/**/* /d:sonar.host.url=https://sonarcloud.io
+        - dotnet build
+        - dotnet SonarScanner.MSBuild.dll end /d:sonar.login=$SONAR_TOKEN
+
