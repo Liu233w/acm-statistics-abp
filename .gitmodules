@@ -1,0 +1,3 @@
+[submodule ".travis/travis-msbuild"]
+	path = .travis/travis-msbuild
+	url = https://github.com/0x0ade/travis-msbuild.git
