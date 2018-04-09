@@ -4,7 +4,7 @@
 
 namespace AcmStatisticsAbp
 {
-    public class AcmStatisticsAbpConsts
+    public static class AcmStatisticsAbpConsts
     {
         public const string LocalizationSourceName = "AcmStatisticsAbp";
 
