@@ -30,15 +30,30 @@ matrix:
         sonarcloud:
           organization: "liu233w-github"
           token: $SONAR_TOKEN
+        apt:
+          packages:
+            - libunwind8
       cache:
         directories:
           - $HOME/.sonar/cache
           - $HOME/.m2
+      env:
+        - "TRAVIS_MSBUILD_MODE=msbuild-core"
+        - "TRAVIS_MSBUILD=$TRAVIS_BUILD_DIR/.travis/travis-msbuild"
+        - "TRAVIS_MSBUILD_BIN=$TRAVIS_MSBUILD/bin"
+        - "TRAVIS_MSBUILD_FRAMEWORK=$TRAVIS_MSBUILD/lib-dotnet"
+        - "PATH=$PATH:$TRAVIS_MSBUILD_BIN"
+        # scanner msbuild
+        - "SCANNER_DIR=$TRAVIS_BUILD_DIR/.travis/scanner"
+      before_install:
+        - chmod a+x "$TRAVIS_MSBUILD_BIN"/msbuild-prepare
+        - msbuild-prepare
       install:
-          - curl -o scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.1.1.1164/sonar-scanner-msbuild-4.1.1.1164-netcoreapp2.0.zip
-          - unzip scanner.zip
+        - curl -o scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.1.1.1164/sonar-scanner-msbuild-4.1.1.1164-net46.zip
+        - unzip -n scanner.zip -d $SCANNER_DIR
+        - chmod +x $SCANNER_DIR/sonar-scanner-3.1.0.1141/bin/sonar-scanner
       script:
-        - dotnet SonarScanner.MSBuild.dll begin /k:"acm-statistics-abp" /d:sonar.login=$SONAR_TOKEN /d:sonar.organization=liu233w-github /d:sonar.exclusions=**/wwwroot/**/* /d:sonar.host.url=https://sonarcloud.io
+        - mono $SCANNER_DIR/SonarQube.Scanner.MSBuild.exe begin /k:"acm-statistics-abp" /d:sonar.login=$SONAR_TOKEN /d:sonar.organization=liu233w-github /d:sonar.exclusions=**/wwwroot/**/* /d:sonar.host.url=https://sonarcloud.io
         - dotnet build
-        - dotnet SonarScanner.MSBuild.dll end /d:sonar.login=$SONAR_TOKEN
+        - mono $SCANNER_DIR/SonarQube.Scanner.MSBuild.exe end /d:sonar.login=$SONAR_TOKEN
 
