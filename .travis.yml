@@ -6,7 +6,7 @@ notifications:
 language: csharp
 solution: AcmStatisticsAbp.sln
 
-mono: latest
+mono: none
 dotnet: 2.0.0
 dist: trusty
 
@@ -26,6 +26,7 @@ matrix:
     
     - 
       stage: sonar
+      mono: latest
       addons:
         sonarcloud:
           organization: "liu233w-github"
