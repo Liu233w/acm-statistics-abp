@@ -1,6 +1,7 @@
 # acm-statistics-abp
 [![Build Status](https://travis-ci.org/Liu233w/acm-statistics-abp.svg?branch=master)](https://travis-ci.org/Liu233w/acm-statistics-abp)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=acm-statistics-abp&metric=alert_status)](https://sonarcloud.io/dashboard?id=acm-statistics-abp)
+[![codecov](https://codecov.io/gh/Liu233w/acm-statistics-abp/branch/master/graph/badge.svg)](https://codecov.io/gh/Liu233w/acm-statistics-abp)
 
 [新版 NWPU-ACM 查询系统](https://github.com/Liu233w/acm-statistics)后端
 
