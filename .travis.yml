@@ -22,7 +22,9 @@ matrix:
       stage: test
       script:
         - cd test/AcmStatisticsAbp.Tests/
-        - dotnet test
+        - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      after_success:
+        - bash <(curl -s https://codecov.io/bash) -f ./coverage.xml
     
     - env: NAME=Sonar-Analysis
       stage: sonar
