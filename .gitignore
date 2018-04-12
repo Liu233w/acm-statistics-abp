@@ -254,3 +254,6 @@ paket-files/
 # 日志文件
 /src/AcmStatisticsAbp.Web.Host/App_Data/Logs
 /src/AcmStatisticsAbp.Web.Host/appsettings.Production.json
+
+# coverage file
+coverage.xml
