@@ -21,6 +21,9 @@ namespace AcmStatisticsAbp.Configuration
             return new[]
             {
                 new SettingDefinition(AppSettingNames.UiTheme, "red", scopes: SettingScopes.Application | SettingScopes.Tenant | SettingScopes.User, isVisibleToClients: true),
+
+                // 默认发送邮件的域名和协议，结尾不能加上斜杠
+                new SettingDefinition(AppSettingNames.EmailConfirmationBaseUrl, "http://new.npuacm.info"),
             };
         }
     }
