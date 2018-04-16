@@ -8,16 +8,19 @@ namespace AcmStatisticsAbp.Authorization.Accounts
     using Abp.Configuration;
     using Abp.Zero.Configuration;
     using AcmStatisticsAbp.Authorization.Accounts.Dto;
+    using AcmStatisticsAbp.Authorization.EmailConfirmation;
     using AcmStatisticsAbp.Authorization.Users;
 
     public class AccountAppService : AcmStatisticsAbpAppServiceBase, IAccountAppService
     {
         private readonly UserRegistrationManager userRegistrationManager;
+        private readonly EmailConfirmationManager emailConfirmationManager;
 
         public AccountAppService(
-            UserRegistrationManager userRegistrationManager)
+            UserRegistrationManager userRegistrationManager, EmailConfirmationManager emailConfirmationManager)
         {
             this.userRegistrationManager = userRegistrationManager;
+            this.emailConfirmationManager = emailConfirmationManager;
         }
 
         public async Task<IsTenantAvailableOutput> IsTenantAvailable(IsTenantAvailableInput input)
@@ -48,10 +51,20 @@ namespace AcmStatisticsAbp.Authorization.Accounts
 
             var isEmailConfirmationRequiredForLogin = await this.SettingManager.GetSettingValueAsync<bool>(AbpZeroSettingNames.UserManagement.IsEmailConfirmationRequiredForLogin);
 
+            if (isEmailConfirmationRequiredForLogin)
+            {
+                await this.emailConfirmationManager.SendConfirmationEmailAsync(input.EmailAddress);
+            }
+
             return new RegisterOutput
             {
                 CanLogin = user.IsActive && (user.IsEmailConfirmed || !isEmailConfirmationRequiredForLogin),
             };
+        }
+
+        public async Task ConfirmEmail(ConfirmEmailInput input)
+        {
+            await this.emailConfirmationManager.TryConfirmEmailAsync(input.ConfirmationToken);
         }
     }
 }
