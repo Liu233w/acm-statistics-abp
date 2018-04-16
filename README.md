@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/Liu233w/acm-statistics-abp.svg?branch=master)](https://travis-ci.org/Liu233w/acm-statistics-abp)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=acm-statistics-abp&metric=alert_status)](https://sonarcloud.io/dashboard?id=acm-statistics-abp)
 [![codecov](https://codecov.io/gh/Liu233w/acm-statistics-abp/branch/master/graph/badge.svg)](https://codecov.io/gh/Liu233w/acm-statistics-abp)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FLiu233w%2Facm-statistics-abp.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FLiu233w%2Facm-statistics-abp?ref=badge_shield)
 
 [新版 NWPU-ACM 查询系统](https://github.com/Liu233w/acm-statistics)后端
 
@@ -43,3 +44,7 @@ GPL-3.0 协议
 - 欢迎任何人贡献代码。
 - git 的提交格式遵循 [Git Commit Angular 规范](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)
     （[中文版](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)）
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FLiu233w%2Facm-statistics-abp.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FLiu233w%2Facm-statistics-abp?ref=badge_large)
