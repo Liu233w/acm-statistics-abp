@@ -158,7 +158,7 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
             {
                 this.emailSenderMock.Verify(
                     sender => sender.SendAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), true),
-                    Moq.Times.Exactly(2));
+                    Times.Exactly(2));
 
                 this.emailBodys.Count.ShouldBe(2);
 
