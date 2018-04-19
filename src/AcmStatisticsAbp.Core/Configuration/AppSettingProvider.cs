@@ -7,18 +7,13 @@ namespace AcmStatisticsAbp.Configuration
     using System.Collections.Generic;
     using System.ComponentModel;
     using Abp.Configuration;
+    using Abp.Net.Mail;
     using Abp.Zero.Configuration;
 
     public class AppSettingProvider : SettingProvider
     {
         public override IEnumerable<SettingDefinition> GetSettingDefinitions(SettingDefinitionProviderContext context)
         {
-            // 开启邮件验证
-            var emailConfirmationSetting =
-                context.Manager.GetSettingDefinition(
-                    AbpZeroSettingNames.UserManagement.IsEmailConfirmationRequiredForLogin);
-            emailConfirmationSetting.DefaultValue = "true";
-
             return new[]
             {
                 new SettingDefinition(AppSettingNames.UiTheme, "red", scopes: SettingScopes.Application | SettingScopes.Tenant | SettingScopes.User, isVisibleToClients: true),
