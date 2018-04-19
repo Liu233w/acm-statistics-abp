@@ -15,7 +15,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore
     {
         /* Define a DbSet for each entity of the application */
 
-        public DbSet<ConfirmationCode> ConfirmationParams { get; set; }
+        public DbSet<ConfirmationCode> ConfirmationCodes { get; set; }
 
         public AcmStatisticsAbpDbContext(DbContextOptions<AcmStatisticsAbpDbContext> options)
             : base(options)
