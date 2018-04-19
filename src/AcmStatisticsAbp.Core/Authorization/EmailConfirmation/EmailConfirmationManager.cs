@@ -77,7 +77,15 @@ namespace AcmStatisticsAbp.Authorization.EmailConfirmation
         /// <param name="confirmationToken"></param>
         public async Task TryConfirmEmailAsync(string confirmationToken)
         {
-            var confirmId = new Guid(confirmationToken);
+            Guid confirmId;
+            try
+            {
+                confirmId = new Guid(confirmationToken);
+            }
+            catch (FormatException)
+            {
+                throw new UserFriendlyException(StaticErrorCode.ConfirmCodeNotFound, "未找到此确认码");
+            }
 
             var confirmCode = await this.confirmationCodeRepository.FirstOrDefaultAsync(confirmId);
             if (confirmCode == null)
