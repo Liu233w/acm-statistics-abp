@@ -5,10 +5,7 @@
 namespace AcmStatisticsAbp.Configuration
 {
     using System.Collections.Generic;
-    using System.ComponentModel;
     using Abp.Configuration;
-    using Abp.Net.Mail;
-    using Abp.Zero.Configuration;
 
     public class AppSettingProvider : SettingProvider
     {

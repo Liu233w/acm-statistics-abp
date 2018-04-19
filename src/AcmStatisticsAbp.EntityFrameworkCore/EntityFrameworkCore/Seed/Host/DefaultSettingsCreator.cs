@@ -22,11 +22,18 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
 
         public void Create()
         {
-            // Emailing
-            this.AddSettingIfNotExists(EmailSettingNames.DefaultFromAddress, "admin@mydomain.com");
-            this.AddSettingIfNotExists(EmailSettingNames.DefaultFromDisplayName, "mydomain.com mailer");
             // 开启邮件验证
             this.AddSettingIfNotExists(AbpZeroSettingNames.UserManagement.IsEmailConfirmationRequiredForLogin, "true");
+
+            // 邮件的部分设置（推荐使用yandex邮箱，这个不需要手机号就能注册，并且国内外都能发；163邮箱发送的邮件没法让 Outlook 邮箱接收）
+            this.AddSettingIfNotExists(EmailSettingNames.DefaultFromDisplayName, "NWPU-ACM 查询系统 邮件机器人");
+            this.AddSettingIfNotExists(EmailSettingNames.DefaultFromAddress, "npuacm@yandex.com");
+            this.AddSettingIfNotExists(EmailSettingNames.Smtp.UserName, "npuacm");
+            this.AddSettingIfNotExists(EmailSettingNames.Smtp.Password, "----邮箱密码----");
+            this.AddSettingIfNotExists(EmailSettingNames.Smtp.Host, "smtp.yandex.com");
+            this.AddSettingIfNotExists(EmailSettingNames.Smtp.EnableSsl, "true");
+            this.AddSettingIfNotExists(EmailSettingNames.Smtp.UseDefaultCredentials, "false");
+            this.AddSettingIfNotExists(EmailSettingNames.Smtp.Port, "25");
 
             // Languages
             this.AddSettingIfNotExists(LocalizationSettingNames.DefaultLanguage, "en");
