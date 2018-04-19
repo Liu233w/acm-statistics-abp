@@ -5,6 +5,7 @@
 namespace AcmStatisticsAbp.Authorization.EmailConfirmation
 {
     using System;
+    using System.Diagnostics;
     using System.Threading.Tasks;
     using Abp.Configuration;
     using Abp.Dependency;
@@ -21,14 +22,12 @@ namespace AcmStatisticsAbp.Authorization.EmailConfirmation
     public class EmailConfirmationManager : ITransientDependency
     {
         private readonly IEmailSender emailSender;
-        private readonly UserManager userManager;
         private readonly IRepository<ConfirmationCode, Guid> confirmationCodeRepository;
         private readonly ISettingManager settingManager;
 
-        public EmailConfirmationManager(IEmailSender emailSender, UserManager userManager, IRepository<ConfirmationCode, Guid> confirmationCodeRepository, ISettingManager settingManager)
+        public EmailConfirmationManager(IEmailSender emailSender, IRepository<ConfirmationCode, Guid> confirmationCodeRepository, ISettingManager settingManager)
         {
             this.emailSender = emailSender;
-            this.userManager = userManager;
             this.confirmationCodeRepository = confirmationCodeRepository;
             this.settingManager = settingManager;
         }
@@ -36,14 +35,10 @@ namespace AcmStatisticsAbp.Authorization.EmailConfirmation
         /// <summary>
         /// 生成链接并向用户发送确认邮件，如果之前已经生成过链接，则复用此链接，如果用户已经确认过邮件，则抛出 UserFirendlyException
         /// </summary>
-        /// <param name="emailAddress"></param>
-        public async Task SendConfirmationEmailAsync(string emailAddress)
+        /// <param name="user">用户对象，必须有ID</param>
+        public async Task SendConfirmationEmailAsync(User user)
         {
-            var user = await this.userManager.FindByEmailAsync(emailAddress);
-            if (user == null)
-            {
-                throw new UserFriendlyException(StaticErrorCode.UserNotFound, "用户不存在");
-            }
+            Debug.Assert(user.Id != 0, "user 的 Id 必须存在");
 
             if (user.IsEmailConfirmed)
             {
