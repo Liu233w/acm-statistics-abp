@@ -6,12 +6,13 @@ namespace AcmStatisticsAbp.Configuration
 {
     using System.Threading.Tasks;
     using Abp.Application.Services;
+    using Abp.Application.Services.Dto;
     using AcmStatisticsAbp.Configuration.Dto;
 
     public interface IAdminSettingAppService : IApplicationService
     {
         Task ChangeApplicationSetting(ChangeApplicationSettingInput input);
 
-        Task<ListAllApplicationSettingsOutput> ListAllApplicationSettings();
+        Task<ListResultDto<ListAllApplicationSettingsOutputItem>> ListAllApplicationSettings();
     }
 }
