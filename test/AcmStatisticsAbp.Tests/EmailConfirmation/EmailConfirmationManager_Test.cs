@@ -25,6 +25,7 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
 
         private class RegisterUserParam
         {
+            // ReSharper disable UnusedAutoPropertyAccessor.Local
             public string Name { get; set; }
 
             public string SurName { get; set; }
@@ -34,6 +35,8 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
             public string Username { get; set; }
 
             public string Password { get; set; }
+
+            // ReSharper enable UnusedAutoPropertyAccessor.Local
         }
 
         private Faker<RegisterUserParam> registerUserParamFaker;
