@@ -11,5 +11,10 @@ namespace AcmStatisticsAbp.Exceptions
         public const int EmailAlreadyConfirmed = 2;
 
         public const int ConfirmCodeNotFound = 3;
+
+        /// <summary>
+        /// 确认邮件的发送太频繁
+        /// </summary>
+        public const int ConfirmEmailTooFrequent = 4;
     }
 }

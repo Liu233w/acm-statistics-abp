@@ -20,5 +20,11 @@ namespace AcmStatisticsAbp.Authorization.EmailConfirmation
         public User User { get; set; }
 
         public long UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets 上次发送邮件的时间
+        /// </summary>
+        [Required]
+        public DateTime LastSendTime { get; set; }
     }
 }

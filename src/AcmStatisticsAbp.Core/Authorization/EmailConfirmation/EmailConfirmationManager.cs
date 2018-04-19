@@ -17,6 +17,7 @@ namespace AcmStatisticsAbp.Authorization.EmailConfirmation
     using AcmStatisticsAbp.Authorization.Users;
     using AcmStatisticsAbp.Configuration;
     using AcmStatisticsAbp.Exceptions;
+    using AcmStatisticsAbp.Timing;
 
     /// <inheritdoc />
     public class EmailConfirmationManager : ITransientDependency
@@ -24,12 +25,14 @@ namespace AcmStatisticsAbp.Authorization.EmailConfirmation
         private readonly IEmailSender emailSender;
         private readonly IRepository<ConfirmationCode, Guid> confirmationCodeRepository;
         private readonly ISettingManager settingManager;
+        private readonly ITimeProvider timeProvider;
 
-        public EmailConfirmationManager(IEmailSender emailSender, IRepository<ConfirmationCode, Guid> confirmationCodeRepository, ISettingManager settingManager)
+        public EmailConfirmationManager(IEmailSender emailSender, IRepository<ConfirmationCode, Guid> confirmationCodeRepository, ISettingManager settingManager, ITimeProvider timeProvider)
         {
             this.emailSender = emailSender;
             this.confirmationCodeRepository = confirmationCodeRepository;
             this.settingManager = settingManager;
+            this.timeProvider = timeProvider;
         }
 
         /// <summary>
@@ -47,11 +50,25 @@ namespace AcmStatisticsAbp.Authorization.EmailConfirmation
 
             var confirmCode = await this.confirmationCodeRepository.FirstOrDefaultAsync(item => item.UserId == user.Id);
 
-            if (confirmCode == null)
+            if (confirmCode != null)
+            {
+                var currentTime = this.timeProvider.Now;
+                var minEmailIntervalSetting =
+                    await this.settingManager.GetSettingValueAsync(AppSettingNames.MinEmailConfirmationSendInterval);
+                var minInterval = TimeSpan.FromSeconds(int.Parse(minEmailIntervalSetting));
+                if (currentTime - confirmCode.LastSendTime <= minInterval)
+                {
+                    throw new UserFriendlyException(StaticErrorCode.ConfirmEmailTooFrequent, $"确认邮件发送太过频繁，请在{minEmailIntervalSetting}分钟之后再请求发送。");
+                }
+
+                confirmCode.LastSendTime = currentTime;
+            }
+            else
             {
                 confirmCode = new ConfirmationCode
                 {
                     UserId = user.Id,
+                    LastSendTime = this.timeProvider.Now,
                 };
 
                 confirmCode.Id = await this.confirmationCodeRepository.InsertAndGetIdAsync(confirmCode);

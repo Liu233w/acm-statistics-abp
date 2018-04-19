@@ -9,5 +9,7 @@ namespace AcmStatisticsAbp.Configuration
         public const string UiTheme = "App.UiTheme";
 
         public const string EmailConfirmationBaseUrl = "App.EmailConfirmationBaseUrl";
+
+        public const string MinEmailConfirmationSendInterval = "App.MinEmailConfirmationSendInterval";
     }
 }
