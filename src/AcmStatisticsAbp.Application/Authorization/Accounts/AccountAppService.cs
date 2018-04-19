@@ -15,12 +15,14 @@ namespace AcmStatisticsAbp.Authorization.Accounts
     {
         private readonly UserRegistrationManager userRegistrationManager;
         private readonly EmailConfirmationManager emailConfirmationManager;
+        private readonly UserManager userManager;
 
         public AccountAppService(
-            UserRegistrationManager userRegistrationManager, EmailConfirmationManager emailConfirmationManager)
+            UserRegistrationManager userRegistrationManager, EmailConfirmationManager emailConfirmationManager, UserManager userManager)
         {
             this.userRegistrationManager = userRegistrationManager;
             this.emailConfirmationManager = emailConfirmationManager;
+            this.userManager = userManager;
         }
 
         public async Task<IsTenantAvailableOutput> IsTenantAvailable(IsTenantAvailableInput input)
@@ -53,7 +55,7 @@ namespace AcmStatisticsAbp.Authorization.Accounts
 
             if (isEmailConfirmationRequiredForLogin)
             {
-                await this.emailConfirmationManager.SendConfirmationEmailAsync(input.EmailAddress);
+                await this.emailConfirmationManager.SendConfirmationEmailAsync(user);
             }
 
             return new RegisterOutput
