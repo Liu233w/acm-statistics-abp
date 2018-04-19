@@ -37,7 +37,7 @@ matrix:
           - $HOME/.sonar/cache
           - $HOME/.m2
       install:
-        - curl -o scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.1.1.1164/sonar-scanner-msbuild-4.1.1.1164-netcoreapp2.0.zip
+        - curl -o scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.2.0.1214/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0.zip
         - unzip scanner.zip
         - chmod +x sonar-scanner-3.1.0.1141/bin/sonar-scanner
       script:
