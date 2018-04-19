@@ -151,6 +151,12 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
                 });
             });
 
+            "现在 sample 可以登录了".x(async () =>
+            {
+                (await this.logInManager.LoginAsync(SampleEmail, "123qwe"))
+                    .Result.ShouldBe(AbpLoginResultType.Success);
+            });
+
             "用户再次验证邮件地址".x(() =>
             {
                 confirmTask = this.accountAppService.ConfirmEmail(new ConfirmEmailInput
