@@ -5,6 +5,7 @@
 namespace AcmStatisticsAbp.Tests.EmailConfirmation
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
@@ -27,15 +28,17 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
         private readonly IAccountAppService accountAppService;
         private readonly LogInManager logInManager;
 
-        private string emailBody;
+        private readonly List<string> emailBodys;
+
+        private readonly Mock<IEmailSender> emailSenderMock;
 
         public 邮件验证测试()
         {
-            Mock<IEmailSender> emailSenderMock = new Mock<IEmailSender>();
+            this.emailSenderMock = new Mock<IEmailSender>();
 
             var emailConfirmationManager = this.Resolve<EmailConfirmationManager>(new
             {
-                emailSender = emailSenderMock.Object,
+                emailSender = this.emailSenderMock.Object,
             });
 
             this.accountAppService = this.Resolve<AccountAppService>(new
@@ -45,15 +48,17 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
 
             this.logInManager = this.Resolve<LogInManager>();
 
+            this.emailBodys = new List<string>();
+
             // Mock 邮件方法
-            emailSenderMock.Setup(
+            this.emailSenderMock.Setup(
                     obj => obj.SendAsync(
                         SampleEmail,
                         It.Is<string>(item => !item.IsNullOrEmpty()),
                         It.IsAny<string>(),
                         true))
                 .Returns(Task.FromResult(0))
-                .Callback(new Action<string, string, string, bool>((x, y, body, z) => { this.emailBody = body; }))
+                .Callback(new Action<string, string, string, bool>((x, y, body, z) => { this.emailBodys.Add(body); }))
                 .Verifiable();
         }
 
@@ -82,10 +87,11 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
 
             "sample 应该收到一封邮件，含有邮件认证地址".x(() =>
             {
-                this.emailBody.ShouldNotBeNullOrEmpty();
+                this.emailBodys.ShouldNotBeEmpty();
+                this.emailBodys[0].ShouldNotBeNullOrEmpty();
 
                 var regex = new Regex("(?<=<a href=\").*(?=\">)");
-                var confirmUrl = regex.Match(this.emailBody).Value;
+                var confirmUrl = regex.Match(this.emailBodys[0]).Value;
                 confirmToken = confirmUrl.Split('/').Last();
             });
 
@@ -129,10 +135,11 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
 
             "sample 应该收到一封邮件，含有邮件认证地址".x(() =>
             {
-                this.emailBody.ShouldNotBeNullOrEmpty();
+                this.emailBodys.ShouldNotBeEmpty();
+                this.emailBodys[0].ShouldNotBeNullOrEmpty();
 
                 var regex = new Regex("(?<=<a href=\").*(?=\">)");
-                var confirmUrl = regex.Match(this.emailBody).Value;
+                var confirmUrl = regex.Match(this.emailBodys[0]).Value;
                 confirmToken = confirmUrl.Split('/').Last();
             });
 
