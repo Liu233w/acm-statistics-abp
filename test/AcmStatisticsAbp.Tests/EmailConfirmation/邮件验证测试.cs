@@ -111,6 +111,72 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
         }
 
         [Scenario]
+        public void 用户在验证邮箱之前多次发送验证信息(RegisterOutput output, string confirmToken)
+        {
+            "有用户 sample 注册了新账户".x(async () =>
+            {
+                output = await this.accountAppService.Register(new RegisterInput
+                {
+                    EmailAddress = SampleEmail,
+                    UserName = "sample",
+                    Name = "sample",
+                    Surname = "test",
+                    Password = "123qwe",
+                });
+            });
+
+            "此时 sample 无法登录".x(async () =>
+            {
+                output.CanLogin.ShouldBe(false);
+
+                (await this.logInManager.LoginAsync(SampleEmail, "123qwe"))
+                    .Result.ShouldBe(AbpLoginResultType.UserEmailIsNotConfirmed);
+            });
+
+            "sample 再次发送验证邮件".x(async () =>
+            {
+                await this.accountAppService.SendEmailConfirmLink(new SendEmailConfirmLinkInput
+                {
+                    UsernameOrEmail = "sample",
+                });
+            });
+
+            "sample 应该收到两封邮件，其内容相同".x(() =>
+            {
+                this.emailSenderMock.Verify(
+                    sender => sender.SendAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), true),
+                    Moq.Times.Exactly(2));
+
+                this.emailBodys.Count.ShouldBe(2);
+
+                this.emailBodys[0].ShouldBe(this.emailBodys[1]);
+            });
+
+            "sample 收到的邮件中应含有邮件认证地址".x(() =>
+            {
+                this.emailBodys[0].ShouldNotBeNullOrEmpty();
+
+                var regex = new Regex("(?<=<a href=\").*(?=\">)");
+                var confirmUrl = regex.Match(this.emailBodys[0]).Value;
+                confirmToken = confirmUrl.Split('/').Last();
+            });
+
+            "sample 使用此链接来验证邮件地址".x(async () =>
+            {
+                await this.accountAppService.ConfirmEmail(new ConfirmEmailInput
+                {
+                    ConfirmationToken = confirmToken,
+                });
+            });
+
+            "现在 sample 可以登录了".x(async () =>
+            {
+                (await this.logInManager.LoginAsync(SampleEmail, "123qwe"))
+                    .Result.ShouldBe(AbpLoginResultType.Success);
+            });
+        }
+
+        [Scenario]
         public void 用户在验证成功之后重复单击验证链接(RegisterOutput output, string confirmToken, Task confirmTask)
         {
             "有用户 sample 注册了新账户".x(async () =>
@@ -168,6 +234,68 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
             "验证会报错".x(async () =>
             {
                 var exception = await confirmTask.ShouldThrowAsync<UserFriendlyException>();
+                exception.Code.ShouldBe(2);
+            });
+        }
+
+        [Scenario]
+        public void 用户在验证成功之后重复发送验证链接(RegisterOutput output, string confirmToken, Task sendEmailTask)
+        {
+            "有用户 sample 注册了新账户".x(async () =>
+            {
+                output = await this.accountAppService.Register(new RegisterInput
+                {
+                    EmailAddress = SampleEmail,
+                    UserName = "sample",
+                    Name = "sam",
+                    Surname = "ple",
+                    Password = "123qwe",
+                });
+            });
+
+            "此时 sample 无法登录".x(async () =>
+            {
+                output.CanLogin.ShouldBe(false);
+
+                (await this.logInManager.LoginAsync(SampleEmail, "123qwe"))
+                    .Result.ShouldBe(AbpLoginResultType.UserEmailIsNotConfirmed);
+            });
+
+            "sample 应该收到一封邮件，含有邮件认证地址".x(() =>
+            {
+                this.emailBodys.ShouldNotBeEmpty();
+                this.emailBodys[0].ShouldNotBeNullOrEmpty();
+
+                var regex = new Regex("(?<=<a href=\").*(?=\">)");
+                var confirmUrl = regex.Match(this.emailBodys[0]).Value;
+                confirmToken = confirmUrl.Split('/').Last();
+            });
+
+            "sample 使用此链接来验证邮件地址".x(async () =>
+            {
+                await this.accountAppService.ConfirmEmail(new ConfirmEmailInput
+                {
+                    ConfirmationToken = confirmToken,
+                });
+            });
+
+            "现在 sample 可以登录了".x(async () =>
+            {
+                (await this.logInManager.LoginAsync(SampleEmail, "123qwe"))
+                    .Result.ShouldBe(AbpLoginResultType.Success);
+            });
+
+            "用户再次发送验证邮件".x(() =>
+            {
+                sendEmailTask = this.accountAppService.SendEmailConfirmLink(new SendEmailConfirmLinkInput
+                {
+                    UsernameOrEmail = "sample",
+                });
+            });
+
+            "验证会报错".x(async () =>
+            {
+                var exception = await sendEmailTask.ShouldThrowAsync<UserFriendlyException>();
                 exception.Code.ShouldBe(2);
             });
         }

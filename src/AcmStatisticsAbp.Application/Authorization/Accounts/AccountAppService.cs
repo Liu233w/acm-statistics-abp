@@ -4,8 +4,11 @@
 
 namespace AcmStatisticsAbp.Authorization.Accounts
 {
+    using System.Diagnostics;
     using System.Threading.Tasks;
+    using Abp.Authorization;
     using Abp.Configuration;
+    using Abp.UI;
     using Abp.Zero.Configuration;
     using AcmStatisticsAbp.Authorization.Accounts.Dto;
     using AcmStatisticsAbp.Authorization.EmailConfirmation;
@@ -67,6 +70,18 @@ namespace AcmStatisticsAbp.Authorization.Accounts
         public async Task ConfirmEmail(ConfirmEmailInput input)
         {
             await this.emailConfirmationManager.TryConfirmEmailAsync(input.ConfirmationToken);
+        }
+
+        /// <summary>
+        /// 重复发送验证邮件。用于用户没有收到邮件的情况。在已经验证了邮箱的情况下，会报错
+        /// </summary>
+        /// <param name="input"></param>
+        /// <exception cref="UserFriendlyException">在验证了邮箱的情况下，会报错</exception>
+        public async Task SendEmailConfirmLink(SendEmailConfirmLinkInput input)
+        {
+            var user = await this.userManager.FindByNameOrEmailAsync(input.UsernameOrEmail);
+
+            await this.emailConfirmationManager.SendConfirmationEmailAsync(user);
         }
     }
 }
