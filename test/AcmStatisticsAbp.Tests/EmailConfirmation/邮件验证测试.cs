@@ -17,6 +17,7 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
     using AcmStatisticsAbp.Authorization.Accounts;
     using AcmStatisticsAbp.Authorization.Accounts.Dto;
     using AcmStatisticsAbp.Authorization.EmailConfirmation;
+    using AcmStatisticsAbp.Tests.DependencyInjection;
     using Moq;
     using Shouldly;
     using Xbehave;
@@ -32,13 +33,17 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
 
         private readonly Mock<IEmailSender> emailSenderMock;
 
+        private readonly CustomTimeProvider customTimeProvider;
+
         public 邮件验证测试()
         {
             this.emailSenderMock = new Mock<IEmailSender>();
+            this.customTimeProvider = new CustomTimeProvider();
 
             var emailConfirmationManager = this.Resolve<EmailConfirmationManager>(new
             {
                 emailSender = this.emailSenderMock.Object,
+                timeProvider = this.customTimeProvider,
             });
 
             this.accountAppService = this.Resolve<AccountAppService>(new
@@ -111,8 +116,14 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
         }
 
         [Scenario]
-        public void 用户在验证邮箱之前多次发送验证信息(RegisterOutput output, string confirmToken)
+        public void 用户在验证邮箱之前多次发送验证信息(RegisterOutput output, string confirmToken, DateTime currentTime)
         {
+            "确定当前的时间".x(() =>
+            {
+                currentTime = DateTime.Now;
+                this.customTimeProvider.TimeFunc = () => currentTime;
+            });
+
             "有用户 sample 注册了新账户".x(async () =>
             {
                 output = await this.accountAppService.Register(new RegisterInput
@@ -132,6 +143,8 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
                 (await this.logInManager.LoginAsync(SampleEmail, "123qwe"))
                     .Result.ShouldBe(AbpLoginResultType.UserEmailIsNotConfirmed);
             });
+
+            "时间过去了1分钟以上".x(() => { currentTime = currentTime.AddMinutes(2); });
 
             "sample 再次发送验证邮件".x(async () =>
             {
@@ -239,8 +252,14 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
         }
 
         [Scenario]
-        public void 用户在验证成功之后重复发送验证链接(RegisterOutput output, string confirmToken, Task sendEmailTask)
+        public void 用户在验证成功之后重复发送验证链接(RegisterOutput output, string confirmToken, Task sendEmailTask, DateTime currentTime)
         {
+            "确定当前的时间".x(() =>
+            {
+                currentTime = DateTime.Now;
+                this.customTimeProvider.TimeFunc = () => currentTime;
+            });
+
             "有用户 sample 注册了新账户".x(async () =>
             {
                 output = await this.accountAppService.Register(new RegisterInput
@@ -284,6 +303,8 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
                 (await this.logInManager.LoginAsync(SampleEmail, "123qwe"))
                     .Result.ShouldBe(AbpLoginResultType.Success);
             });
+
+            "时间过去了1分钟以上".x(() => { currentTime = currentTime.AddMinutes(2); });
 
             "用户再次发送验证邮件".x(() =>
             {

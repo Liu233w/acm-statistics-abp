@@ -8,12 +8,11 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
-    using Abp.Configuration;
     using Abp.Net.Mail;
-    using Abp.Net.Mail.Smtp;
     using Abp.UI;
     using AcmStatisticsAbp.Authorization.EmailConfirmation;
     using AcmStatisticsAbp.Authorization.Users;
+    using AcmStatisticsAbp.Tests.DependencyInjection;
     using Bogus;
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
@@ -39,11 +38,17 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
 
         private Faker<RegisterUserParam> registerUserParamFaker;
 
+        private DateTime timeProviderTime;
+
         public EmailConfirmationManager_Test()
         {
+            var customTimeProvider = new CustomTimeProvider();
+            customTimeProvider.TimeFunc = () => this.timeProviderTime;
+
             this.emailConfirmationManager = this.Resolve<EmailConfirmationManager>(new
             {
                 emailSender = this.Resolve<NullEmailSender>(),
+                timeProvider = customTimeProvider,
             });
 
             this.userRegistrationManager = this.Resolve<UserRegistrationManager>();
@@ -56,6 +61,8 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
                     .RuleFor(e => e.Email, f => f.Internet.Email())
                     .RuleFor(e => e.Password, f => f.Internet.Password())
                 ;
+
+            this.timeProviderTime = DateTime.Now;
         }
 
         private async Task<User> BuildTestUser()
@@ -114,6 +121,30 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
 
                 (await this.emailConfirmationManager.TryConfirmEmailAsync(default(Guid).ToString())
                     .ShouldThrowAsync<UserFriendlyException>()).Code.ShouldBe(3);
+            });
+        }
+
+        [Fact]
+        public async Task 在最短时间间隔内连续发送两封确认邮件时应当报错()
+        {
+            User user = null;
+            await this.WithUnitOfWorkAsync(async () =>
+            {
+                // Arrange
+                user = await this.BuildTestUser();
+                await this.emailConfirmationManager.SendConfirmationEmailAsync(user);
+            });
+
+            this.timeProviderTime = this.timeProviderTime.AddSeconds(5);
+
+            await this.WithUnitOfWorkAsync(async () =>
+            {
+                // Act
+                var task = this.emailConfirmationManager.SendConfirmationEmailAsync(user);
+
+                // Assert
+                var exception = await task.ShouldThrowAsync<UserFriendlyException>();
+                exception.Code.ShouldBe(4);
             });
         }
     }
