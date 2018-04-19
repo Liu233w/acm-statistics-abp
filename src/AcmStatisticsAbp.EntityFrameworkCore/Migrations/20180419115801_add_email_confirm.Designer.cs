@@ -16,9 +16,10 @@ using System;
 namespace AcmStatisticsAbp.Migrations
 {
     [DbContext(typeof(AcmStatisticsAbpDbContext))]
-    partial class AcmStatisticsAbpDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180419115801_add_email_confirm")]
+    partial class add_email_confirm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
