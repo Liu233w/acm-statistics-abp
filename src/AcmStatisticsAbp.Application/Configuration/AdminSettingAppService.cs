@@ -27,7 +27,7 @@ namespace AcmStatisticsAbp.Configuration
         {
             return new ListAllApplicationSettingsOutput
             {
-                Settings = await this.settingManager.GetAllSettingValuesForApplicationAsync(),
+                Settings = await this.settingManager.GetAllSettingValuesAsync(),
             };
         }
 
