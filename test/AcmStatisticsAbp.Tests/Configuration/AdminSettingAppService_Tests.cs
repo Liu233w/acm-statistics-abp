@@ -4,6 +4,7 @@
 
 namespace AcmStatisticsAbp.Tests.Configuration
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using AcmStatisticsAbp.Configuration;
     using AcmStatisticsAbp.Configuration.Dto;
@@ -26,10 +27,11 @@ namespace AcmStatisticsAbp.Tests.Configuration
             var settings = await this.adminSettingAppService.ListAllApplicationSettings();
 
             // Assert
-            settings.Settings.ShouldNotBeEmpty();
-            var setting = settings.Settings[0];
-            setting.Name.ShouldNotBeNullOrEmpty();
-            setting.Value.ShouldNotBeNullOrEmpty();
+            settings.Items.ShouldNotBeEmpty();
+            settings.Items
+                .Where(item => item.Value != null)
+                .ShouldNotBeEmpty();
+            settings.Items.Count(item => item.Name == null).ShouldBe(0);
         }
 
         [Fact]
@@ -39,7 +41,7 @@ namespace AcmStatisticsAbp.Tests.Configuration
             var settings = await this.adminSettingAppService.ListAllApplicationSettings();
             var input = new ChangeApplicationSettingInput
             {
-                Name = settings.Settings[0].Name,
+                Name = settings.Items[0].Name,
                 Value = "New Value",
             };
 
@@ -48,7 +50,17 @@ namespace AcmStatisticsAbp.Tests.Configuration
 
             // Assert
             settings = await this.adminSettingAppService.ListAllApplicationSettings();
-            settings.Settings.ShouldContain(item => item.Name == input.Name && item.Value == input.Value);
+            settings.Items.ShouldContain(item => item.Name == input.Name && item.Value == input.Value);
+        }
+
+        [Fact]
+        public async Task ListAllApplicationSettings_在数据库中不存在值的项目_其Value应为null()
+        {
+            // Act
+            var settings = await this.adminSettingAppService.ListAllApplicationSettings();
+
+            settings.Items.First(item => item.Name == AppSettingNames.UiTheme)
+                .Value.ShouldBeNull();
         }
     }
 }

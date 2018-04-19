@@ -4,8 +4,12 @@
 
 namespace AcmStatisticsAbp.Configuration
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+    using Abp.Application.Services.Dto;
     using Abp.Authorization;
+    using Abp.Collections.Extensions;
     using Abp.Configuration;
     using AcmStatisticsAbp.Authorization;
     using AcmStatisticsAbp.Configuration.Dto;
@@ -15,20 +19,34 @@ namespace AcmStatisticsAbp.Configuration
     {
         private readonly ISettingManager settingManager;
 
-        public AdminSettingAppService(ISettingManager settingManager)
+        private readonly ISettingDefinitionManager settingDefinitionManager;
+
+        public AdminSettingAppService(ISettingManager settingManager, ISettingDefinitionManager settingDefinitionManager)
         {
             this.settingManager = settingManager;
+            this.settingDefinitionManager = settingDefinitionManager;
         }
 
         /// <summary>
         /// 列出所有的程序设置，包括名称和值
         /// </summary>
-        public async Task<ListAllApplicationSettingsOutput> ListAllApplicationSettings()
+        public async Task<ListResultDto<ListAllApplicationSettingsOutputItem>> ListAllApplicationSettings()
         {
-            return new ListAllApplicationSettingsOutput
+            var applicationSettingDefinitions = this.settingDefinitionManager
+                .GetAllSettingDefinitions()
+                .Where(item => item.Scopes.HasFlag(SettingScopes.Application));
+            var settingValueDict = (await this.settingManager.GetAllSettingValuesForApplicationAsync())
+                .ToDictionary(settingValue => settingValue.Name, settingValue => settingValue.Value);
+
+            var settings = this.ObjectMapper.Map<List<ListAllApplicationSettingsOutputItem>>(
+                applicationSettingDefinitions);
+
+            foreach (var item in settings)
             {
-                Settings = await this.settingManager.GetAllSettingValuesAsync(),
-            };
+                item.Value = settingValueDict.GetOrDefault(item.Name);
+            }
+
+            return new ListResultDto<ListAllApplicationSettingsOutputItem>(settings);
         }
 
         /// <summary>
