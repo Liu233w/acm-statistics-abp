@@ -45,8 +45,8 @@ namespace AcmStatisticsAbp.Authorization.Accounts
         public async Task<RegisterOutput> Register(RegisterInput input)
         {
             var user = await this.userRegistrationManager.RegisterAsync(
-                input.Name,
-                input.Surname,
+                null,
+                null,
                 input.EmailAddress,
                 input.UserName,
                 input.Password,

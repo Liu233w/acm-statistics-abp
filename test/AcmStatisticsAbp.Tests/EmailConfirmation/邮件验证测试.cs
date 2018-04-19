@@ -76,8 +76,6 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
                 {
                     EmailAddress = SampleEmail,
                     UserName = "sample",
-                    Name = "sample",
-                    Surname = "test",
                     Password = "123qwe",
                 });
             });
@@ -130,8 +128,6 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
                 {
                     EmailAddress = SampleEmail,
                     UserName = "sample",
-                    Name = "sample",
-                    Surname = "test",
                     Password = "123qwe",
                 });
             });
@@ -198,8 +194,6 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
                 {
                     EmailAddress = SampleEmail,
                     UserName = "sample",
-                    Name = "sample",
-                    Surname = "test",
                     Password = "123qwe",
                 });
             });
@@ -266,8 +260,6 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
                 {
                     EmailAddress = SampleEmail,
                     UserName = "sample",
-                    Name = "sam",
-                    Surname = "ple",
                     Password = "123qwe",
                 });
             });
