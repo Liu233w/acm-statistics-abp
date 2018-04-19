@@ -8,6 +8,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
     using Abp.Configuration;
     using Abp.Localization;
     using Abp.Net.Mail;
+    using Abp.Zero.Configuration;
     using Microsoft.EntityFrameworkCore;
 
     public class DefaultSettingsCreator
@@ -24,6 +25,8 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
             // Emailing
             this.AddSettingIfNotExists(EmailSettingNames.DefaultFromAddress, "admin@mydomain.com");
             this.AddSettingIfNotExists(EmailSettingNames.DefaultFromDisplayName, "mydomain.com mailer");
+            // 开启邮件验证
+            this.AddSettingIfNotExists(AbpZeroSettingNames.UserManagement.IsEmailConfirmationRequiredForLogin, "true");
 
             // Languages
             this.AddSettingIfNotExists(LocalizationSettingNames.DefaultLanguage, "en");
