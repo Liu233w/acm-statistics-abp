@@ -15,5 +15,7 @@ namespace AcmStatisticsAbp.Authorization.Accounts
         Task<RegisterOutput> Register(RegisterInput input);
 
         Task ConfirmEmail(ConfirmEmailInput input);
+
+        Task SendEmailConfirmLink(SendEmailConfirmLinkInput input);
     }
 }
