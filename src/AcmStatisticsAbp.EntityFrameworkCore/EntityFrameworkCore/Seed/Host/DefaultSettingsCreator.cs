@@ -36,7 +36,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
             this.AddSettingIfNotExists(EmailSettingNames.Smtp.Port, "25");
 
             // Languages
-            this.AddSettingIfNotExists(LocalizationSettingNames.DefaultLanguage, "en");
+            this.AddSettingIfNotExists(LocalizationSettingNames.DefaultLanguage, "zh-CN");
         }
 
         private void AddSettingIfNotExists(string name, string value, int? tenantId = null)
