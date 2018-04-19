@@ -40,8 +40,10 @@ matrix:
         - curl -o scanner.zip -L https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/4.2.0.1214/sonar-scanner-msbuild-4.2.0.1214-netcoreapp2.0.zip
         - unzip scanner.zip
         - chmod +x sonar-scanner-3.1.0.1141/bin/sonar-scanner
-      script:
+      before_script:
         - dotnet SonarScanner.MSBuild.dll begin /k:"acm-statistics-abp" /d:sonar.login=$SONAR_TOKEN /d:sonar.organization=liu233w-github /d:sonar.exclusions=**/wwwroot/**/* /d:sonar.host.url=https://sonarcloud.io
+      script:
         - dotnet build
+      after_script:
         - dotnet SonarScanner.MSBuild.dll end /d:sonar.login=$SONAR_TOKEN
 
