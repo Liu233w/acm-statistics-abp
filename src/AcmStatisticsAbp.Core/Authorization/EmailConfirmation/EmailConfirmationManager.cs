@@ -93,6 +93,11 @@ namespace AcmStatisticsAbp.Authorization.EmailConfirmation
             var ctx = this.confirmationCodeRepository.GetDbContext();
             await ctx.Entry(confirmCode).Reference(item => item.User).LoadAsync();
 
+            if (confirmCode.User.IsEmailConfirmed)
+            {
+                throw new UserFriendlyException(StaticErrorCode.EmailAlreadyConfirmed, "您已验证过此邮箱，不需要重复验证");
+            }
+
             confirmCode.User.IsEmailConfirmed = true;
 
             await ctx.SaveChangesAsync();

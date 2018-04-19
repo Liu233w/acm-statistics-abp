@@ -11,6 +11,7 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
     using Abp.Authorization;
     using Abp.Extensions;
     using Abp.Net.Mail;
+    using Abp.UI;
     using AcmStatisticsAbp.Authorization;
     using AcmStatisticsAbp.Authorization.Accounts;
     using AcmStatisticsAbp.Authorization.Accounts.Dto;
@@ -100,6 +101,61 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
             {
                 (await this.logInManager.LoginAsync(SampleEmail, "123qwe"))
                     .Result.ShouldBe(AbpLoginResultType.Success);
+            });
+        }
+
+        [Scenario]
+        public void 用户在验证成功之后重复单击验证链接(RegisterOutput output, string confirmToken, Task confirmTask)
+        {
+            "有用户 sample 注册了新账户".x(async () =>
+            {
+                output = await this.accountAppService.Register(new RegisterInput
+                {
+                    EmailAddress = SampleEmail,
+                    UserName = "sample",
+                    Name = "sample",
+                    Surname = "test",
+                    Password = "123qwe",
+                });
+            });
+
+            "此时 sample 无法登录".x(async () =>
+            {
+                output.CanLogin.ShouldBe(false);
+
+                (await this.logInManager.LoginAsync(SampleEmail, "123qwe"))
+                    .Result.ShouldBe(AbpLoginResultType.UserEmailIsNotConfirmed);
+            });
+
+            "sample 应该收到一封邮件，含有邮件认证地址".x(() =>
+            {
+                this.emailBody.ShouldNotBeNullOrEmpty();
+
+                var regex = new Regex("(?<=<a href=\").*(?=\">)");
+                var confirmUrl = regex.Match(this.emailBody).Value;
+                confirmToken = confirmUrl.Split('/').Last();
+            });
+
+            "sample 使用此链接来验证邮件地址".x(async () =>
+            {
+                await this.accountAppService.ConfirmEmail(new ConfirmEmailInput
+                {
+                    ConfirmationToken = confirmToken,
+                });
+            });
+
+            "用户再次验证邮件地址".x(() =>
+            {
+                confirmTask = this.accountAppService.ConfirmEmail(new ConfirmEmailInput
+                {
+                    ConfirmationToken = confirmToken,
+                });
+            });
+
+            "验证会报错".x(async () =>
+            {
+                var exception = await confirmTask.ShouldThrowAsync<UserFriendlyException>();
+                exception.Code.ShouldBe(2);
             });
         }
     }
