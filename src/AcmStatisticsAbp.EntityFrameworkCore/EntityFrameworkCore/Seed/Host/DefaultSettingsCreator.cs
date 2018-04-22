@@ -9,6 +9,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
     using Abp.Localization;
     using Abp.Net.Mail;
     using Abp.Zero.Configuration;
+    using AcmStatisticsAbp.Configuration;
     using Microsoft.EntityFrameworkCore;
 
     public class DefaultSettingsCreator
@@ -25,15 +26,12 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
             // 开启邮件验证
             this.AddSettingIfNotExists(AbpZeroSettingNames.UserManagement.IsEmailConfirmationRequiredForLogin, "true");
 
-            // 邮件的部分设置（推荐使用yandex邮箱，这个不需要手机号就能注册，并且国内外都能发；163邮箱发送的邮件没法让 Outlook 邮箱接收）
-            this.AddSettingIfNotExists(EmailSettingNames.DefaultFromDisplayName, "NWPU-ACM 查询系统 邮件机器人");
-            this.AddSettingIfNotExists(EmailSettingNames.DefaultFromAddress, "npuacm@yandex.com");
-            this.AddSettingIfNotExists(EmailSettingNames.Smtp.UserName, "npuacm");
-            this.AddSettingIfNotExists(EmailSettingNames.Smtp.Password, "----邮箱密码----");
-            this.AddSettingIfNotExists(EmailSettingNames.Smtp.Host, "smtp.yandex.com");
-            this.AddSettingIfNotExists(EmailSettingNames.Smtp.EnableSsl, "true");
-            this.AddSettingIfNotExists(EmailSettingNames.Smtp.UseDefaultCredentials, "false");
-            this.AddSettingIfNotExists(EmailSettingNames.Smtp.Port, "25");
+            // 邮件的部分设置，本项目使用的是阿里云邮件的 SDK
+            this.AddSettingIfNotExists(EmailSettingNames.DefaultFromDisplayName, "邮件机器人");
+            this.AddSettingIfNotExists(EmailSettingNames.DefaultFromAddress, "bot@notice.npuacm.info");
+            this.AddSettingIfNotExists(AppSettingNames.AliYunEmailReplyToAddress, "true");
+            this.AddSettingIfNotExists(AppSettingNames.AliYunEmailAccessKeyId, "id");
+            this.AddSettingIfNotExists(AppSettingNames.AliYunEmailAccessSecret, "secret");
 
             // Languages
             this.AddSettingIfNotExists(LocalizationSettingNames.DefaultLanguage, "zh-CN");
