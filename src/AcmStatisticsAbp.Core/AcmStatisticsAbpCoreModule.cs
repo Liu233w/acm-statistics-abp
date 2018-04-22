@@ -5,6 +5,7 @@
 namespace AcmStatisticsAbp
 {
     using Abp.Modules;
+    using Abp.Net.Mail;
     using Abp.Reflection.Extensions;
     using Abp.Timing;
     using Abp.Zero;
@@ -13,6 +14,7 @@ namespace AcmStatisticsAbp
     using AcmStatisticsAbp.Authorization.Users;
     using AcmStatisticsAbp.Configuration;
     using AcmStatisticsAbp.Localization;
+    using AcmStatisticsAbp.Messages;
     using AcmStatisticsAbp.MultiTenancy;
     using AcmStatisticsAbp.Timing;
 
@@ -37,6 +39,9 @@ namespace AcmStatisticsAbp
             AppRoleConfig.Configure(this.Configuration.Modules.Zero().RoleManagement);
 
             this.Configuration.Settings.Providers.Add<AppSettingProvider>();
+
+            // 覆盖邮件设置
+            this.IocManager.Register<IEmailSender, AliYunEamilSender>();
         }
 
         public override void Initialize()
