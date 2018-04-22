@@ -18,7 +18,7 @@ namespace AcmStatisticsAbp.Configuration
 
                 new SettingDefinition(
                     AppSettingNames.EmailConfirmationBaseUrl,
-                    "http://new.npuacm.info",
+                    "http://localhost:12005",
                     description: new FixedLocalizableString("默认发送邮件的域名和协议，结尾不能加上斜杠")),
 
                 new SettingDefinition(

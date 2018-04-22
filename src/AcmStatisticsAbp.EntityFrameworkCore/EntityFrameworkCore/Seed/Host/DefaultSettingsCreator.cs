@@ -32,6 +32,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
             this.AddSettingIfNotExists(AppSettingNames.AliYunEmailReplyToAddress, "true");
             this.AddSettingIfNotExists(AppSettingNames.AliYunEmailAccessKeyId, "id");
             this.AddSettingIfNotExists(AppSettingNames.AliYunEmailAccessSecret, "secret");
+            this.AddSettingIfNotExists(AppSettingNames.EmailConfirmationBaseUrl, "http://new.npuacm.info");
 
             // Languages
             this.AddSettingIfNotExists(LocalizationSettingNames.DefaultLanguage, "zh-CN");
