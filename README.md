@@ -36,6 +36,17 @@
 5. 删除此目录下的 `Properties/launchSettings.json` 文件，从而切换到 Production 模式
 6. 回到 `src/AcmStatisticsAbp.Web.Host/` 目录，在目录下执行 `dotnet run -c Release`
 
+## 设置说明
+### 邮件发送
+- 本项目使用了阿里云邮件推送功能来发送邮件，从而进行邮箱验证等操作，要在自己的设备上使用此功能，您必须修改配置以使用您自己的账户
+- 您需要修改数据库的 `appsettings` 表来更改设置，在第一次运行时，后端将自动在数据库中生成相应的设置项，您可以自行修改。或者，您也可以使用 API 来修改设置项（`AdminSettings`）
+- 需要修改的设置项为：
+  - App.EmailConfirmationBaseUrl
+  - App.AliYunEmailAccessSecret
+  - App.AliYunEmailAccessKeyId
+  - App.AliYunEmailReplyToAddress
+- 您可以使用 API `/api/services/app/AdminSetting/ListAllApplicationSettings` 来获取上述设置项的说明
+
 ## 开源协议
 GPL-3.0 协议
 
