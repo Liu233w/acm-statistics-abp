@@ -11,5 +11,11 @@ namespace AcmStatisticsAbp.Configuration
         public const string EmailConfirmationBaseUrl = "App.EmailConfirmationBaseUrl";
 
         public const string MinEmailConfirmationSendInterval = "App.MinEmailConfirmationSendInterval";
+
+        public const string AliYunEmailAccessSecret = "App.AliYunEmailAccessSecret";
+
+        public const string AliYunEmailAccessKeyId = "App.AliYunEmailAccessKeyId";
+
+        public const string AliYunEmailReplyToAddress = "App.AliYunEmailReplyToAddress";
     }
 }

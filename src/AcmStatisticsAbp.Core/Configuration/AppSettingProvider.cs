@@ -25,6 +25,22 @@ namespace AcmStatisticsAbp.Configuration
                     AppSettingNames.MinEmailConfirmationSendInterval,
                     "60",
                     description: new FixedLocalizableString("发送确认邮件的最短间隔，用秒来表示（低于此间隔将不能发送确认邮件，防止发送过于频繁）")),
+
+                new SettingDefinition(
+                    AppSettingNames.AliYunEmailAccessKeyId,
+                    string.Empty,
+                    displayName: new FixedLocalizableString("阿里云邮件的签名Id，参见 https://help.aliyun.com/document_detail/29442.html")),
+
+                new SettingDefinition(
+                    AppSettingNames.AliYunEmailAccessSecret,
+                    string.Empty,
+                    displayName: new FixedLocalizableString("阿里云邮件的签名Secret，参见 https://help.aliyun.com/document_detail/29442.html")),
+
+                new SettingDefinition(
+                    AppSettingNames.AliYunEmailReplyToAddress,
+                    "false",
+                    displayName: new FixedLocalizableString("是否允许用户回复邮件"),
+                    description: new FixedLocalizableString("如果允许，需要在阿里云管理控制台设置回信地址")),
             };
         }
     }
