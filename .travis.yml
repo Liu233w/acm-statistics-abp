@@ -14,7 +14,6 @@ stages:
   - name: test
   - name: deploy
     if: tag =~ ^v
-  - name: sonar
 
 matrix:
   include:
@@ -25,9 +24,16 @@ matrix:
         - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
       after_success:
         - bash <(curl -s https://codecov.io/bash) -f ./coverage.xml
+
+    - env: NAME=Basic
+      stage: test
+      install:
+        - npm install
+      script:
+        - npm run commitlint-travis
     
-    - env: NAME=Sonar-Analysis
-      stage: sonar
+    - env: NAME=Build
+      stage: test
       addons:
         sonarcloud:
           organization: "liu233w-github"

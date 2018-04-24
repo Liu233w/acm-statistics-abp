@@ -257,3 +257,6 @@ paket-files/
 
 # coverage file
 coverage.xml
+
+# tools package
+/node_modules
