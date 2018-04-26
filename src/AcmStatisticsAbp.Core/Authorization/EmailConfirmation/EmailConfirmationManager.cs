@@ -89,10 +89,10 @@ namespace AcmStatisticsAbp.Authorization.EmailConfirmation
         }
 
         /// <summary>
-        /// 验证用户。并将用户设为已验证状态。
+        /// 验证用户。并将用户设为已验证状态。假如出现错误（例如没有找到验证码、用户已验证）会直接抛出异常。
         /// </summary>
         /// <param name="confirmationToken"></param>
-        public async Task TryConfirmEmailAsync(string confirmationToken)
+        public async Task<User> ConfirmEmailAndGetUserAsync(string confirmationToken)
         {
             Guid confirmId;
             try
@@ -121,6 +121,8 @@ namespace AcmStatisticsAbp.Authorization.EmailConfirmation
             confirmCode.User.IsEmailConfirmed = true;
 
             await ctx.SaveChangesAsync();
+
+            return confirmCode.User;
         }
     }
 }

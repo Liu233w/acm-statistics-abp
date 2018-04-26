@@ -67,7 +67,7 @@ namespace AcmStatisticsAbp.Authorization.Accounts
 
         public async Task ConfirmEmail(ConfirmEmailInput input)
         {
-            await this.emailConfirmationManager.TryConfirmEmailAsync(input.ConfirmationToken);
+            await this.emailConfirmationManager.ConfirmEmailAndGetUserAsync(input.ConfirmationToken);
         }
 
         /// <summary>

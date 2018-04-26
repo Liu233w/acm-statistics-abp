@@ -8,6 +8,7 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
+    using Abp.Json;
     using Abp.Net.Mail;
     using Abp.UI;
     using AcmStatisticsAbp.Authorization.EmailConfirmation;
@@ -115,16 +116,40 @@ namespace AcmStatisticsAbp.Tests.EmailConfirmation
         }
 
         [Fact]
-        public async Task TryConfirmEmailAsync_在Token不存在或格式不正确时应当报错()
+        public async Task ConfirmEmailAndGetUserAsync_在Token不存在或格式不正确时应当报错()
         {
             await this.WithUnitOfWorkAsync(async () =>
             {
-                (await this.emailConfirmationManager.TryConfirmEmailAsync("000")
+                (await this.emailConfirmationManager.ConfirmEmailAndGetUserAsync("000")
                     .ShouldThrowAsync<UserFriendlyException>()).Code.ShouldBe(3);
 
-                (await this.emailConfirmationManager.TryConfirmEmailAsync(default(Guid).ToString())
+                (await this.emailConfirmationManager.ConfirmEmailAndGetUserAsync(default(Guid).ToString())
                     .ShouldThrowAsync<UserFriendlyException>()).Code.ShouldBe(3);
             });
+        }
+
+        [Fact]
+        public async Task ConfirmEmailAndGetUserAsync_应该能正确返回关联的用户()
+        {
+            // Arrange
+            var user1 = await this.BuildTestUser();
+            var confirmCode = this.UsingDbContext(ctx =>
+                ctx.ConfirmationCodes.Add(new ConfirmationCode
+                {
+                    UserId = user1.Id,
+                }).Entity);
+
+            // Act
+            User user2 = null;
+            await this.WithUnitOfWorkAsync(async () =>
+            {
+                user2 = await this.emailConfirmationManager.ConfirmEmailAndGetUserAsync(confirmCode.Id.ToString());
+            });
+
+            // Assert
+            user2.Id.ShouldBe(user1.Id);
+            user2.UserName.ShouldBe(user1.UserName);
+            user2.EmailAddress.ShouldBe(user1.EmailAddress);
         }
 
         [Fact]
