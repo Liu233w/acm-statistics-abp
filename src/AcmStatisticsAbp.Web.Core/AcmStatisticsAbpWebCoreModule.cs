@@ -8,12 +8,14 @@ namespace AcmStatisticsAbp
     using System.Text;
     using Abp.AspNetCore;
     using Abp.AspNetCore.Configuration;
+    using Abp.Configuration.Startup;
     using Abp.Modules;
     using Abp.Reflection.Extensions;
     using Abp.Zero.Configuration;
     using AcmStatisticsAbp.Authentication.JwtBearer;
     using AcmStatisticsAbp.Configuration;
     using AcmStatisticsAbp.EntityFrameworkCore;
+    using AcmStatisticsAbp.ProxyScripting;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
@@ -61,6 +63,9 @@ namespace AcmStatisticsAbp
                      typeof(AcmStatisticsAbpApplicationModule).GetAssembly());
 
             this.ConfigureTokenAuth();
+
+            this.Configuration.Modules.AbpWebCommon().ApiProxyScripting.Generators[AxiosProxyScriptGenerator.Name] =
+                typeof(AxiosProxyScriptGenerator);
         }
 
         private void ConfigureTokenAuth()
