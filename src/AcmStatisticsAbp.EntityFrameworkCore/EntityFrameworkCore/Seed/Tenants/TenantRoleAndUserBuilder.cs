@@ -84,6 +84,25 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
                 this.context.UserRoles.Add(new UserRole(this.tenantId, adminUser.Id, adminRole.Id));
                 this.context.SaveChanges();
             }
+
+            // NormalUser role
+            this.CreateAndGetRoleIfNotExist(StaticRoleNames.Tenants.NormalUser);
+        }
+
+        private Role CreateAndGetRoleIfNotExist(string roleName)
+        {
+            var role = this.context.Roles.IgnoreQueryFilters().FirstOrDefault(r => r.TenantId == this.tenantId && r.Name == roleName);
+            if (role == null)
+            {
+                role = this.context.Roles.Add(
+                    new Role(this.tenantId, roleName, roleName)
+                    {
+                        IsStatic = true,
+                    }).Entity;
+                this.context.SaveChanges();
+            }
+
+            return role;
         }
     }
 }
