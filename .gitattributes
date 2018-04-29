@@ -61,3 +61,10 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# settings for linguist
+#
+# see https://github.com/github/linguist#overrides
+###############################################################################
+/src/AcmStatisticsAbp.EntityFrameworkCore/Migrations/* linguist-generated=true
