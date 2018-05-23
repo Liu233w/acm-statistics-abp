@@ -10,6 +10,7 @@ namespace AcmStatisticsAbp.Users
     using Abp.Application.Services;
     using Abp.Application.Services.Dto;
     using Abp.Authorization;
+    using Abp.Domain.Entities;
     using Abp.Domain.Repositories;
     using Abp.IdentityFramework;
     using Abp.Localization;
@@ -132,7 +133,13 @@ namespace AcmStatisticsAbp.Users
 
         protected override async Task<User> GetEntityByIdAsync(long id)
         {
-            return await this.Repository.GetAllIncluding(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
+            var user = await this.Repository.GetAllIncluding(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+            {
+                throw new EntityNotFoundException(typeof(User), id);
+            }
+
+            return user;
         }
 
         protected override IQueryable<User> ApplySorting(IQueryable<User> query, PagedResultRequestDto input)
