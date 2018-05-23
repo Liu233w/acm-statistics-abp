@@ -16,9 +16,10 @@ using System;
 namespace AcmStatisticsAbp.Migrations
 {
     [DbContext(typeof(AcmStatisticsAbpDbContext))]
-    partial class AcmStatisticsAbpDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180523015155_update_abp_to_3_6")]
+    partial class update_abp_to_3_6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
