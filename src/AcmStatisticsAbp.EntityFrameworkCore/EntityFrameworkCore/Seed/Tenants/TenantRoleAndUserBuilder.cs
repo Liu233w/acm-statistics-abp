@@ -83,19 +83,6 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
                 // Assign Admin role to admin user
                 this.context.UserRoles.Add(new UserRole(this.tenantId, adminUser.Id, adminRole.Id));
                 this.context.SaveChanges();
-
-                // User account of admin user
-                if (this.tenantId == 1)
-                {
-                    this.context.UserAccounts.Add(new UserAccount
-                    {
-                        TenantId = this.tenantId,
-                        UserId = adminUser.Id,
-                        UserName = AbpUserBase.AdminUserName,
-                        EmailAddress = adminUser.EmailAddress,
-                    });
-                    this.context.SaveChanges();
-                }
             }
         }
     }

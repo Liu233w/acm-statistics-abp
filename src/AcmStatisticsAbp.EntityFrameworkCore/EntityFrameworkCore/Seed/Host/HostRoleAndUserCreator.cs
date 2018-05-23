@@ -90,16 +90,6 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Host
                 // Assign Admin role to admin user
                 this.context.UserRoles.Add(new UserRole(null, adminUserForHost.Id, adminRoleForHost.Id));
                 this.context.SaveChanges();
-
-                // User account of admin user
-                this.context.UserAccounts.Add(new UserAccount
-                {
-                    TenantId = null,
-                    UserId = adminUserForHost.Id,
-                    UserName = AbpUserBase.AdminUserName,
-                    EmailAddress = adminUserForHost.EmailAddress,
-                });
-                this.context.SaveChanges();
             }
         }
     }
