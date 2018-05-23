@@ -6,6 +6,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
 {
     using System;
     using System.Linq;
+    using System.Reflection;
     using Abp.AspNetCore;
     using Abp.Castle.Logging.Log4Net;
     using Abp.Extensions;
@@ -133,9 +134,9 @@ namespace AcmStatisticsAbp.Web.Host.Startup
             // Enable middleware to serve swagger-ui assets (HTML, JS, CSS etc.)
             app.UseSwaggerUI(options =>
             {
-                options.InjectOnCompleteJavaScript("/swagger/ui/abp.js");
-                options.InjectOnCompleteJavaScript("/swagger/ui/on-complete.js");
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "AcmStatisticsAbp API V1");
+                options.IndexStream = () => Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("AcmStatisticsAbp.Web.Host.wwwroot.swagger.ui.index.html");
             }); // URL: /swagger
         }
 
