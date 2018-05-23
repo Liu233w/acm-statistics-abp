@@ -26,19 +26,19 @@
     <AdditionalFiles Include="..\..\_stylecop\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="22.0.8" />
-    <PackageReference Include="coverlet.msbuild" Version="1.0.2" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="Bogus" Version="22.1.1" />
+    <PackageReference Include="coverlet.msbuild" Version="2.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
     <PackageReference Include="Moq" Version="4.8.2" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
     <PackageReference Include="Shouldly" Version="3.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta006" />
-    <PackageReference Include="Xbehave" Version="2.3.0" />
+    <PackageReference Include="Xbehave" Version="2.3.1" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
-    <PackageReference Include="Abp.TestBase" Version="3.5.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.0.1" />
+    <PackageReference Include="Abp.TestBase" Version="3.6.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.0.3" />
     <PackageReference Include="Castle.Core" Version="4.2.1" />
   </ItemGroup>
   <ItemGroup>
