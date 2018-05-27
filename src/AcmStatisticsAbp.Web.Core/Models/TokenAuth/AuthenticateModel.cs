@@ -5,6 +5,7 @@
 namespace AcmStatisticsAbp.Models.TokenAuth
 {
     using System.ComponentModel.DataAnnotations;
+    using Abp.Auditing;
     using Abp.Authorization.Users;
 
     public class AuthenticateModel
@@ -15,6 +16,7 @@ namespace AcmStatisticsAbp.Models.TokenAuth
 
         [Required]
         [StringLength(AbpUserBase.MaxPlainPasswordLength)]
+        [DisableAuditing]
         public string Password { get; set; }
 
         public bool RememberClient { get; set; }
