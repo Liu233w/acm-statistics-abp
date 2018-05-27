@@ -19,10 +19,23 @@ namespace AcmStatisticsAbp.SubmissionStatistics
         public string MainUsername { get; set; }
 
         /// <summary>
-        /// Gets or sets 用户在各个 OJ 上的用户名。Key为爬虫的名称（name字段）；Value为用户在该爬虫下的名字。
+        /// Gets or sets 用户在各个 OJ 上的用户名。
         ///
         /// 如果某一项不存在，而 config.yml 中存在，会使用 MainUsername 来替换。如果不需要查询某个爬虫，需要将对应的 value 设置成空字符串。
         /// </summary>
-        public Dictionary<string, string> SubUsernames { get; set; }
+        public ICollection<NameForWorker> SubUsernames { get; set; }
+
+        public class NameForWorker
+        {
+            /// <summary>
+            /// Gets or sets 爬虫的名称
+            /// </summary>
+            public string CrawlerName { get; set; }
+
+            /// <summary>
+            /// Gets or sets 用户在该爬虫上的用户名
+            /// </summary>
+            public string Username { get; set; }
+        }
     }
 }

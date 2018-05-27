@@ -4,11 +4,13 @@
 
 namespace AcmStatisticsAbp.SubmissionStatistics
 {
+    using System.ComponentModel.DataAnnotations.Schema;
     using JetBrains.Annotations;
 
     /// <summary>
     /// 某次查询的详细记录，包含了某个爬虫的查询结果
     /// </summary>
+    [Table("query_details")]
     public class QueryDetail
     {
         /// <summary>
@@ -30,5 +32,7 @@ namespace AcmStatisticsAbp.SubmissionStatistics
         /// </summary>
         [CanBeNull]
         public string ErrorMessage { get; set; }
+
+        public HistoryItem HistoryItem { get; set; }
     }
 }
