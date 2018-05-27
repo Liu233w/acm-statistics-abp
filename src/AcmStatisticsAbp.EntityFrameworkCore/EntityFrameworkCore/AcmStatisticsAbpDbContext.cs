@@ -9,6 +9,7 @@ namespace AcmStatisticsAbp.EntityFrameworkCore
     using AcmStatisticsAbp.Authorization.Roles;
     using AcmStatisticsAbp.Authorization.Users;
     using AcmStatisticsAbp.MultiTenancy;
+    using AcmStatisticsAbp.SubmissionStatistics;
     using Microsoft.EntityFrameworkCore;
 
     public class AcmStatisticsAbpDbContext : AbpZeroDbContext<Tenant, Role, User, AcmStatisticsAbpDbContext>
@@ -16,6 +17,10 @@ namespace AcmStatisticsAbp.EntityFrameworkCore
         /* Define a DbSet for each entity of the application */
 
         public DbSet<ConfirmationCode> ConfirmationCodes { get; set; }
+
+        public DbSet<WorkerUsernames> WorkerUsernameses { get; set; }
+
+        public DbSet<CrawlerSubscription> CrawlerSubscriptions { get; set; }
 
         public AcmStatisticsAbpDbContext(DbContextOptions<AcmStatisticsAbpDbContext> options)
             : base(options)

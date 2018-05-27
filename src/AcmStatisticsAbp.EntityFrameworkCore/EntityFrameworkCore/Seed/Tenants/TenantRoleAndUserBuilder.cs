@@ -86,7 +86,10 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
             }
 
             // NormalUser role
-            this.CreateAndGetRoleIfNotExist(StaticRoleNames.Tenants.NormalUser);
+            var normalUserRole = this.CreateAndGetRoleIfNotExist(StaticRoleNames.Tenants.NormalUser);
+            this.GrantPermissionForRules(
+                normalUserRole,
+                PermissionNames.Pages_WorkerUsername);
         }
 
         private Role CreateAndGetRoleIfNotExist(string roleName)

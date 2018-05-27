@@ -16,6 +16,8 @@ namespace AcmStatisticsAbp.Authorization
             context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));
             context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
             context.CreatePermission(PermissionNames.Pages_Settings, L("Settings"));
+
+            context.CreatePermission(PermissionNames.Pages_WorkerUsername, new FixedLocalizableString("用户名记录"));
         }
 
         private static ILocalizableString L(string name)

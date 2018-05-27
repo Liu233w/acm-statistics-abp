@@ -16,5 +16,7 @@ namespace AcmStatisticsAbp.Authorization
         public const string Pages_Roles = "Pages.Roles";
 
         public const string Pages_Settings = "Pages.Settings";
+
+        public const string Pages_WorkerUsername = "Pages.WorkerUsername";
     }
 }
