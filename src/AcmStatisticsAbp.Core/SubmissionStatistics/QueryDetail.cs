@@ -4,6 +4,7 @@
 
 namespace AcmStatisticsAbp.SubmissionStatistics
 {
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using JetBrains.Annotations;
 
@@ -33,6 +34,7 @@ namespace AcmStatisticsAbp.SubmissionStatistics
         [CanBeNull]
         public string ErrorMessage { get; set; }
 
+        [Required]
         public HistoryItem HistoryItem { get; set; }
     }
 }
