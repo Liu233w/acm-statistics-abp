@@ -104,5 +104,26 @@ namespace AcmStatisticsAbp.EntityFrameworkCore.Seed.Tenants
 
             return role;
         }
+
+        private void GrantPermissionForRules(Role role, params string[] permissionNames)
+        {
+            var granted = this.context.RolePermissions
+                .Where(item => item.TenantId == this.tenantId && item.RoleId == role.Id)
+                .Select(item => item.Name);
+
+            var shouldGrant = permissionNames.Except(granted);
+            foreach (var name in shouldGrant)
+            {
+                this.context.Permissions.Add(new RolePermissionSetting
+                {
+                    RoleId = role.Id,
+                    TenantId = this.tenantId,
+                    IsGranted = true,
+                    Name = name,
+                });
+            }
+
+            this.context.SaveChanges();
+        }
     }
 }

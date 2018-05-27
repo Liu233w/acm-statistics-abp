@@ -16,5 +16,7 @@ namespace AcmStatisticsAbp.Exceptions
         /// 确认邮件的发送太频繁
         /// </summary>
         public const int ConfirmEmailTooFrequent = 4;
+
+        public const int EntityNotFound = 5;
     }
 }
