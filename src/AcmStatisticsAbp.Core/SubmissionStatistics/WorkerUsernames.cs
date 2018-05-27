@@ -34,16 +34,14 @@ namespace AcmStatisticsAbp.SubmissionStatistics
         public string Title { get; set; }
 
         /// <summary>
-        /// 获取用户在各个网站上的用户名，由于这里不能使用ORM的自动更新功能，必须显式设置，因此使用方法而不是属性来操作对象。
+        /// Gets or sets 用户在各个网站上的用户名
         /// </summary>
-        /// <returns>用户在各个网站上的用户名</returns>
-        public Usernames GetUsernames() => this.GetData<Usernames>("usernames");
-
-        /// <summary>
-        /// 设置用户在各个网站上的用户名
-        /// </summary>
-        /// <param name="usernames"></param>
-        public void SetUsernames(Usernames usernames) => this.SetData("usernames", usernames);
+        [NotMapped]
+        public Usernames Usernames
+        {
+            get => this.GetData<Usernames>("usernames");
+            set => this.SetData("usernames", value);
+        }
 
         /// <summary>
         /// Gets or sets 此用户名列表的所有订阅，可以为空（没有订阅）
