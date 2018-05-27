@@ -1,4 +1,4 @@
-// <copyright file="CrawlerUsernameSet.cs" company="西北工业大学ACM技术组">
+// <copyright file="WorkerUsernames.cs" company="西北工业大学ACM技术组">
 // Copyright (c) 西北工业大学ACM技术组. All rights reserved.
 // </copyright>
 
@@ -14,8 +14,8 @@ namespace AcmStatisticsAbp.SubmissionStatistics
     /// <summary>
     /// 存储了某个用户在查题网站上的用户名，某个用户可以有多个 Set，方便切换
     /// </summary>
-    [Table("crawler_username_sets")]
-    public class CrawlerUsernameSet : FullAuditedEntity<long, User>, IExtendableObject
+    [Table("worker_usernames")]
+    public class WorkerUsernames : FullAuditedEntity<long, User>, IExtendableObject
     {
         public string ExtensionData { get; set; }
 

@@ -10,7 +10,7 @@ namespace AcmStatisticsAbp.SubmissionStatistics
     using AcmStatisticsAbp.Authorization.Users;
 
     /// <summary>
-    /// 订阅。用户可以订阅某些 CrawlerUsernameSet，用来定期给用户发送报告
+    /// 订阅。用户可以订阅某些 WorkerUsernames，用来定期给用户发送报告
     /// </summary>
     [Table("crawler_subscriptions")]
     public class CrawlerSubscription : CreationAuditedEntity<long, User>
@@ -22,10 +22,10 @@ namespace AcmStatisticsAbp.SubmissionStatistics
         public string Period { get; set; }
 
         /// <summary>
-        /// Gets or sets 跟订阅关联的 CrawlerUsernameSet
+        /// Gets or sets 跟订阅关联的 WorkerUsernames
         /// </summary>
         [Required]
-        public CrawlerUsernameSet CrawlerUsernameSet { get; set; }
+        public WorkerUsernames WorkerUsernames { get; set; }
 
         public long CrawlerUsernameSetId { get; set; }
     }
