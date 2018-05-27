@@ -1,5 +1,5 @@
-// <copyright file="SessionAppService_Tests.cs" company="西北工业大学ACM开发组">
-// Copyright (c) 西北工业大学ACM开发组. All rights reserved.
+// <copyright file="SessionAppService_Tests.cs" company="西北工业大学ACM技术组">
+// Copyright (c) 西北工业大学ACM技术组. All rights reserved.
 // </copyright>
 
 namespace AcmStatisticsAbp.Tests.Sessions
