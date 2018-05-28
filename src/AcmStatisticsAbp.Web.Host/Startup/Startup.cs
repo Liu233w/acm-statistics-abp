@@ -12,6 +12,7 @@ namespace AcmStatisticsAbp.Web.Host.Startup
     using Abp.Extensions;
     using AcmStatisticsAbp.Configuration;
     using AcmStatisticsAbp.Identity;
+    using AcmStatisticsAbp.Middlewares;
     using Castle.Facilities.Logging;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -97,6 +98,8 @@ namespace AcmStatisticsAbp.Web.Host.Startup
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseMiddleware<CookieAuthMiddleware>();
+
             app.UseAbp(options => { options.UseAbpRequestLocalization = false; }); // Initializes ABP framework.
 
             app.UseCors(DefaultCorsPolicyName); // Enable CORS!
