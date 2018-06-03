@@ -6,11 +6,12 @@ namespace AcmStatisticsAbp.ProxyScriptGenerator
 {
     using System;
     using Abp.AspNetCore;
-    using AcmStatisticsAbp.Configuration;
+    using Abp.AspNetCore.Configuration;
+    using Abp.AspNetCore.Mvc.Extensions;
+    using Abp.Reflection.Extensions;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Mvc.Cors.Internal;
-    using Microsoft.Extensions.Configuration;
+    using Microsoft.AspNetCore.Mvc.ApplicationParts;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
@@ -19,26 +20,21 @@ namespace AcmStatisticsAbp.ProxyScriptGenerator
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // MVC
-            services.AddMvc();
+            var mvc = services.AddMvc();
+            mvc.PartManager.ApplicationParts
+                .Add(new AssemblyPart(typeof(AbpAspNetCoreModule).GetAssembly()));
 
             // Configure Abp and Dependency Injection
-            // Configure Log4Net logging
             return services.AddAbp<AcmStatisticsAbpProxyScriptGeneratorModule>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseAbp(options => { options.UseAbpRequestLocalization = false; }); // Initializes ABP framework.
+            app.UseAbp();
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "defaultWithArea",
-                    template: "{area}/{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                app.ApplicationServices.GetRequiredService<IAbpAspNetCoreConfiguration>().RouteConfiguration.ConfigureAll(routes);
             });
         }
     }

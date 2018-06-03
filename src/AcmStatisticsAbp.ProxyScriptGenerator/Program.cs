@@ -8,9 +8,7 @@ namespace AcmStatisticsAbp.ProxyScriptGenerator
     using System.IO;
     using System.Threading.Tasks;
     using Abp;
-    using Abp.Dependency;
     using Abp.Web.Api.ProxyScripting;
-    using Abp.Web.Api.ProxyScripting.Generators.JQuery;
     using AcmStatisticsAbp.ProxyScripting;
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
@@ -23,13 +21,14 @@ namespace AcmStatisticsAbp.ProxyScriptGenerator
             if (args.Length == 0)
             {
                 Console.WriteLine("Usage: dotnet run -- [output path]");
+                return;
             }
 
             var host = BuildWebHost(new string[0]);
             await host.StartAsync();
 
             var bootstrapper = host.Services.GetService(typeof(AbpBootstrapper)) as AbpBootstrapper ?? throw new Exception("AbpBootstrapper 不存在");
-            var apiProxyScriptManager = bootstrapper.IocManager.Resolve<IApiProxyScriptManager>();
+            var apiProxyScriptManager = bootstrapper.IocManager.Resolve<ApiProxyScriptManager>();
 
             var script = apiProxyScriptManager.GetScript(new ApiProxyGenerationOptions(AxiosProxyScriptGenerator.Name, false));
             File.WriteAllText(args[0], script);

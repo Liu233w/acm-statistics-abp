@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AcmStatisticsAbp.ProxyScriptGenerator": {
+      "commandName": "Project",
+      "commandLineArgs": "1.js"
+    }
+  }
+}

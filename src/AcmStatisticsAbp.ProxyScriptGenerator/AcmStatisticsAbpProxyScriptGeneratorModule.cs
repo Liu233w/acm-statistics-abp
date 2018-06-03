@@ -4,14 +4,13 @@
 
 namespace AcmStatisticsAbp.ProxyScriptGenerator
 {
-    using Abp.Configuration.Startup;
+    using Abp.AspNetCore.Configuration;
     using Abp.Events.Bus;
     using Abp.Modules;
     using Abp.Reflection.Extensions;
-    using Abp.Web.Api.ProxyScripting;
-    using Abp.Web.Api.ProxyScripting.Configuration;
     using AcmStatisticsAbp.EntityFrameworkCore;
     using Castle.MicroKernel.Registration;
+    using Microsoft.AspNetCore.Builder;
 
     [DependsOn(typeof(AcmStatisticsAbpWebCoreModule))]
     public class AcmStatisticsAbpProxyScriptGeneratorModule : AbpModule
@@ -33,6 +32,13 @@ namespace AcmStatisticsAbp.ProxyScriptGenerator
                 typeof(IEventBus),
                 () => this.IocManager.IocContainer.Register(
                     Component.For<IEventBus>().Instance(NullEventBus.Instance)));
+
+            this.Configuration.IocManager.Resolve<IAbpAspNetCoreConfiguration>().RouteConfiguration.Add(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
 
         public override void Initialize()
