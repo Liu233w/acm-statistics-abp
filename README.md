@@ -1,3 +1,5 @@
+本项目已合并至[主项目](https://github.com/Liu233w/acm-statistics)中，现已停止维护。
+
 # acm-statistics-abp
 [![Build Status](https://travis-ci.org/Liu233w/acm-statistics-abp.svg?branch=master)](https://travis-ci.org/Liu233w/acm-statistics-abp)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=acm-statistics-abp&metric=alert_status)](https://sonarcloud.io/dashboard?id=acm-statistics-abp)
